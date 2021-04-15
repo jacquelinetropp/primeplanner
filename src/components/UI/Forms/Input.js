@@ -16,13 +16,13 @@ const StyledInput = styled.input`
   padding: 1.2rem 2rem;
   width: 100%;
   background-color: var(--color-mainLight);
-  color: var(--color-white);
+  color: var(--color-text);
   font-weight: 500;
   font-size: 1.2rem;
   border-radius: 10px;
   border: none;
   &::placeholder {
-    color: var(--color-white);
+    color: var(--color-text);
   }
 `;
 

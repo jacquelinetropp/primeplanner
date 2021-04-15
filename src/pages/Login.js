@@ -5,14 +5,18 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { withRouter } from "react-router-dom";
 
-import * as actions from '../store/actions/actions';
+import * as actions from "../store/actions/actions";
 
 import Input from "../components/UI/Forms/Input";
 import Button from "../components/UI/Button/Button";
 import { Form } from "formik";
 
-import {StyledForm, FormWrapper, Corkboard, WhiteBackground} from '../components/UI/Wrappers/Wrappers';
-
+import {
+  StyledForm,
+  FormWrapper,
+  Corkboard,
+  WhiteBackground,
+} from "../components/UI/Wrappers/Wrappers";
 
 const MessageWrapper = styled.div`
   position: absolute;
@@ -45,11 +49,10 @@ const Login = ({ loading, error, login, history, cleanUp }) => {
       }}
     >
       {({ isSubmitting, isValid }) => (
-    <Corkboard>
         <FormWrapper>
-        <WhiteBackground>
-          <h1>Login</h1>
-          <h4>Fill in your details to login into your account</h4>
+          <WhiteBackground>
+            <h1>Login</h1>
+            <h4>Fill in your details to login into your account</h4>
           </WhiteBackground>
           <StyledForm>
             <Field
@@ -74,8 +77,7 @@ const Login = ({ loading, error, login, history, cleanUp }) => {
               Login
             </Button>
           </StyledForm>
-          </FormWrapper>
-        </Corkboard>
+        </FormWrapper>
       )}
     </Formik>
   );

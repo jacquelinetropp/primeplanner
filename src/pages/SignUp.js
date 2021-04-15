@@ -8,7 +8,12 @@ import * as actions from '../store/actions/actions';
 
 import Input from "../components/UI/Forms/Input";
 import Button from "../components/UI/Button/Button";
-import {StyledForm} from '../components/UI/Wrappers/Wrappers';
+import {
+  StyledForm,
+  FormWrapper,
+  Corkboard,
+  WhiteBackground,
+} from "../components/UI/Wrappers/Wrappers";
 
 const MessageWrapper = styled.div`
   position: absolute;
@@ -59,13 +64,15 @@ const SignUp = ({ signUp, loading, error, cleanUp }) => {
       }}
     >
       {({ isSubmitting, isValid }) => (
-        <Page>
+        <FormWrapper>
+        <WhiteBackground>
               <h1>
                 Sign up for an account
               </h1>
               <h4>
                 Fill in your details to register your new account
               </h4>
+              </WhiteBackground>
               <StyledForm>
                 <Field
                   type="text"
@@ -106,7 +113,7 @@ const SignUp = ({ signUp, loading, error, cleanUp }) => {
                 </Button>
             
               </StyledForm>
-        </Page>
+        </FormWrapper>
       )}
     </Formik>
   );

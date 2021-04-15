@@ -1,9 +1,11 @@
 import React from 'react'
+import Journal from '../components/layout/Journal/Journal'
 import Main from '../components/layout/Main/Main'
+import CalendarPage from './CalendarPage'
 
 const Home = () => {
     return (
-        <Main />
+        <CalendarPage />
     )
 }
 

@@ -7,7 +7,7 @@ const StyledButton = styled.button`
   padding: 1.2rem 2rem;
   border-radius: 10px;
   font-size: 1.2rem;
-  color: #777;
+  color: var(--color-text);
   font-weight: 700;
   box-shadow: 0rem 0.5rem 3.5rem var(--shadow);
   background-color: ${({ color }) => {
@@ -15,7 +15,7 @@ const StyledButton = styled.button`
     else if (color === "main") return "var(--color-mainDark)";
     else return "var(--color-main)";
   }};
-  margin: 1.5rem 0 2rem 0;
+  margin: 1rem;
   border: none;
   transition: all 0.2s;
   &:hover {
@@ -27,6 +27,7 @@ const StyledButton = styled.button`
   &:disabled {
     cursor: not-allowed;
     background-color: #333;
+    color: var(--color-white);
   }
 `;
 
