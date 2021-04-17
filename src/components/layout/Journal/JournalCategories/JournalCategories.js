@@ -22,18 +22,11 @@ const Category = styled(Link)`
     color: var(--color-mainDark);
 `;
 
-const JournalCategories = ({ categories, links, disabled }) => {
-  console.log(links)
+const JournalCategories = ({ disabled, children }) => {
   return (
     <CategoriesWrapper>
       <div>
-        {categories ? (
-            categories.map((category, index) => {
-                return <Category to={links[index]}>{category}</Category>;
-              })
-        ) : (
-            null
-        )}
+        {children}
       </div>
       <AddButton disabled={disabled}>Add Page</AddButton>
     </CategoriesWrapper>
