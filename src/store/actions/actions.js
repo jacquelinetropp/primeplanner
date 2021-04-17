@@ -8,3 +8,7 @@ export {
     editProfile,
     deleteUser,
   } from "../user/userActions";
+
+export {
+  getWeather
+} from '../weather/weatherActions';

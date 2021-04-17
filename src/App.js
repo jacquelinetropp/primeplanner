@@ -15,9 +15,11 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Navbar from "./components/Navigation/Navbar";
 import Main from "./components/layout/Main/Main";
-import WeatherPage from "./pages/WeatherPage";
+import WeatherPage from "./pages/weather/WeatherPage";
 import JournalSidebar from "./components/layout/Journal/JournalSidebar/JournalSidebar";
 import CalendarPage from "./pages/CalendarPage";
+import EditProfile from "./pages/EditProfile";
+import CurrentDetails from "./pages/weather/CurrentDetails";
 
 const App = ({ authenticated, verified }) => {
   let routes;
@@ -32,6 +34,8 @@ const App = ({ authenticated, verified }) => {
             <Route exact path="/" component={Home} />
             <Route exact path="/calendar" component={CalendarPage} />
             <Route exact path="/weather" component={WeatherPage} />
+            <Route exact path="/profile" component={EditProfile} />
+            <Route exact path="/current" component={CurrentDetails} />
             <Redirect to="/" />
           </Switch>
         </JournalWrapper>

@@ -6,10 +6,10 @@ const Wrapper = styled.div`
     padding: 1rem;
 `
 
-const JournalMain = () => {
+const JournalMain = ({children}) => {
     return (
         <Wrapper>
-            testing
+            {children}
         </Wrapper>
     )
 }

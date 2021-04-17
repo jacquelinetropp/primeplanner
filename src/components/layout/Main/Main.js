@@ -1,16 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Moment from "react-moment";
-import {connect} from 'react-redux';
+import { connect } from "react-redux";
 
-import * as actions from '../../../store/actions/actions';
+import * as actions from "../../../store/actions/actions";
 
-import HomeImage from "../../../images/cork-board.png";
 import TaskPostit from "../../TaskPostit/TaskPostit";
-import WeatherHome from "../../Weather/WeatherHome/WeatherHome";
-import Journal from "../Journal/Journal";
+import WeatherHome from "../../WeatherHome/WeatherHome";
 import Button from "../../UI/Button/Button";
-import { actionTypes } from "react-redux-firebase";
+import EditProfile from "../../../pages/EditProfile";
 
 const HomeWrapper = styled.div`
   display: grid;
@@ -19,8 +17,8 @@ const HomeWrapper = styled.div`
   grid-gap: 1.5rem;
 
   @media only screen and (max-width: 768px) {
-    grid-column: 1/-1;   
-    grid-template-rows: min-content min-content repeat(2, 1fr); 
+    grid-column: 1/-1;
+    grid-template-rows: min-content min-content repeat(2, 1fr);
   }
 
   @media only screen and (max-width: 425px) {
@@ -40,7 +38,7 @@ const TodayDate = styled.div`
   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
 
   @media only screen and (max-width: 768px) {
-    grid-column: 1/-1;    
+    grid-column: 1/-1;
   }
 `;
 
@@ -62,7 +60,13 @@ const Notebook = styled.div`
   box-shadow: 0 0 2rem rgba (0, 0, 0 0.3);
 `;
 
-const Main = ({logout}) => {
+const Main = ({ logout }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <HomeWrapper>
       <TodayDate>
@@ -71,22 +75,20 @@ const Main = ({logout}) => {
         </h1>
       </TodayDate>
       <ButtonsWrapper>
-        <Button>Edit Profile</Button>
-        <Button onClick={()=> logout()}>Logout</Button>
+        <Button onClick={togglePopup}>Edit Profile</Button>
+        <Button onClick={() => logout()}>Logout</Button>
       </ButtonsWrapper>
       <TaskPostit />
       <WeatherHome />
+      {isOpen && <EditProfile close={togglePopup} />}
     </HomeWrapper>
   );
 };
 
-const mapStateToProps = ({}) => ({
-
-})
+const mapStateToProps = ({}) => ({});
 
 const mapDispatchToProps = {
-    logout: actions.signOut
-}
-
+  logout: actions.signOut,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

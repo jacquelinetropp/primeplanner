@@ -40,6 +40,23 @@ export const FormWrapper = styled.div`
   }
 `;
 
+export const ProfileFormWrapper = styled.div`
+  background-color: rgba(255, 255, 255, 1);
+  padding: 5rem;
+  border-radius: 5px;
+  width: 75%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+`;
+
 export const LoggedOutWrapper = styled.div`
     background-image: url(${HomeImage});
     min-height: 100vh;

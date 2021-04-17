@@ -14,15 +14,20 @@ const Wrapper = styled.button`
     width: 100%;
     background-color: transparent;
 
+    &:disabled {
+        background-color: black;
+        pointer-events: none;
+    }
+
     &:hover {
       background-color: #DEDEDE;
   }
     
 `
 
-const AddButton = ({children, action}) => {
+const AddButton = ({children, action, disabled}) => {
     return (
-        <Wrapper onClick={action}>
+        <Wrapper disabled={disabled} onClick={action}>
             {children}
         </Wrapper>
     )
