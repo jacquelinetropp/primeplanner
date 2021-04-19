@@ -16,9 +16,9 @@ const WeatherPage = () => {
     return (
        <Fragment>
             <JournalCategories disabled>
-                <JournalCategory link="/current">Current Details</JournalCategory>
-                <JournalCategory link="/7day">7 day</JournalCategory>
-                <JournalCategory link="/48hr">48 hours</JournalCategory>
+                <JournalCategory link="/weather/current">Current Details</JournalCategory>
+                <JournalCategory link="/weather/daily">7 day</JournalCategory>
+                <JournalCategory link="/weather/hourly">48 hours</JournalCategory>
             </JournalCategories>   
        </Fragment>
     )

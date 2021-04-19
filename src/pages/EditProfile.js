@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Formik, Field } from "formik";
 import styled from "styled-components";
+import * as actions from '../store/actions/actions';
 import * as Yup from "yup";
 
 import Button from "../components/UI/Button/Button";
@@ -93,6 +94,7 @@ const EditProfile = ({
           email: firebase.auth.email,
           password: "",
           confirmPassword: "",
+          location: ""
         }}
         validationSchema={ProfileSchema}
         onSubmit={async (values) => {
@@ -136,6 +138,12 @@ const EditProfile = ({
                   placeholder="Re-type your password..."
                   component={Input}
                 />
+                <Field
+                type="text"
+                name="location"
+                placeholder="Zipcode"
+                component={Input}
+              />
                 <Button
                   disabled={!isValid || isSubmitting}
                   loading={loading ? "Editing..." : null}
@@ -165,7 +173,7 @@ const mapStateToProps = ({ firebase, auth }) => ({
 });
 
 const mapDispatchToProps = {
-  //   editProfile: actions.editProfile,
+    editProfile: actions.editProfile,
   //   cleanUp: actions.clean,
   //   deleteUser: actions.deleteUser,
 };

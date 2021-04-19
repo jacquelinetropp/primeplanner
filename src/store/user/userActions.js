@@ -9,6 +9,16 @@ export const signUp = (data) => async (
   const firestore = getFirestore();
   dispatch({ type: actions.AUTH_START });
   try {
+    const API = "ObfysELOcnDcQmgVmGvAGGS4ohPJlfFF";
+    const coordinates = await fetch(
+      `https://www.mapquestapi.com/geocoding/v1/address?key=${API}&location=${data.location}`
+    )
+      .then((res) => res.json())
+      .then((data) => data);
+
+    const lat = coordinates.results[0].locations[0].latLng.lat;
+    const lng = coordinates.results[0].locations[0].latLng.lng;
+
     const res = await firebase
       .auth()
       .createUserWithEmailAndPassword(data.email, data.password);
@@ -20,6 +30,8 @@ export const signUp = (data) => async (
     await firestore.collection("users").doc(res.user.uid).set({
       firstName: data.firstName,
       lastName: data.lastName,
+      lat,
+      lng
     });
     dispatch({ type: actions.AUTH_SUCCESS });
   } catch (err) {
@@ -31,11 +43,8 @@ export const signUp = (data) => async (
 export const signOut = () => async (dispatch, getState, { getFirebase }) => {
   const firebase = getFirebase();
   try {
-
     await firebase.auth().signOut();
-  } catch (err) {
-
-  }
+  } catch (err) {}
 };
 
 export const signIn = (data) => async (dispatch, getState, { getFirebase }) => {
@@ -49,7 +58,6 @@ export const signIn = (data) => async (dispatch, getState, { getFirebase }) => {
   }
   dispatch({ type: actions.AUTH_END });
 };
-
 
 //Verify Email actions
 export const verifyEmail = () => async (
@@ -96,6 +104,18 @@ export const editProfile = (data) => async (
   const user = firebase.auth().currentUser;
   const { uid: userId, email: userEmail } = getState().firebase.auth;
   dispatch({ type: actions.PROFILE_START });
+
+  const API = "ObfysELOcnDcQmgVmGvAGGS4ohPJlfFF";
+    const coordinates = await fetch(
+      `https://www.mapquestapi.com/geocoding/v1/address?key=${API}&location=${data.location}`
+    )
+      .then((res) => res.json())
+      .then((data) => data);
+
+    const lat = coordinates.results[0].locations[0].latLng.lat;
+    const lng = coordinates.results[0].locations[0].latLng.lng;
+
+  
   try {
     if (data.email !== userEmail) {
       await user.updateEmail(data.email);
@@ -103,6 +123,8 @@ export const editProfile = (data) => async (
     await firestore.collection("users").doc(userId).set({
       firstName: data.firstName,
       lastName: data.lastName,
+      lat: lat,
+      lng: lng
     });
 
     if (data.password.length > 0) {
@@ -110,7 +132,6 @@ export const editProfile = (data) => async (
     }
     dispatch({ type: actions.PROFILE_SUCCESS });
   } catch (err) {
-
     dispatch({ type: actions.PROFILE_FAIL, payload: err.message });
   }
 };
@@ -137,4 +158,9 @@ export const deleteUser = () => async (
 
 export const clean = () => ({
   type: actions.CLEAN_UP,
+});
+
+//toggle profile
+export const toggleProfile = () => ({
+  type: actions.TOGGLE_PROFILE,
 });

@@ -42,10 +42,11 @@ const StyledImage = styled.img`
   height: 60px;
 `;
 
-const WeatherHome = ({ getWeather, data, loading }) => {
-  useEffect(() => {
-    getWeather(41.957776, -87.655647);
-  }, []);
+const WeatherHome = ({ getWeather, data, loading, lat, lng }) => {
+  useEffect(() => {  
+    if (lat, lng) {
+    getWeather(lat, lng); }
+  }, [lat, lng]);
 
   let content;
   if (loading && !data) {
@@ -104,9 +105,11 @@ const WeatherHome = ({ getWeather, data, loading }) => {
   return <Fragment>{content}</Fragment>;
 };
 
-const mapStateToProps = ({ weather }) => ({
+const mapStateToProps = ({ weather, firebase }) => ({
   data: weather.forecast,
   loading: weather.loading,
+  lat: firebase.profile.lat,
+  lng: firebase.profile.lng
 });
 
 const mapDispatchToProps = {

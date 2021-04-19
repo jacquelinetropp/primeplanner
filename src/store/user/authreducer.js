@@ -19,6 +19,7 @@ const initialState = {
     loading: false,
     error: null,
   },
+  editingProfile: false
 };
 
 //Helper functions
@@ -198,6 +199,9 @@ export default (state = initialState, { type, payload }) => {
 
     case actions.CLEAN_UP:
       return cleanUp(state);
+    
+      case actions.TOGGLE_PROFILE:
+        return {...state, editingProfile: !state.editingProfile}
 
     default:
       return state;

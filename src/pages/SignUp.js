@@ -40,6 +40,9 @@ const SignUpSchema = Yup.object().shape({
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password"), null], `Password doesn't match`)
     .required("You need to confirm your password."),
+  location: Yup.string()
+      .required("Your location is required")
+      .min(3, "Too short.")
 });
 
 const SignUp = ({ signUp, loading, error, cleanUp }) => {
@@ -102,6 +105,12 @@ const SignUp = ({ signUp, loading, error, cleanUp }) => {
                   type="password"
                   name="confirmPassword"
                   placeholder="Re-type your password..."
+                  component={Input}
+                />
+                <Field
+                  type="text"
+                  name="location"
+                  placeholder="Enter your zipcode"
                   component={Input}
                 />
                 <Button

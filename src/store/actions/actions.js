@@ -7,6 +7,7 @@ export {
     recoverPassword,
     editProfile,
     deleteUser,
+    toggleProfile
   } from "../user/userActions";
 
 export {

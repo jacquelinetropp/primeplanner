@@ -20,8 +20,10 @@ import JournalSidebar from "./components/layout/Journal/JournalSidebar/JournalSi
 import CalendarPage from "./pages/CalendarPage";
 import EditProfile from "./pages/EditProfile";
 import CurrentDetails from "./pages/weather/CurrentDetails";
+import DailyWeather from "./pages/weather/DailyWeather";
+import HourlyWeather from "./pages/weather/HourlyWeather";
 
-const App = ({ authenticated, verified }) => {
+const App = ({ authenticated, verified, editingProfile}) => {
   let routes;
 
   if (authenticated) {
@@ -34,14 +36,15 @@ const App = ({ authenticated, verified }) => {
             <Route exact path="/" component={Home} />
             <Route exact path="/calendar" component={CalendarPage} />
             <Route exact path="/weather" component={WeatherPage} />
-            <Route exact path="/profile" component={EditProfile} />
-            <Route exact path="/current" component={CurrentDetails} />
+            <Route exact path="/weather/current" component={CurrentDetails} />
+            <Route exact path="/weather/daily" component={DailyWeather} />
+            <Route exact path="/weather/hourly" component={HourlyWeather} />
             <Redirect to="/" />
           </Switch>
         </JournalWrapper>
       </LoggedInWrapper>
-    );
-  } else {
+    )
+  }  else {
     routes = (
       <LoggedOutWrapper>
         <Navbar />
@@ -58,9 +61,10 @@ const App = ({ authenticated, verified }) => {
   return <div className="App">{routes}</div>;
 };
 
-const mapStateToProps = ({ firebase }) => ({
+const mapStateToProps = ({ firebase, auth }) => ({
   authenticated: firebase.auth.uid,
   verified: firebase.auth.emailVerified,
+  editingProfile: auth.editingProfile
 });
 
 const mapDispatchToProps = {};

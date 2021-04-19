@@ -9,6 +9,7 @@ import TaskPostit from "../../TaskPostit/TaskPostit";
 import WeatherHome from "../../WeatherHome/WeatherHome";
 import Button from "../../UI/Button/Button";
 import EditProfile from "../../../pages/EditProfile";
+import { Link } from "react-router-dom";
 
 const HomeWrapper = styled.div`
   display: grid;
@@ -60,7 +61,7 @@ const Notebook = styled.div`
   box-shadow: 0 0 2rem rgba (0, 0, 0 0.3);
 `;
 
-const Main = ({ logout }) => {
+const Main = ({ logout, toggleProfile }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const togglePopup = () => {
@@ -89,6 +90,7 @@ const mapStateToProps = ({}) => ({});
 
 const mapDispatchToProps = {
   logout: actions.signOut,
+  toggleProfile: actions.toggleProfile,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

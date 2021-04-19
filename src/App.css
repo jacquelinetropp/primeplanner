@@ -243,3 +243,9 @@ main {
   flex-basis: calc(100%/7);
   width: calc(100%/7);
 }
+
+/*Slick slider */
+
+.slick-prev:before, .slick-next:before {
+  color: rgb(242, 227, 153) !important;
+}
