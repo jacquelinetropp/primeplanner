@@ -88,7 +88,7 @@ export const JournalWrapper = styled.div`
 export const Icon = styled(AiOutlineMinusCircle)`
   transform: scale(2.3);
   color: var(--color-text);
-  float: right;
+  float: ${({left}) => (left ? "left" : "right")};
   margin-top:4px;
   margin-right: 4px;
   cursor: pointer;

@@ -19,10 +19,11 @@ const HomeWrapper = styled.div`
 
   @media only screen and (max-width: 768px) {
     grid-column: 1/-1;
-    grid-template-rows: min-content min-content repeat(2, 1fr);
+    grid-template-rows: repeat(2, min-content);
   }
 
   @media only screen and (max-width: 425px) {
+    grid-template-rows: repeat(3, min-content);
     width: 100vw;
   }
 `;
@@ -40,7 +41,9 @@ const TodayDate = styled.div`
 
   @media only screen and (max-width: 768px) {
     grid-column: 1/-1;
+    grid-row: 2/3;
   }
+
 `;
 
 const ButtonsWrapper = styled.div`
@@ -55,11 +58,6 @@ const ButtonsWrapper = styled.div`
   }
 `;
 
-const Notebook = styled.div`
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 0 2rem rgba (0, 0, 0 0.3);
-`;
 
 const Main = ({ logout, toggleProfile }) => {
   const [isOpen, setIsOpen] = useState(false);

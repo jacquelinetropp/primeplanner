@@ -8,6 +8,12 @@ const PostWrapper = styled.div`
   grid-column: 1/3;
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.3);
   height: ${({isOpen}) => (isOpen ? "100%" : "min-content")};
+
+  @media only screen and (max-width: 425px) {
+    grid-column: 1/-1;
+    grid-row: 3/4;
+    width: 100vw;
+  }
 `;
 
 const MinimizeWrapper = styled.div`

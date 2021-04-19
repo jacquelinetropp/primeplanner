@@ -8,7 +8,6 @@ const CategoriesWrapper = styled.div`
   display: flex;
   grid-column: 2/3;
   flex-direction: column;
-  justify-content: space-between;
   border-right: 1px solid #f0efef;
 `;
 
@@ -22,13 +21,20 @@ const Category = styled(Link)`
     color: var(--color-mainDark);
 `;
 
-const JournalCategories = ({ disabled, children }) => {
+const Header = styled.h6`
+  font-size: 2.2rem;
+  text-align: center;
+  border-bottom: 1px solid #f0efef;
+`;
+
+const JournalCategories = ({ disabled, children, action}) => {
   return (
     <CategoriesWrapper>
-      <div>
+
+      <Header>Pages</Header>
         {children}
-      </div>
-      <AddButton disabled={disabled}>Add Page</AddButton>
+
+
     </CategoriesWrapper>
   );
 };

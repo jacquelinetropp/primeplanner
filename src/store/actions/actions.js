@@ -13,3 +13,12 @@ export {
 export {
   getWeather
 } from '../weather/weatherActions';
+
+export {
+  addProject,
+  editProject,
+  getProjects,
+  deleteProject,
+  getOneProject,
+  projectCleanUp,
+} from "../projects/projectActions";

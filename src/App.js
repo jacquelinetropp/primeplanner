@@ -22,6 +22,7 @@ import EditProfile from "./pages/EditProfile";
 import CurrentDetails from "./pages/weather/CurrentDetails";
 import DailyWeather from "./pages/weather/DailyWeather";
 import HourlyWeather from "./pages/weather/HourlyWeather";
+import ProjectsPage from "./pages/projects/ProjectsPage";
 
 const App = ({ authenticated, verified, editingProfile}) => {
   let routes;
@@ -39,6 +40,7 @@ const App = ({ authenticated, verified, editingProfile}) => {
             <Route exact path="/weather/current" component={CurrentDetails} />
             <Route exact path="/weather/daily" component={DailyWeather} />
             <Route exact path="/weather/hourly" component={HourlyWeather} />
+            <Route exact path="/projects" component={ProjectsPage} />
             <Redirect to="/" />
           </Switch>
         </JournalWrapper>

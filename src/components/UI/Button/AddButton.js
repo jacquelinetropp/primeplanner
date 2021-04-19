@@ -13,6 +13,7 @@ const Wrapper = styled.button`
     outline: none;
     width: 100%;
     background-color: transparent;
+    margin-top: auto;
 
     &:disabled {
         background-color: #CCCCCC;

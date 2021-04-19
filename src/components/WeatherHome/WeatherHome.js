@@ -12,6 +12,12 @@ const WeatherWrapper = styled.div`
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.3);
   border-radius: 5px;
   height: ${({isOpen}) => (isOpen ? "100%" : "min-content")};
+
+  @media only screen and (max-width: 425px) {
+    grid-column: 1/-1;
+    grid-row: 5/6;
+    width: 100vw;
+  }
 `;
 
 const MinimizeWrapper = styled.div`
