@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 const HomeWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: min-content minmax(300px, 1fr);
+  grid-template-rows: min-content minmax(30px, 1fr);
   grid-gap: 1.5rem;
 
   @media only screen and (max-width: 768px) {

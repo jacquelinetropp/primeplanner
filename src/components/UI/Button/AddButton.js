@@ -15,7 +15,7 @@ const Wrapper = styled.button`
     background-color: transparent;
 
     &:disabled {
-        background-color: black;
+        background-color: #CCCCCC;
         pointer-events: none;
     }
 

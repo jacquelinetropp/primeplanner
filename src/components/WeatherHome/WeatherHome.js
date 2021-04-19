@@ -1,6 +1,8 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import { AiOutlineMinusCircle } from "react-icons/ai";
+import {Icon} from '../UI/Wrappers/Wrappers';
 
 import * as actions from "../../store/actions/actions";
 
@@ -9,12 +11,18 @@ const WeatherWrapper = styled.div`
   background-color: #7ecf9a;
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.3);
   border-radius: 5px;
+  height: ${({isOpen}) => (isOpen ? "100%" : "min-content")};
+`;
+
+const MinimizeWrapper = styled.div`
+  background-color: #7ecf9a;
+  height: 3rem;
 `;
 
 const WeatherHeader = styled.div`
   background-color: var(--color-second);
   height: calc(100% - 3rem);
-  margin-top: 3rem;
+  display: ${({isOpen}) => (isOpen ? "block" : "none")};
 `;
 
 const Content = styled.div`
@@ -43,10 +51,17 @@ const StyledImage = styled.img`
 `;
 
 const WeatherHome = ({ getWeather, data, loading, lat, lng }) => {
-  useEffect(() => {  
-    if (lat, lng) {
-    getWeather(lat, lng); }
+  useEffect(() => {
+    if ((lat, lng)) {
+      getWeather(lat, lng);
+    }
   }, [lat, lng]);
+
+  const [isOpen, setIsOpen] = useState(true);
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  };
 
   let content;
   if (loading && !data) {
@@ -59,45 +74,50 @@ const WeatherHome = ({ getWeather, data, loading, lat, lng }) => {
       `${!data ? null : data.current.weather[0].icon}` +
       ".png";
     content = (
-      <WeatherWrapper>
-        <WeatherHeader>
-          <h2 className="center">Current Weather</h2>
-          <p className="center">As of {new Date().toLocaleTimeString()}</p>
-          <Content>
-            <Info>
-              <h1>
-                {" "}
-                {data.current.temp}
-                <sup>o</sup>
-              </h1>
-              <h5>
-                Feels like {data.current.feels_like}
-                <sup>o</sup>
-              </h5>
+      <WeatherWrapper isOpen={isOpen}>
+        <MinimizeWrapper>
+          <Icon onClick={togglePopup} />
+        </MinimizeWrapper>
+        {isOpen && (
+          <WeatherHeader isOpen={isOpen}>
+            <h2 className="center">Current Weather</h2>
+            <p className="center">As of {new Date().toLocaleTimeString()}</p>
+            <Content>
+              <Info>
+                <h1>
+                  {" "}
+                  {data.current.temp}
+                  <sup>o</sup>
+                </h1>
+                <h5>
+                  Feels like {data.current.feels_like}
+                  <sup>o</sup>
+                </h5>
 
-              <div className="flex">
-                <h6 className="padding-xs">{data.current.weather[0].main}</h6>
-                <p className="padding-xs">
-                  {data.current.weather[0].description}
-                </p>
-              </div>
-            </Info>
-            <Image>
-              <StyledImage
-                className="icon"
-                src={iconurl}
-                alt="weather symbol"
-              />
-              <h5>
-                {data.daily[0].temp.max} <sup>o</sup>/
-              </h5>
-              <h5>
-                {data.daily[0].temp.min}
-                <sup>o</sup>
-              </h5>
-            </Image>
-          </Content>
-        </WeatherHeader>
+                <div className="flex">
+                  <h6 className="padding-xs">{data.current.weather[0].main}</h6>
+                  <p className="padding-xs">
+                    {data.current.weather[0].description}
+                  </p>
+                </div>
+              </Info>
+              <Image>
+                <StyledImage
+                  className="icon"
+                  src={iconurl}
+                  alt="weather symbol"
+                />
+                <h5>
+                  {data.daily[0].temp.max} <sup>o</sup>/
+                </h5>
+                <h5>
+                  {data.daily[0].temp.min}
+                  <sup>o</sup>
+                </h5>
+              </Image>
+            </Content>
+          </WeatherHeader>
+        )}
       </WeatherWrapper>
     );
   }
@@ -109,7 +129,7 @@ const mapStateToProps = ({ weather, firebase }) => ({
   data: weather.forecast,
   loading: weather.loading,
   lat: firebase.profile.lat,
-  lng: firebase.profile.lng
+  lng: firebase.profile.lng,
 });
 
 const mapDispatchToProps = {

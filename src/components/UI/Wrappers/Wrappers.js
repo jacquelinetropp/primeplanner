@@ -2,6 +2,7 @@ import { Form } from "formik";
 import styled from "styled-components";
 import HomeImage from "../../../images/cork-board.png";
 import react from "react";
+import { AiOutlineMinusCircle } from "react-icons/ai";
 
 export const StyledForm = styled(Form)`
   display: flex;
@@ -71,7 +72,7 @@ export const LoggedInWrapper = styled.div`
   grid-gap: 1.5rem;
   padding: 1.5rem;
   display: grid;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: min-content 1fr;
 `;
 
 export const JournalWrapper = styled.div`
@@ -82,4 +83,13 @@ export const JournalWrapper = styled.div`
 
     display: grid;
     grid-template-columns: 150px 150px auto;
+`;
+
+export const Icon = styled(AiOutlineMinusCircle)`
+  transform: scale(2.3);
+  color: var(--color-text);
+  float: right;
+  margin-top:4px;
+  margin-right: 4px;
+  cursor: pointer;
 `;

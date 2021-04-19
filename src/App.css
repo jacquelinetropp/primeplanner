@@ -249,3 +249,7 @@ main {
 .slick-prev:before, .slick-next:before {
   color: rgb(242, 227, 153) !important;
 }
+
+.slick-slide img {
+  margin: 0 auto;
+}
