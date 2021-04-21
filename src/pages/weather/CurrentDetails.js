@@ -127,7 +127,6 @@ const CurrentDetails = ({ data }) => {
   }
   return (
     <Fragment>
-      <WeatherPage />
       <JournalMain>{content}</JournalMain>
     </Fragment>
   );

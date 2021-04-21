@@ -35,6 +35,7 @@ const ProfileSchema = Yup.object().shape({
 
 const ProfileWrapper = styled.div`
   z-index: 10;
+  background-color: rgba(0,0,0,0.7);
 `;
 
 

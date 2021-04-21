@@ -25,6 +25,8 @@ outline: none;
   --color-tertiary: ${(props) => props.theme.colors.tertiary};
   --color-text: ${(props) => props.theme.colors.textColor};
   --color-white: ${(props) => props.theme.colors.whiteColor};
+  --color-gray: ${(props) => props.theme.colors.gray};
+  --color-grayDark: ${(props) => props.theme.colors.grayDark};
   --color-errorRed: ${(props) => props.theme.colors.errorRed};
   --shadow: ${(props) => props.theme.colors.shadow};
   @media ${(props) => props.theme.mediaQueries.small} {
@@ -49,14 +51,14 @@ a, input, textarea, button {
 }
 
 h1 {
-    font-size: 4rem;
+    font-size: 3.5rem;
   }
   
   h2 {
-    font-size: 3.5rem;
+    font-size: 3rem;
   }
   h3 {
-    font-size: 3rem;
+    font-size: 2.75rem;
   }
   h4 {
     font-size: 2.5rem;

@@ -1,10 +1,16 @@
 import React, { Fragment, useState } from "react";
 import styled from "styled-components";
 
+import JournalHeaderLinks from '../JournalHeaderLinks/JournalHeaderLinks';
+
 import JournalTag from "../../../JournalTags/JournalTag";
 import AddButton from "../../../UI/Button/AddButton";
-import { Icon } from "../../../UI/Wrappers/Wrappers";
+import { Icon, HomeIcon } from "../../../UI/Wrappers/Wrappers";
 import JournalCategories from "../JournalCategories/JournalCategories";
+import WeatherPage from "../../../../pages/weather/WeatherPage";
+import ProjectsPage from "../../../../pages/projects/ProjectsPage";
+import CalendarPage from "../../../../pages/calendar/CalendarPage";
+import HousePage from "../../../../pages/house/HousePage";
 
 const SidebarWrapper = styled.div`
   border-right: 1px solid #f0efef;
@@ -12,18 +18,14 @@ const SidebarWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+  grid-column: 1/2;
+  grid-row: 2/-1;
 `;
 
 const SidebarHeader = styled.div`
-  text-align: center;
+  /* text-align: center;
   display: flex;
-  align-items: center;
-`;
-
-const Header = styled.h6`
-  font-size: 2.2rem;
-  text-align: center;
-  border-bottom: 1px solid #f0efef;
+  align-items: center; */
 `;
 
 const IconWrapper = styled.div`
@@ -46,12 +48,15 @@ const JournalSidebar = () => {
         <Fragment>
           <div>
             <SidebarHeader>
-              <Header>Notebooks</Header>
+              <JournalHeaderLinks link="/" text="Inbox" number="2" img={<HomeIcon />} />
+              <JournalHeaderLinks link="/"  text="Today" number="2" img={<HomeIcon />} />
+              <JournalHeaderLinks  link="/" text="Next 7 days" number="2" img={<HomeIcon />} />
             </SidebarHeader>
-            <JournalTag color="pink" name="Calendar" link="/calendar" />
-            <JournalTag name="Weather" link="/weather" />
-            <JournalTag name="Projects" link="/projects" color="green" />
-            <JournalTag name="Household" link="/household" color="yellow" />
+            <CalendarPage />
+            <WeatherPage />
+            <ProjectsPage />
+            <HousePage />
+      
           </div>
           <AddButton>Add Section</AddButton>
         </Fragment>

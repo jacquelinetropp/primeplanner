@@ -24,29 +24,27 @@ import DailyWeather from "./pages/weather/DailyWeather";
 import HourlyWeather from "./pages/weather/HourlyWeather";
 import ProjectsPage from "./pages/projects/ProjectsPage";
 
-const App = ({ authenticated, verified, editingProfile}) => {
+const App = ({ authenticated, verified, editingProfile }) => {
   let routes;
 
   if (authenticated) {
     routes = (
       <LoggedInWrapper>
         <Main />
-        <JournalWrapper>
-          <JournalSidebar />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/calendar" component={CalendarPage} />
-            <Route exact path="/weather" component={WeatherPage} />
-            <Route exact path="/weather/current" component={CurrentDetails} />
-            <Route exact path="/weather/daily" component={DailyWeather} />
-            <Route exact path="/weather/hourly" component={HourlyWeather} />
-            <Route exact path="/projects" component={ProjectsPage} />
-            <Redirect to="/" />
-          </Switch>
-        </JournalWrapper>
+        <JournalSidebar />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/calendar" component={CalendarPage} />
+          <Route exact path="/weather" component={WeatherPage} />
+          <Route exact path="/weather/current" component={CurrentDetails} />
+          <Route exact path="/weather/daily" component={DailyWeather} />
+          <Route exact path="/weather/hourly" component={HourlyWeather} />
+          <Route exact path="/projects" component={ProjectsPage} />
+          <Redirect to="/" />
+        </Switch>
       </LoggedInWrapper>
-    )
-  }  else {
+    );
+  } else {
     routes = (
       <LoggedOutWrapper>
         <Navbar />
@@ -66,7 +64,7 @@ const App = ({ authenticated, verified, editingProfile}) => {
 const mapStateToProps = ({ firebase, auth }) => ({
   authenticated: firebase.auth.uid,
   verified: firebase.auth.emailVerified,
-  editingProfile: auth.editingProfile
+  editingProfile: auth.editingProfile,
 });
 
 const mapDispatchToProps = {};

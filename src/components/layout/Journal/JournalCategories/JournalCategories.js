@@ -1,40 +1,56 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 import AddButton from "../../../UI/Button/AddButton";
 import JournalMain from "../JournalMain/JournalMain";
+
+import { BsChevronDown } from "react-icons/bs";
 
 const CategoriesWrapper = styled.div`
   display: flex;
   grid-column: 2/3;
   flex-direction: column;
   border-right: 1px solid #f0efef;
+  padding: 1rem;
 `;
 
-const Category = styled(Link)`
-    height: 30px;
-    font-size: 1.4rem;
-    display: flex;
-    align-items: center;
-    padding-left: .8rem;
-    font-weight: 600;    
-    color: var(--color-mainDark);
+const HeaderWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  padding-left: 2rem;
+  border-bottom: 1px solid #f0efef;
 `;
 
 const Header = styled.h6`
   font-size: 2.2rem;
   text-align: center;
-  border-bottom: 1px solid #f0efef;
+  letter-spacing: 1px;
 `;
 
-const JournalCategories = ({ disabled, children, action}) => {
+const DownIcon = styled(BsChevronDown)`
+  font-size: 1.4rem;
+  margin-right: 1rem;
+`;
+
+const Content = styled.div`
+  display: ${({ isOpen }) => (isOpen ? "block" : "none")};
+`;
+
+const JournalCategories = ({ title, disabled, children, action, hidden }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleOpen = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <CategoriesWrapper>
-
-      <Header>Pages</Header>
-        {children}
-
-
+      <HeaderWrapper onClick={toggleOpen}>
+        <DownIcon />
+        <Header>{title}</Header>
+      </HeaderWrapper>
+      {isOpen && <Content isOpen={isOpen}>{children}</Content>}
+      <AddButton disabled={disabled} action={action} hidden={hidden}>Add Page</AddButton>
     </CategoriesWrapper>
   );
 };

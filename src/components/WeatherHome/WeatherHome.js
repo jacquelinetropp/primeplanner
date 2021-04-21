@@ -2,33 +2,34 @@ import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { AiOutlineMinusCircle } from "react-icons/ai";
-import {Icon} from '../UI/Wrappers/Wrappers';
+import { Icon } from "../UI/Wrappers/Wrappers";
 
 import * as actions from "../../store/actions/actions";
 
 const WeatherWrapper = styled.div`
-  grid-column: 3/-1;
-  background-color: #7ecf9a;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.3);
+  grid-column: 3/5;
   border-radius: 5px;
-  height: ${({isOpen}) => (isOpen ? "100%" : "min-content")};
-
+  border-bottom: 1px solid var(--color-grayDark);
+  height: ${({ isOpen }) => (isOpen ? "100%" : "min-content")};
+  /* 
   @media only screen and (max-width: 425px) {
     grid-column: 1/-1;
     grid-row: 5/6;
     width: 100vw;
-  }
+  } */
 `;
 
 const MinimizeWrapper = styled.div`
-  background-color: #7ecf9a;
-  height: 3rem;
+  display: none;
+
+  @media only screen and (max-width: 425px) {
+    display: ${({ isOpen }) => (isOpen ? "block" : "none")};
+  }
 `;
 
 const WeatherHeader = styled.div`
-  background-color: var(--color-second);
-  height: calc(100% - 3rem);
-  display: ${({isOpen}) => (isOpen ? "block" : "none")};
+  background-color: var(--color-gray);
+  height: 100%;
 `;
 
 const Content = styled.div`

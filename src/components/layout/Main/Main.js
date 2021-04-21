@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import styled from "styled-components";
 import Moment from "react-moment";
 import { connect } from "react-redux";
@@ -10,12 +10,12 @@ import WeatherHome from "../../WeatherHome/WeatherHome";
 import Button from "../../UI/Button/Button";
 import EditProfile from "../../../pages/EditProfile";
 import { Link } from "react-router-dom";
+import DailyWeather from "../../../pages/weather/DailyWeather";
 
 const HomeWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: min-content minmax(30px, 1fr);
-  grid-gap: 1.5rem;
 
   @media only screen and (max-width: 768px) {
     grid-column: 1/-1;
@@ -28,34 +28,48 @@ const HomeWrapper = styled.div`
   }
 `;
 
-const TodayDate = styled.div`
+const TodayDateWrapper = styled.div`
   background-color: #fff;
   border-radius: 5px;
   padding: 1rem;
-  grid-column: 1/5;
+  grid-column: 1/4;
+  grid-row: 1/2;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
-
+/* 
   @media only screen and (max-width: 768px) {
     grid-column: 1/-1;
     grid-row: 2/3;
-  }
+  } */
 
 `;
 
+const TodaysDate = styled.h1`
+  font-size:1.8rem;
+`
+
 const ButtonsWrapper = styled.div`
-  grid-column: 5/6;
+  grid-column: 4/6;
   width: 50%;
   margin: 0 auto;
+  display: flex;
 
-  @media only screen and (max-width: 768px) {
+  /* @media only screen and (max-width: 768px) {
     grid-column: 1/-1;
     grid-row: 1/2;
     display: flex;
-  }
+  } */
+`;
+
+const DailYWrapper = styled.div`
+  grid-column: 2/-1;
+  grid-row: 2/3;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
 `;
 
 
@@ -67,20 +81,22 @@ const Main = ({ logout, toggleProfile }) => {
   };
 
   return (
-    <HomeWrapper>
-      <TodayDate>
-        <h1>
+    <Fragment>
+      <TodayDateWrapper>
+        <TodaysDate>
           <Moment format="dddd MMMM Do, YYYY">{new Date()}</Moment>
-        </h1>
-      </TodayDate>
+        </TodaysDate>
+      </TodayDateWrapper>
       <ButtonsWrapper>
         <Button onClick={togglePopup}>Edit Profile</Button>
         <Button onClick={() => logout()}>Logout</Button>
       </ButtonsWrapper>
+      <DailYWrapper>
       <TaskPostit />
       <WeatherHome />
+      </DailYWrapper>
       {isOpen && <EditProfile close={togglePopup} />}
-    </HomeWrapper>
+    </Fragment>
   );
 };
 

@@ -2,7 +2,7 @@ import { Form } from "formik";
 import styled from "styled-components";
 import HomeImage from "../../../images/cork-board.png";
 import react from "react";
-import { AiOutlineMinusCircle } from "react-icons/ai";
+import { AiOutlineMinusCircle, AiOutlineHome  } from "react-icons/ai";
 
 export const StyledForm = styled(Form)`
   display: flex;
@@ -11,11 +11,6 @@ export const StyledForm = styled(Form)`
   position: relative;
   align-items: center;
 `;
-
-// export const Corkboard = styled.div`
-//   background-image: url(${HomeImage});
-//   min-height: 100vh;
-// `;
 
 export const WhiteBackground = styled.div`
     background-color: rgba(255, 255, 255, 0.8);
@@ -67,12 +62,10 @@ export const LoggedOutWrapper = styled.div`
 `;
 
 export const LoggedInWrapper = styled.div`
-  background-image: url(${HomeImage});
-  min-height: 100vh;
-  grid-gap: 1.5rem;
-  padding: 1.5rem;
   display: grid;
-  grid-template-rows: min-content 1fr;
+  min-height: 100vh;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: min-content min-content 1fr;
 `;
 
 export const JournalWrapper = styled.div`
@@ -93,3 +86,8 @@ export const Icon = styled(AiOutlineMinusCircle)`
   margin-right: 4px;
   cursor: pointer;
 `;
+
+export const HomeIcon = styled(AiOutlineHome)`
+  font-size: 1.8rem;
+  margin-right: 7px;
+`
