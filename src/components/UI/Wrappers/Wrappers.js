@@ -1,8 +1,9 @@
 import { Form } from "formik";
 import styled from "styled-components";
 import HomeImage from "../../../images/cork-board.png";
-import react from "react";
 import { AiOutlineMinusCircle, AiOutlineHome  } from "react-icons/ai";
+import {BiEdit} from 'react-icons/bi';
+import {BsTrash2} from 'react-icons/bs';
 
 export const StyledForm = styled(Form)`
   display: flex;
@@ -78,7 +79,10 @@ export const JournalWrapper = styled.div`
     grid-template-columns: 150px 150px auto;
 `;
 
-export const Icon = styled(AiOutlineMinusCircle)`
+
+//Icons
+
+export const MinIcon = styled(AiOutlineMinusCircle)`
   transform: scale(2.3);
   color: var(--color-text);
   float: ${({left}) => (left ? "left" : "right")};
@@ -91,3 +95,14 @@ export const HomeIcon = styled(AiOutlineHome)`
   font-size: 1.8rem;
   margin-right: 7px;
 `
+
+export const StyledEdit = styled(BiEdit)`
+    font-size: 18px;
+    margin-right: 2px;
+    cursor: pointer;
+`;
+
+export const StyledDelete = styled(BsTrash2)`
+    font-size: 18px;
+    cursor: pointer;
+`;

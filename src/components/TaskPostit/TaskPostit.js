@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import { Icon } from "../UI/Wrappers/Wrappers";
+import { MinIcon } from "../UI/Wrappers/Wrappers";
 
 const PostWrapper = styled.div`
   border-radius: 5px;
@@ -41,7 +41,7 @@ const TaskPostit = () => {
   return (
     <PostWrapper isOpen={isOpen}>
       <MinimizeWrapper>
-        <Icon onClick={togglePopup} />
+        <MinIcon onClick={togglePopup} />
       </MinimizeWrapper>
       {isOpen && (
         <PostContent isOpen={isOpen}>

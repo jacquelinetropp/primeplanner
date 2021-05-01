@@ -105,7 +105,6 @@ const HourlyWeather = ({ weather }) => {
   }
   return (
     <Fragment>
-      <WeatherPage />
       <JournalMain>{content}</JournalMain>
     </Fragment>
   );

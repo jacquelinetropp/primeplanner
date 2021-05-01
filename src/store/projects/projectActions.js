@@ -29,6 +29,7 @@ export const getProjects = () => async (
     });
   } catch (err) {
     dispatch({ type: actions.GET_PROJECT_FAIL, payload: err });
+    console.log(err);
 
   }
 };
@@ -46,8 +47,10 @@ export const getOneProject = (id) => async (
     const snapshot = await firestore.collection("projects").doc(id).get();
 
     const project = await snapshot.data();
+    
+    project.id = id;
 
-    dispatch({ type: actions.ONE_PROJECT_SUCCESS, payload: project });
+    dispatch({ type: actions.ONE_PROJECT_SUCCESS, payload: project }); 
   } catch (err) {
     dispatch({ type: actions.GET_PROJECT_FAIL, payload: err });
 

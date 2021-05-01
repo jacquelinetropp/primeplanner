@@ -7,6 +7,10 @@ const initialState = {
     error: null,
     loading: false,
   },
+  completeTodo: {
+    error: null,
+    loading: false,
+  },
   currentTodos: []
 };
 
@@ -57,6 +61,33 @@ const todosReducer = (state = initialState, { type, payload }) => {
           error: payload,
         },
       };
+    case actions.COMPLETE_TODO_START: 
+    return {
+      ...state,
+      completeTodo: {
+        ...state.completeTodo,
+        loading: true
+      }
+    };
+    case actions.COMPLETE_TODO_SUCCESS: 
+    return {
+      ...state,
+      completeTodo: {
+        ...state.completeTodo,
+        loading: false,
+        error: false
+      }
+    };
+
+    case actions.COMPLETE_TODO_FAIL: 
+    return {
+      ...state,
+      completeTodo: {
+        ...state.completeTodo,
+        loading: false,
+        error: payload
+      }
+    }
 
     default:
       return state;

@@ -93,7 +93,6 @@ const DailyWeather = ({ data }) => {
   console.log(data);
   return (
     <Fragment>
-      <WeatherPage />
       <JournalMain>{content}</JournalMain>
     </Fragment>
   );

@@ -1,12 +1,14 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
-import Calendar from "../../components/Calendar/Calendar";
 import JournalCategories from "../../components/layout/Journal/JournalCategories/JournalCategories";
 import JournalCategory from "../../components/JournalCategory/JournalCategory";
 import * as actions from "../../store/actions/actions";
 import styled from "styled-components";
+import InputProject from '../../components/layout/Projects/InputProject';
 
 import AddButton from "../../components/UI/Button/AddButton";
+import SingleProject from "../../components/SingleProject/SingleProject";
+import { useParams } from "react-router-dom";
 
 const ProjectsPage = ({ projects, getProjects, loading }) => {
   useEffect(() => {
@@ -15,7 +17,7 @@ const ProjectsPage = ({ projects, getProjects, loading }) => {
 
   const [isAdding, setIsAdding] = useState(false);
 
-  console.log(isAdding);
+  const {id} = useParams();
 
   let content;
   if (!projects || loading) {
@@ -29,9 +31,13 @@ const ProjectsPage = ({ projects, getProjects, loading }) => {
   } else {
     content = (
       <Fragment>
-        {projects.map((project) => (
-          <div>Single project</div>
-        ))}
+        {projects.map((project) => {
+          if (project.id === id) {
+            return <SingleProject key={project.id} project={project} active/>
+        }  else {
+            return <SingleProject key={project.id} project={project} />
+        }
+      })}
         </Fragment>
    
     );
@@ -39,6 +45,7 @@ const ProjectsPage = ({ projects, getProjects, loading }) => {
   return <Fragment> <JournalCategories title="Projects" action={() => setIsAdding(true)}>
     {content}
   </JournalCategories>
+  <InputProject opened={isAdding} close={() => setIsAdding(false)} />
   </Fragment>;
 };
 

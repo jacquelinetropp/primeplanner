@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import AddButton from "../../../UI/Button/AddButton";
-import JournalMain from "../JournalMain/JournalMain";
 
 import { BsChevronDown } from "react-icons/bs";
 
@@ -37,7 +35,7 @@ const Content = styled.div`
 `;
 
 const JournalCategories = ({ title, disabled, children, action, hidden }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   const toggleOpen = () => {
     setIsOpen(!isOpen);

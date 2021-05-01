@@ -3,10 +3,8 @@ import styled from "styled-components";
 
 import JournalHeaderLinks from '../JournalHeaderLinks/JournalHeaderLinks';
 
-import JournalTag from "../../../JournalTags/JournalTag";
 import AddButton from "../../../UI/Button/AddButton";
-import { Icon, HomeIcon } from "../../../UI/Wrappers/Wrappers";
-import JournalCategories from "../JournalCategories/JournalCategories";
+import { MinIcon, HomeIcon } from "../../../UI/Wrappers/Wrappers";
 import WeatherPage from "../../../../pages/weather/WeatherPage";
 import ProjectsPage from "../../../../pages/projects/ProjectsPage";
 import CalendarPage from "../../../../pages/calendar/CalendarPage";

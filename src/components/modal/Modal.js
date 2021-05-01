@@ -20,8 +20,8 @@ const WrappedModal = styled.div`
   width: 100%;
   max-width: 50rem;
   box-shadow: 0 0.5rem 3.5em var(--shadow);
-  border-radius: 1rem;
-  background-color: var(--color-second);
+  border-radius: 5px;
+  background-color: var(--color-main);
   transition: all 0.1s;
 `;
 

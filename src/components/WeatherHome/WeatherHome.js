@@ -1,8 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { AiOutlineMinusCircle } from "react-icons/ai";
-import { Icon } from "../UI/Wrappers/Wrappers";
+import { MinIcon } from "../UI/Wrappers/Wrappers";
 
 import * as actions from "../../store/actions/actions";
 
@@ -83,7 +82,7 @@ const WeatherHome = ({ getWeather, data, loading, lat, lng }) => {
     content = (
       <WeatherWrapper isOpen={isOpen}>
         <MinimizeWrapper>
-          <Icon onClick={togglePopup} />
+          <MinIcon onClick={togglePopup} />
         </MinimizeWrapper>
         {isOpen && (
           <WeatherHeader isOpen={isOpen}>

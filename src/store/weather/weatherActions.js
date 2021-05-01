@@ -9,7 +9,6 @@ export const getWeather = (lat, lng) => async (dispatch) => {
     )
       .then((res) => res.json())
       .then((data) => data);
-    console.log(data);
     dispatch({ type: actions.WEATER_SUCCESS, payload: data });
   } catch (err) {
     dispatch({ type: actions.WEATHER_FAIL, payload: err });

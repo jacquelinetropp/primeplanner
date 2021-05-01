@@ -22,3 +22,5 @@ export {
   getOneProject,
   projectCleanUp,
 } from "../projects/projectActions";
+
+export { addTodo, deleteTodo, editTodo, getTodos, completeTodo } from "../todos/todosActions";

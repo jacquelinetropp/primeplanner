@@ -1,12 +1,10 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-import Calendar from "./components/Calendar/Calendar";
 import {
   LoggedOutWrapper,
   LoggedInWrapper,
-  JournalWrapper,
 } from "./components/UI/Wrappers/Wrappers";
 
 import "./App.css";
@@ -18,11 +16,11 @@ import Main from "./components/layout/Main/Main";
 import WeatherPage from "./pages/weather/WeatherPage";
 import JournalSidebar from "./components/layout/Journal/JournalSidebar/JournalSidebar";
 import CalendarPage from "./pages/CalendarPage";
-import EditProfile from "./pages/EditProfile";
 import CurrentDetails from "./pages/weather/CurrentDetails";
 import DailyWeather from "./pages/weather/DailyWeather";
 import HourlyWeather from "./pages/weather/HourlyWeather";
 import ProjectsPage from "./pages/projects/ProjectsPage";
+import ProjectTodos from "./pages/projects/ProjectTodos";
 
 const App = ({ authenticated, verified, editingProfile }) => {
   let routes;
@@ -40,6 +38,7 @@ const App = ({ authenticated, verified, editingProfile }) => {
           <Route exact path="/weather/daily" component={DailyWeather} />
           <Route exact path="/weather/hourly" component={HourlyWeather} />
           <Route exact path="/projects" component={ProjectsPage} />
+          <Route path="/project/:id" component={ProjectTodos} />
           <Redirect to="/" />
         </Switch>
       </LoggedInWrapper>
