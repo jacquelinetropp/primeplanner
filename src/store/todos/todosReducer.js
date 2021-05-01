@@ -11,7 +11,8 @@ const initialState = {
     error: null,
     loading: false,
   },
-  currentTodos: []
+  currentTodos: [],
+  allTodos: [],
 };
 
 const todosReducer = (state = initialState, { type, payload }) => {
@@ -61,33 +62,39 @@ const todosReducer = (state = initialState, { type, payload }) => {
           error: payload,
         },
       };
-    case actions.COMPLETE_TODO_START: 
-    return {
-      ...state,
-      completeTodo: {
-        ...state.completeTodo,
-        loading: true
-      }
-    };
-    case actions.COMPLETE_TODO_SUCCESS: 
-    return {
-      ...state,
-      completeTodo: {
-        ...state.completeTodo,
-        loading: false,
-        error: false
-      }
-    };
+    case actions.COMPLETE_TODO_START:
+      return {
+        ...state,
+        completeTodo: {
+          ...state.completeTodo,
+          loading: true,
+        },
+      };
+    case actions.COMPLETE_TODO_SUCCESS:
+      return {
+        ...state,
+        completeTodo: {
+          ...state.completeTodo,
+          loading: false,
+          error: false,
+        },
+      };
 
-    case actions.COMPLETE_TODO_FAIL: 
-    return {
-      ...state,
-      completeTodo: {
-        ...state.completeTodo,
-        loading: false,
-        error: payload
-      }
-    }
+    case actions.COMPLETE_TODO_FAIL:
+      return {
+        ...state,
+        completeTodo: {
+          ...state.completeTodo,
+          loading: false,
+          error: payload,
+        },
+      };
+
+    case actions.GET_ALL_TODO_SUCCESS:
+      return {
+        ...state,
+        allTodos: payload,
+      };
 
     default:
       return state;

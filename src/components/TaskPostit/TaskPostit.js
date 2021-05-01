@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-
+import { connect } from "react-redux";
 import { MinIcon } from "../UI/Wrappers/Wrappers";
+import * as actions from "../../store/actions/actions";
+import { Fragment } from "react";
+import SingleTodo from "../SingleTodo/SingleTodo";
 
 const PostWrapper = styled.div`
   border-radius: 5px;
@@ -18,11 +21,11 @@ const PostWrapper = styled.div`
 `;
 
 const MinimizeWrapper = styled.div`
- display: none;
+  display: none;
 
-@media only screen and (max-width: 425px) {
-  display: ${({ isOpen }) => (isOpen ? "block" : "none")};
-}
+  @media only screen and (max-width: 425px) {
+    display: ${({ isOpen }) => (isOpen ? "block" : "none")};
+  }
 `;
 
 const PostContent = styled.div`
@@ -31,12 +34,42 @@ const PostContent = styled.div`
   display: ${({ isOpen }) => (isOpen ? "block" : "none")};
 `;
 
-const TaskPostit = () => {
+const TaskPostit = ({ todos, getAllTodos, loading }) => {
+  useEffect(() => {
+    getAllTodos();
+  }, []);
   const [isOpen, setIsOpen] = useState(true);
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
   };
+
+  const today = new Date().toDateString();
+
+  let content;
+  if (loading || !todos) {
+    content = <Fragment>Loading...</Fragment>;
+  } else if (todos.length === 0) {
+    content = <Fragment>No todos for today!</Fragment>;
+  } else {
+    let tasks = [];
+
+    todos.map((todo) => {
+      const date = todo.dueDate;
+      const structuredDate = new Date(date).toDateString();
+      if (structuredDate == today && todo.priority == "high") {
+        tasks.push(todo);
+      }
+    });
+    console.log(tasks);
+    content = (
+      <Fragment>
+        {tasks.map((task) => (
+          <SingleTodo key={task.id} todo={task} />
+        ))}
+      </Fragment>
+    );
+  }
 
   return (
     <PostWrapper isOpen={isOpen}>
@@ -45,11 +78,21 @@ const TaskPostit = () => {
       </MinimizeWrapper>
       {isOpen && (
         <PostContent isOpen={isOpen}>
-          <h2 className="center">Today's Tasks</h2>
+          <h2 className="center">Today's High Priority Tasks</h2>
+          {content}
         </PostContent>
       )}
     </PostWrapper>
   );
 };
 
-export default TaskPostit;
+const mapStateToProps = ({ todos }) => ({
+  todos: todos.allTodos,
+  loading: todos.loading,
+});
+
+const mapDispatchToProps = {
+  getAllTodos: actions.getAllTodos,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskPostit);

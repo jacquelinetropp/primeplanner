@@ -82,14 +82,15 @@ const InputTodo = ({
                 placeholder="Write your task..."
                 component={Input}
               />
-           
+              <PriorityWrapper>
                 <h6>Priority</h6>
                 <Field as="select" name="priority">
+                  <option value="none">select</option>
                   <option value="high">High</option>
                   <option value="medium">Medium</option>
                   <option value="low">Low</option>
                 </Field>
-         
+              </PriorityWrapper>
               {todo ? (
                 ""
               ) : (

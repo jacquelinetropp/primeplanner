@@ -144,3 +144,37 @@ export const completeTodo = (id) => async (
     dispatch({ type: actions.COMPLETE_TODO_FAIL, payload: err.message });
   }
 };
+
+//get all users todos
+export const getAllTodos = () => async (
+  dispatch,
+  getState,
+  { getFirestore }
+) => {
+  const firestore = getFirestore();
+  const userId = getState().firebase.auth.uid;
+  try {
+    dispatch({ type: actions.GET_TODO_START });
+    const todos = await firestore.collection("todos").where("userId", "==", userId);
+
+    todos.onSnapshot((snapshot) => {
+      let todos = [];
+      snapshot.docs.forEach((doc) => {
+        todos.push({
+          id: doc.id,
+          todo: doc.data().todo,
+          key: doc.data().key,
+          dueDate: doc.data().dueDate,
+          priority: doc.data().priority,
+          createdAt: doc.data().createdAt,
+          completed: doc.data().completed,
+        });
+      });
+
+      dispatch({ type: actions.GET_ALL_TODO_SUCCESS, payload: todos });
+    });
+  } catch (err) {
+    console.log(err);
+    dispatch({ type: actions.GET_TODO_FAIL, payload: err });
+  }
+};

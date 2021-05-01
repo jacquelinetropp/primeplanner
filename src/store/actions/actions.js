@@ -23,4 +23,4 @@ export {
   projectCleanUp,
 } from "../projects/projectActions";
 
-export { addTodo, deleteTodo, editTodo, getTodos, completeTodo } from "../todos/todosActions";
+export { addTodo, deleteTodo, editTodo, getTodos, completeTodo, getAllTodos } from "../todos/todosActions";

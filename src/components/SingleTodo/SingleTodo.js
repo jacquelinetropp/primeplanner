@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import InputTodo from "../layout/Projects/InputTodos";
 import { StyledEdit, StyledDelete } from "../UI/Wrappers/Wrappers";
 import * as actions from "../../store/actions/actions";
+import DeleteTodo from "../layout/Projects/DeleteTodo";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -46,13 +47,13 @@ const TextWrapper = styled.div`
 `;
 
 const StyledText = styled.h6`
-    color: ${({ priority }) => {
+  color: ${({ priority }) => {
     if (priority === "high") return "var(--color-mainDark)";
     else if (priority === "medium") return "var(--color-main)";
     else if (priority === "low") return "var(--color-secondary)";
     else return "var(--color-text)";
   }};
-`
+`;
 
 const SingleTodo = ({ todo, completeTodo }) => {
   const [isDeleting, setIsDeleting] = useState(false);
@@ -63,7 +64,10 @@ const SingleTodo = ({ todo, completeTodo }) => {
 
   return (
     <Wrapper>
-      <TaskCircle completed={todo.completed == true ? "completed" : ""} onClick={() => completeTodo(todo.id)} />
+      <TaskCircle
+        completed={todo.completed == true ? "completed" : ""}
+        onClick={() => completeTodo(todo.id)}
+      />
       <TextWrapper completed={todo.completed == true ? "completed" : ""}>
         <StyledText priority={todo.priority}> {todo.todo}</StyledText>
         <p>{structuredDate}</p>
@@ -76,6 +80,11 @@ const SingleTodo = ({ todo, completeTodo }) => {
           todo={todo}
           opened={isEditing}
           close={() => setIsEditing(false)}
+        />
+        <DeleteTodo
+          todo={todo}
+          show={isDeleting}
+          close={() => setIsDeleting(false)}
         />
       </Controls>
     </Wrapper>
