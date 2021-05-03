@@ -6,9 +6,9 @@ const CalendarPage = () => {
   return (
     <Fragment>
       <JournalCategories title="Calendar">
-        <JournalTag link="/weather/current" name ="Current Details" />
-        <JournalTag link="/weather/daily" name="Daily" color="green"/>
-        <JournalTag link="/weather/hourly" name="Hourly" color="pink"/>
+        <JournalTag link="/weather/current" name ="Monthly" />
+        <JournalTag link="/weather/daily" name="Weekly" color="green"/>
+        <JournalTag link="/weather/hourly" name="Daily" color="pink"/>
       </JournalCategories>
     </Fragment>
   );

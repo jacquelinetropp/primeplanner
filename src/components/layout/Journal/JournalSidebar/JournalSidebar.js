@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react";
 import styled from "styled-components";
+import {connect} from 'react-redux';
 
 import JournalHeaderLinks from '../JournalHeaderLinks/JournalHeaderLinks';
 
@@ -30,8 +31,20 @@ const IconWrapper = styled.div`
   position: absolute;
 `;
 
-const JournalSidebar = () => {
+const JournalSidebar = ({todos}) => {
   const [isOpen, setIsOpen] = useState(true);
+
+  let tasks = [];
+  const today = new Date().toDateString();
+
+  todos.map((todo) => {
+    const date = todo.dueDate;
+    const structuredDate = new Date(date).toDateString();
+    if (structuredDate == today && todo.priority == "high") {
+      tasks.push(todo);
+    }
+  });
+  const todaysTasks = tasks.length;
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
@@ -46,9 +59,9 @@ const JournalSidebar = () => {
         <Fragment>
           <div>
             <SidebarHeader>
-              <JournalHeaderLinks link="/" text="Inbox" number="2" img={<HomeIcon />} />
-              <JournalHeaderLinks link="/"  text="Today" number="2" img={<HomeIcon />} />
-              <JournalHeaderLinks  link="/" text="Next 7 days" number="2" img={<HomeIcon />} />
+              <JournalHeaderLinks link="/inbox" text="Inbox" number={todos.length} img={<HomeIcon />} />
+              <JournalHeaderLinks link="/today"  text="Today" number={todaysTasks} img={<HomeIcon />} />
+              <JournalHeaderLinks  link="/next7" text="Next 7 days" number="2" img={<HomeIcon />} />
             </SidebarHeader>
             <CalendarPage />
             <WeatherPage />
@@ -63,4 +76,13 @@ const JournalSidebar = () => {
   );
 };
 
-export default JournalSidebar;
+const mapStateToProps = ({todos}) => ({
+  todos: todos.allTodos
+})
+
+const mapDispatchToProps = {
+  
+}
+
+
+export default connect(mapStateToProps)(JournalSidebar);

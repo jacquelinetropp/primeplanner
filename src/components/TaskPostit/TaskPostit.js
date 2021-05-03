@@ -61,14 +61,18 @@ const TaskPostit = ({ todos, getAllTodos, loading }) => {
         tasks.push(todo);
       }
     });
-    console.log(tasks);
+    if (tasks.length === 0) {
+      content = (
+        <h5 className="center">No high priority tasks today!</h5>
+      )
+    } else {
     content = (
       <Fragment>
         {tasks.map((task) => (
           <SingleTodo key={task.id} todo={task} />
         ))}
       </Fragment>
-    );
+    ); }
   }
 
   return (

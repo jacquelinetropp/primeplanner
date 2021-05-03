@@ -93,6 +93,8 @@ const todosReducer = (state = initialState, { type, payload }) => {
     case actions.GET_ALL_TODO_SUCCESS:
       return {
         ...state,
+        loading: false,
+        error: false,
         allTodos: payload,
       };
 

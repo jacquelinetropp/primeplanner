@@ -21,6 +21,9 @@ import DailyWeather from "./pages/weather/DailyWeather";
 import HourlyWeather from "./pages/weather/HourlyWeather";
 import ProjectsPage from "./pages/projects/ProjectsPage";
 import ProjectTodos from "./pages/projects/ProjectTodos";
+import Inbox from "./pages/Inbox";
+import Today from "./pages/Today";
+import Next7 from "./pages/Next7";
 
 const App = ({ authenticated, verified, editingProfile }) => {
   let routes;
@@ -32,6 +35,9 @@ const App = ({ authenticated, verified, editingProfile }) => {
         <JournalSidebar />
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route exact path="/inbox" component={Inbox} />
+          <Route exact path="/today" component={Today} />
+          <Route exact path="/next7" component={Next7} />
           <Route exact path="/calendar" component={CalendarPage} />
           <Route exact path="/weather" component={WeatherPage} />
           <Route exact path="/weather/current" component={CurrentDetails} />
