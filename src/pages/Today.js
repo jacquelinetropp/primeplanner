@@ -4,25 +4,16 @@ import { connect } from "react-redux";
 import { Fragment } from "react";
 import SingleTodo from "../components/SingleTodo/SingleTodo";
 import JournalMain from "../components/layout/Journal/JournalMain/JournalMain";
+import { todaysTasks } from "../utils/HelperFunctions";
 
 const Today = ({ todos, loading }) => {
-  const today = new Date().toDateString();
-
   let content;
   if (loading || !todos) {
     content = <Fragment>Loading...</Fragment>;
   } else if (todos.length === 0) {
     content = <Fragment>No todos for today!</Fragment>;
   } else {
-    let tasks = [];
-
-    todos.map((todo) => {
-      const date = todo.dueDate;
-      const structuredDate = new Date(date).toDateString();
-      if (structuredDate == today) {
-        tasks.push(todo);
-      }
-    });
+    const tasks = todaysTasks(todos);
     if (tasks.length === 0) {
       content = <h5>No tasks due today</h5>;
     } else {

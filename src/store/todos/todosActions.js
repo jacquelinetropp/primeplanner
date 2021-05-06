@@ -9,7 +9,7 @@ export const getTodos = (id) => async (
   const firestore = getFirestore();
   try {
     dispatch({ type: actions.GET_TODO_START });
-    const todos = await firestore.collection("todos").where("key", "==", id);
+    const todos = await firestore.collection("todos").where("key", "==", id).orderBy("dueDate");
 
     todos.onSnapshot((snapshot) => {
       let todos = [];
@@ -34,7 +34,7 @@ export const getTodos = (id) => async (
 };
 
 //add todo
-export const addTodo = (data, id, date) => async (
+export const addTodo = (data, id) => async (
   dispatch,
   getState,
   { getFirestore }
@@ -49,7 +49,7 @@ export const addTodo = (data, id, date) => async (
       key: id,
       userId: userId,
       createdAt: new Date().valueOf(),
-      dueDate: date.valueOf(),
+      dueDate: data.date.valueOf(),
       completed: "false",
       priority: data.priority,
     };
@@ -98,9 +98,13 @@ export const editTodo = (id, data) => async (
   dispatch({ type: actions.ADD_TODO_START });
   try {
     const update = data.todo;
+    const updatedPriority = data.priority;
+    const updatedDate = data.date.valueOf()
 
     await firestore.collection("todos").doc(id).update({
       todo: update,
+      priority: updatedPriority,
+      dueDate: updatedDate
     });
     dispatch({ type: actions.ADD_TODO_SUCCESS });
     return true;
@@ -155,7 +159,7 @@ export const getAllTodos = () => async (
   const userId = getState().firebase.auth.uid;
   try {
     dispatch({ type: actions.GET_TODO_START });
-    const todos = await firestore.collection("todos").where("userId", "==", userId);
+    const todos = await firestore.collection("todos").where("userId", "==", userId).orderBy("dueDate");
 
     todos.onSnapshot((snapshot) => {
       let todos = [];

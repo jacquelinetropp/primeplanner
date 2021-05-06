@@ -50,7 +50,7 @@ const StyledText = styled.h6`
   color: ${({ priority }) => {
     if (priority === "high") return "var(--color-mainDark)";
     else if (priority === "medium") return "var(--color-main)";
-    else if (priority === "low") return "var(--color-secondary)";
+    else if (priority === "low") return "var(--color-second)";
     else return "var(--color-text)";
   }};
 `;

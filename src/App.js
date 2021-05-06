@@ -15,7 +15,7 @@ import Navbar from "./components/Navigation/Navbar";
 import Main from "./components/layout/Main/Main";
 import WeatherPage from "./pages/weather/WeatherPage";
 import JournalSidebar from "./components/layout/Journal/JournalSidebar/JournalSidebar";
-import CalendarPage from "./pages/CalendarPage";
+import CalendarPage from "./pages/calendar/CalendarPage";
 import CurrentDetails from "./pages/weather/CurrentDetails";
 import DailyWeather from "./pages/weather/DailyWeather";
 import HourlyWeather from "./pages/weather/HourlyWeather";
@@ -24,6 +24,7 @@ import ProjectTodos from "./pages/projects/ProjectTodos";
 import Inbox from "./pages/Inbox";
 import Today from "./pages/Today";
 import Next7 from "./pages/Next7";
+import Monthly from "./pages/calendar/Monthly";
 
 const App = ({ authenticated, verified, editingProfile }) => {
   let routes;
@@ -39,6 +40,7 @@ const App = ({ authenticated, verified, editingProfile }) => {
           <Route exact path="/today" component={Today} />
           <Route exact path="/next7" component={Next7} />
           <Route exact path="/calendar" component={CalendarPage} />
+          <Route exact path="/calendar/monthly" component={Monthly} />
           <Route exact path="/weather" component={WeatherPage} />
           <Route exact path="/weather/current" component={CurrentDetails} />
           <Route exact path="/weather/daily" component={DailyWeather} />

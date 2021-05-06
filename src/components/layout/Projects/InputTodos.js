@@ -11,6 +11,7 @@ import { StyledForm } from "../../UI/Wrappers/Wrappers";
 
 import * as actions from "../../../store/actions/actions";
 import { useParams } from "react-router-dom";
+import DatePickerField from "../../DatePicker/DatePicker";
 
 import { DateTimePicker } from "react-rainbow-components";
 
@@ -54,6 +55,11 @@ const InputTodo = ({
   };
 
   const [date, setDate] = useState(new Date());
+  // console.log(date);
+
+  const onChange = (e) => {
+    setDate(e);
+  };
 
   return (
     <Fragment>
@@ -63,18 +69,18 @@ const InputTodo = ({
         <Formik
           initialValues={{
             todo: todo ? todo.todo : "",
+            date: todo ? todo.dueDate : new Date(),
+            priority: todo ? todo.priority : "high",
           }}
           validationSchema={TodoSchema}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             // send our todo
             const res = todo
-              ? (await editTodo(todo.id, values, date), close())
-              : (await addTodo(values, id, date), close(), resetForm());
-            // close();
-            // resetForm();
+              ? (await editTodo(todo.id, values), close())
+              : (await addTodo(values, id), close(), resetForm());
           }}
         >
-          {({ isSubmitting, isValid, resetForm }) => (
+          {({ isSubmitting, isValid, resetForm, values, setFieldValue }) => (
             <StyledForm>
               <Field
                 type="text"
@@ -85,24 +91,17 @@ const InputTodo = ({
               <PriorityWrapper>
                 <h6>Priority</h6>
                 <Field as="select" name="priority">
-                  <option value="none">select</option>
                   <option value="high">High</option>
                   <option value="medium">Medium</option>
                   <option value="low">Low</option>
                 </Field>
               </PriorityWrapper>
-              {todo ? (
-                ""
-              ) : (
-                <DateTimePicker
-                  formatStyle="large"
-                  value={date}
-                  label="Due Date"
-                  onChange={(value) => setDate(value)}
-                  className="rainbow-m-around_small"
-                  style={inputStyles}
-                />
-              )}
+
+              <DatePickerField
+                name="date"
+                value={values.date}
+                onChange={setFieldValue}
+              />
 
               <ButtonsWrapper>
                 <Button

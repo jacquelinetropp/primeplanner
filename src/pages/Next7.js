@@ -4,41 +4,20 @@ import { connect } from "react-redux";
 import { Fragment } from "react";
 import SingleTodo from "../components/SingleTodo/SingleTodo";
 import JournalMain from "../components/layout/Journal/JournalMain/JournalMain";
-
-import { eachDayOfInterval, addDays, parse, format } from "date-fns";
+import {sevenDayTasks} from '../utils/HelperFunctions';
 
 const Next7 = ({ todos, loading }) => {
-  const today = new Date().toDateString();
-  const formattedToday = format(new Date(), "yyyy, M, d");
-  const endDate = addDays(new Date(today), 7).toDateString();
-  const daysInWeek = eachDayOfInterval({start: new Date(formattedToday), end: new Date(endDate)});
-
-  let days = [];
-  daysInWeek.map(day => days.push(day.toDateString()));
-  console.log(today);
-  console.log(endDate);
-  console.log(formattedToday);
-  console.log(days);
-  //   const daysOfWeek = eachDayOfInterval({start: today, end: endDate});
-  //   console.log(daysOfWeek);
-
   let content;
   if (loading || !todos) {
     content = <Fragment>Loading...</Fragment>;
   } else if (todos.length === 0) {
     content = <Fragment>No todos for today!</Fragment>;
   } else {
-    let tasks = [];
 
-    todos.map((todo) => {
-      const date = todo.dueDate;
-      const structuredDate = new Date(date).toDateString();
-      if (structuredDate == today) {
-        tasks.push(todo);
-      }
-    });
+    const tasks = sevenDayTasks(todos);
+
     if (tasks.length === 0) {
-      content = <h5>No tasks due today</h5>;
+      content = <h5>No tasks due in the next 7 days</h5>;
     } else {
       content = (
         <Fragment>
@@ -52,7 +31,7 @@ const Next7 = ({ todos, loading }) => {
 
   return (
     <JournalMain>
-      <h2 className="center">Today's Tasks</h2>
+      <h2 className="center">Tasks for the Next 7 days</h2>
       {content}
     </JournalMain>
   );

@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from "react";
 import styled from "styled-components";
 import {connect} from 'react-redux';
+import { eachDayOfInterval, addDays, parse, format } from "date-fns";
 
 import JournalHeaderLinks from '../JournalHeaderLinks/JournalHeaderLinks';
 
@@ -10,6 +11,7 @@ import WeatherPage from "../../../../pages/weather/WeatherPage";
 import ProjectsPage from "../../../../pages/projects/ProjectsPage";
 import CalendarPage from "../../../../pages/calendar/CalendarPage";
 import HousePage from "../../../../pages/house/HousePage";
+import { sevenDayTasks, todaysTasks } from "../../../../utils/HelperFunctions";
 
 const SidebarWrapper = styled.div`
   border-right: 1px solid #f0efef;
@@ -34,17 +36,9 @@ const IconWrapper = styled.div`
 const JournalSidebar = ({todos}) => {
   const [isOpen, setIsOpen] = useState(true);
 
-  let tasks = [];
-  const today = new Date().toDateString();
-
-  todos.map((todo) => {
-    const date = todo.dueDate;
-    const structuredDate = new Date(date).toDateString();
-    if (structuredDate == today && todo.priority == "high") {
-      tasks.push(todo);
-    }
-  });
-  const todaysTasks = tasks.length;
+  const todayLength = todaysTasks(todos).length
+  
+  const length = sevenDayTasks(todos).length;
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
@@ -60,8 +54,8 @@ const JournalSidebar = ({todos}) => {
           <div>
             <SidebarHeader>
               <JournalHeaderLinks link="/inbox" text="Inbox" number={todos.length} img={<HomeIcon />} />
-              <JournalHeaderLinks link="/today"  text="Today" number={todaysTasks} img={<HomeIcon />} />
-              <JournalHeaderLinks  link="/next7" text="Next 7 days" number="2" img={<HomeIcon />} />
+              <JournalHeaderLinks link="/today"  text="Today" number={todayLength} img={<HomeIcon />} />
+              <JournalHeaderLinks  link="/next7" text="Next 7 days" number={length} img={<HomeIcon />} />
             </SidebarHeader>
             <CalendarPage />
             <WeatherPage />
