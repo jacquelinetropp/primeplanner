@@ -1,10 +1,26 @@
 import React from "react";
-import {format, startOfWeek, addDays, startOfMonth, endOfMonth, endOfWeek, isSameMonth, isSameDay, parse, addMonths, subMonths} from "date-fns";
+import { connect } from "react-redux";
+import * as actions from "../../store/actions/actions";
+import {
+  format,
+  startOfWeek,
+  addDays,
+  startOfMonth,
+  endOfMonth,
+  endOfWeek,
+  isSameMonth,
+  isSameDay,
+  parse,
+  addMonths,
+  subMonths,
+  getMonth,
+  parseISO,
+} from "date-fns";
 
 class Calendar extends React.Component {
   state = {
     currentMonth: new Date(),
-    selectedDate: new Date()
+    selectedDate: new Date(),
   };
 
   renderHeader() {
@@ -46,10 +62,28 @@ class Calendar extends React.Component {
 
   renderCells() {
     const { currentMonth, selectedDate } = this.state;
+    const currentMonthNumber = getMonth(currentMonth);
+    const { todos } = this.props;
+
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
     const endDate = endOfWeek(monthEnd);
+
+    let tasks = [];
+    const monthTodos = todos.map((todo) => {
+      const todoMonth = getMonth(todo.dueDate);
+      if (todo.priority === "high") {
+        if (todoMonth === currentMonthNumber) {
+          tasks.push(todo);
+        }
+      }
+    });
+    const dayTasks = tasks.map(task => {
+
+    })
+
+    console.log(tasks);
 
     const dateFormat = "d";
     const rows = [];
@@ -67,7 +101,9 @@ class Calendar extends React.Component {
             className={`col cell ${
               !isSameMonth(day, monthStart)
                 ? "disabled"
-                : isSameDay(day, selectedDate) ? "selected" : ""
+                : isSameDay(day, selectedDate)
+                ? "selected"
+                : ""
             }`}
             key={day}
             onClick={() => this.onDateClick(parse(cloneDay))}
@@ -84,25 +120,26 @@ class Calendar extends React.Component {
         </div>
       );
       days = [];
+      console.log(days);
     }
     return <div className="body">{rows}</div>;
   }
 
-  onDateClick = day => {
+  onDateClick = (day) => {
     this.setState({
-      selectedDate: day
+      selectedDate: day,
     });
   };
 
   nextMonth = () => {
     this.setState({
-      currentMonth: addMonths(this.state.currentMonth, 1)
+      currentMonth: addMonths(this.state.currentMonth, 1),
     });
   };
 
   prevMonth = () => {
     this.setState({
-      currentMonth: subMonths(this.state.currentMonth, 1)
+      currentMonth: subMonths(this.state.currentMonth, 1),
     });
   };
 
@@ -117,4 +154,8 @@ class Calendar extends React.Component {
   }
 }
 
-export default Calendar;
+const mapStateToProps = ({ todos }) => ({
+  todos: todos.allTodos,
+});
+
+export default connect(mapStateToProps)(Calendar);
