@@ -16,6 +16,7 @@ import {
   getMonth,
   parseISO,
 } from "date-fns";
+import "./Calendar.styles.css";
 
 class Calendar extends React.Component {
   state = {
@@ -79,9 +80,9 @@ class Calendar extends React.Component {
         }
       }
     });
-    const dayTasks = tasks.map(task => {
-
-    })
+    const dayTasks = tasks.map((task) => {
+      //loop through month to assign days
+    });
 
     console.log(tasks);
 
@@ -109,6 +110,22 @@ class Calendar extends React.Component {
             onClick={() => this.onDateClick(parse(cloneDay))}
           >
             <span className="number">{formattedDate}</span>
+            {isSameMonth(day, monthStart) ? (
+              <div>
+                <div>
+                  {tasks
+                    .filter((e) => isSameDay(cloneDay, new Date(e.dueDate)))
+                    .sort((a, b) => (a.dueDate > b.dueDate ? 1 : -1))
+                    .map((e, i) => (
+                      <div key={i} className="task">
+                        {e.todo} - {new Date(e.dueDate).toTimeString().slice(0, 5)}
+                      </div>
+                    ))}
+                </div>
+              </div>
+            ) : (
+              " "
+            )}
             <span className="bg">{formattedDate}</span>
           </div>
         );

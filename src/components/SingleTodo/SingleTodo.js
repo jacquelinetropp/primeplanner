@@ -60,7 +60,7 @@ const SingleTodo = ({ todo, completeTodo }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const date = todo.dueDate;
-  const structuredDate = new Date(date).toString();
+  const structuredDate = new Date(date).toString().slice(0, 21);
 
   return (
     <Wrapper>
