@@ -27,11 +27,20 @@
   word-wrap: normal;
   white-space: nowrap;
   direction: ltr;
+  cursor: pointer;
+  transition: .15s ease-out;
+  font-size: 1.5rem;
 
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: 'liga';
+}
+
+.icon:hover {
+  transform: scale(1.75);
+  transition: .25s ease-out;
+  color: var(--main-color);
 }
 
 

@@ -1,0 +1,121 @@
+import React from "react";
+import JournalMain from "../../components/layout/Journal/JournalMain/JournalMain";
+import styled from "styled-components";
+import { connect } from "react-redux";
+import {
+  addDays,
+  isSameDay,
+  addWeeks,
+  subWeeks,
+} from "date-fns";
+
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 50px repeat(2, 1fr);
+  height: 100%;
+`;
+
+const TitleWrapper = styled.div`
+  grid-column: 1/-1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const DayContainer = styled.div`
+  overflow: auto;
+`;
+
+const Task = styled.div`
+  background-color: rgba(148, 242, 181, 0.8);
+  margin-bottom: 1px;
+  font-size: 1.4rem;
+  padding-left: 1rem;
+`;
+
+class WeeklyCalendar extends React.Component {
+  state = {
+    today: new Date(),
+  };
+
+  renderDaysOfWeek() {
+    let dayOfTheWeek = [];
+    const today = this.state.today;
+    function displayDate() {
+      for (var i = 0; i < 8; i++) {
+        if (i === 0) {
+          dayOfTheWeek.push(today.toDateString());
+        } else {
+          let newDay = addDays(today, i);
+          dayOfTheWeek.push(new Date(newDay).toDateString());
+        }
+      }
+    }
+    displayDate();
+    const { todos } = this.props;
+    return (
+        dayOfTheWeek.map((day, i) => (
+            <DayContainer key={i}>
+              <h6 className="center">{day}</h6>
+              {todos
+                ? todos
+                    .filter((e) =>
+                      isSameDay(new Date(day), new Date(e.dueDate))
+                    )
+                    .sort((a, b) => (a.dueDate > b.dueDate ? 1 : -1))
+                    .map((e, i) => (
+                      <Task key={i} className="task">
+                        {e.todo} -{" "}
+                        {new Date(e.dueDate).toTimeString().slice(0, 5)}
+                      </Task>
+                    ))
+                : " "}
+            </DayContainer>
+          ))
+    )
+  }
+
+  nextWeek = () => {
+    const newWeek = addWeeks(this.state.today, 1);
+    console.log("clicked");
+    this.setState({
+      today: newWeek
+    });
+    console.log(this.state.today);
+  };
+
+  previousWeek = () => {
+    const prevWeek = subWeeks(this.state.today, 1);
+    console.log(prevWeek);
+    this.setState({
+      today: prevWeek
+    })
+  };
+  render() {
+    return (
+      <JournalMain>
+        <Wrapper>
+          <TitleWrapper>
+            <div className="icon" onClick={this.previousWeek}>
+              chevron_left
+            </div>
+            <h4>Week of {this.state.today.toDateString()}</h4>
+            <div onClick={this.nextWeek}>
+              <div className="icon">chevron_right</div>
+            </div>
+          </TitleWrapper>
+         {this.renderDaysOfWeek()}
+        </Wrapper>
+      </JournalMain>
+    );
+  }
+}
+
+const mapStateToProps = ({ todos }) => ({
+  todos: todos.allTodos,
+});
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps)(WeeklyCalendar);

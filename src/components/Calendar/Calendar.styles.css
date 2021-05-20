@@ -87,7 +87,7 @@
     right: .75em;
     font-weight: 700;
 
-    background-color: rgba(242,182,232,.6);
+    background-color: rgba(242,182,232,.8);
     height: 10px;
     width: 10px;
     border-radius: 25%;
@@ -134,4 +134,9 @@
   .calendar .task {
     background-color: rgba(148,242,181, .8);
     margin-bottom: 1px;
+    padding-right: 1rem;
+  }
+
+  .taskDiv {
+    overflow: auto;
   }

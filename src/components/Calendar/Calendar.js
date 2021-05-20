@@ -14,6 +14,7 @@ import {
   addMonths,
   subMonths,
   getMonth,
+  getYear,
   parseISO,
 } from "date-fns";
 import "./Calendar.styles.css";
@@ -64,6 +65,7 @@ class Calendar extends React.Component {
   renderCells() {
     const { currentMonth, selectedDate } = this.state;
     const currentMonthNumber = getMonth(currentMonth);
+    const currentYear = getYear(currentMonth);
     const { todos } = this.props;
 
     const monthStart = startOfMonth(currentMonth);
@@ -71,8 +73,18 @@ class Calendar extends React.Component {
     const startDate = startOfWeek(monthStart);
     const endDate = endOfWeek(monthEnd);
 
+    const yearTasks = [];
+    const yearTodos = todos.map(todo => {
+      const todoYear = getYear(todo.dueDate);
+      if (todo.priority === "high") {
+        if (todoYear === currentYear) {
+          yearTasks.push(todo);
+        }
+      }
+    });
+
     let tasks = [];
-    const monthTodos = todos.map((todo) => {
+    const monthTodos = yearTasks.map((todo) => {
       const todoMonth = getMonth(todo.dueDate);
       if (todo.priority === "high") {
         if (todoMonth === currentMonthNumber) {
@@ -83,8 +95,6 @@ class Calendar extends React.Component {
     const dayTasks = tasks.map((task) => {
       //loop through month to assign days
     });
-
-    console.log(tasks);
 
     const dateFormat = "d";
     const rows = [];
@@ -112,7 +122,7 @@ class Calendar extends React.Component {
             <span className="number">{formattedDate}</span>
             {isSameMonth(day, monthStart) ? (
               <div>
-                <div>
+                <div className="taskDiv">
                   {tasks
                     .filter((e) => isSameDay(cloneDay, new Date(e.dueDate)))
                     .sort((a, b) => (a.dueDate > b.dueDate ? 1 : -1))
@@ -137,7 +147,6 @@ class Calendar extends React.Component {
         </div>
       );
       days = [];
-      console.log(days);
     }
     return <div className="body">{rows}</div>;
   }

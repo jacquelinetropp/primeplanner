@@ -7,8 +7,8 @@ const CalendarPage = () => {
     <Fragment>
       <JournalCategories title="Calendar">
         <JournalTag link="/calendar/monthly" name ="Monthly" />
-        <JournalTag link="/weather/daily" name="Weekly" color="green"/>
-        <JournalTag link="/weather/hourly" name="Daily" color="pink"/>
+        <JournalTag link="/calendar/weekly" name="Weekly" color="green"/>
+        <JournalTag link="/calendar/daily" name="Daily" color="pink"/>
       </JournalCategories>
     </Fragment>
   );

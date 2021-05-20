@@ -25,6 +25,9 @@ import Inbox from "./pages/Inbox";
 import Today from "./pages/Today";
 import Next7 from "./pages/Next7";
 import Monthly from "./pages/calendar/Monthly";
+import WeeklyCalendar from "./pages/calendar/WeeklyCalendar";
+import DailyCalendar from "./pages/calendar/DailyCalendar";
+
 
 const App = ({ authenticated, verified, editingProfile }) => {
   let routes;
@@ -41,6 +44,8 @@ const App = ({ authenticated, verified, editingProfile }) => {
           <Route exact path="/next7" component={Next7} />
           <Route exact path="/calendar" component={CalendarPage} />
           <Route exact path="/calendar/monthly" component={Monthly} />
+          <Route exact path="/calendar/weekly" component={WeeklyCalendar} />
+          <Route exact path="/calendar/daily" component={DailyCalendar} />
           <Route exact path="/weather" component={WeatherPage} />
           <Route exact path="/weather/current" component={CurrentDetails} />
           <Route exact path="/weather/daily" component={DailyWeather} />

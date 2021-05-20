@@ -32,6 +32,7 @@ const PostContent = styled.div`
   background-color: var(--color-gray);
   height: 100%;
   display: ${({ isOpen }) => (isOpen ? "block" : "none")};
+  overflow: auto;
 `;
 
 const TaskPostit = ({ todos, getAllTodos, loading }) => {
