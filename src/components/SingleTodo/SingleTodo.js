@@ -23,6 +23,7 @@ const Controls = styled.div`
   padding: 1rem;
   justify-content: flex-end;
   margin-left: auto;
+  display: ${({ calendar }) => (calendar ? "none" : "")};
 `;
 
 const TaskCircle = styled.div`
@@ -46,6 +47,10 @@ const TextWrapper = styled.div`
   text-decoration: ${({ completed }) => (completed ? "line-through" : "none")};
 `;
 
+const StyledDate = styled.p`
+  display: ${({ calendar }) => (calendar ? "none" : "")};
+`;
+
 const StyledText = styled.h6`
   color: ${({ priority }) => {
     if (priority === "high") return "var(--color-mainDark)";
@@ -53,14 +58,16 @@ const StyledText = styled.h6`
     else if (priority === "low") return "var(--color-second)";
     else return "var(--color-text)";
   }};
+  font-size: ${({ calendar }) => (calendar ? "1.4rem" : "1.8rem")};
 `;
 
-const SingleTodo = ({ todo, completeTodo }) => {
+const SingleTodo = ({ todo, completeTodo, calendar }) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
   const date = todo.dueDate;
   const structuredDate = new Date(date).toString().slice(0, 21);
+  const structuredTime = new Date(date).toTimeString().slice(0, 5);
 
   return (
     <Wrapper>
@@ -69,10 +76,15 @@ const SingleTodo = ({ todo, completeTodo }) => {
         onClick={() => completeTodo(todo.id)}
       />
       <TextWrapper completed={todo.completed == true ? "completed" : ""}>
-        <StyledText priority={todo.priority}> {todo.todo}</StyledText>
-        <p>{structuredDate}</p>
+        <StyledText priority={todo.priority} calendar={calendar}>
+          {" "}
+          {todo.todo}
+        </StyledText>
+        <StyledDate calendar={calendar}>
+          {calendar ? structuredTime : structuredDate}
+        </StyledDate>
       </TextWrapper>
-      <Controls>
+      <Controls calendar={calendar}>
         <StyledEdit onClick={() => setIsEditing(true)} />
         <StyledDelete onClick={() => setIsDeleting(true)} />
 

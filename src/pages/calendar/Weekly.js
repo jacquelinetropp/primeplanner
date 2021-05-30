@@ -2,24 +2,8 @@ import React from "react";
 import JournalMain from "../../components/layout/Journal/JournalMain/JournalMain";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import {
-  format,
-  startOfWeek,
-  addDays,
-  startOfMonth,
-  endOfMonth,
-  endOfWeek,
-  isSameMonth,
-  isSameDay,
-  parse,
-  addMonths,
-  subMonths,
-  getMonth,
-  getYear,
-  parseISO,
-  addWeeks,
-  subWeeks,
-} from "date-fns";
+import { addDays, isSameDay, addWeeks, subWeeks } from "date-fns";
+import SingleTodo from "../../components/SingleTodo/SingleTodo";
 
 const Wrapper = styled.div`
   display: grid;
@@ -66,7 +50,7 @@ class Weekly extends React.Component {
     }
     displayDate();
     this.setState({
-      daysOfTheWeek: dayOfTheWeek
+      daysOfTheWeek: dayOfTheWeek,
     });
     console.log(this.state.daysOfTheWeek);
   }
@@ -93,7 +77,7 @@ class Weekly extends React.Component {
     const newWeek = addWeeks(this.state.today, 1);
     console.log("clicked");
     this.setState({
-      today: newWeek
+      today: newWeek,
     });
     // this.renderDays();
     console.log(this.state.today);
@@ -104,8 +88,8 @@ class Weekly extends React.Component {
     const prevWeek = subWeeks(this.state.today, 1);
     console.log(prevWeek);
     this.setState({
-      today: prevWeek
-    })
+      today: prevWeek,
+    });
   };
   render() {
     const { todos } = this.props;
@@ -132,10 +116,7 @@ class Weekly extends React.Component {
                     )
                     .sort((a, b) => (a.dueDate > b.dueDate ? 1 : -1))
                     .map((e, i) => (
-                      <Task key={i} className="task">
-                        {e.todo} -{" "}
-                        {new Date(e.dueDate).toTimeString().slice(0, 5)}
-                      </Task>
+                      <SingleTodo todo={e} key={e.id} className="task" />
                     ))
                 : " "}
             </DayContainer>

@@ -2,12 +2,8 @@ import React from "react";
 import JournalMain from "../../components/layout/Journal/JournalMain/JournalMain";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import {
-  addDays,
-  isSameDay,
-  addWeeks,
-  subWeeks,
-} from "date-fns";
+import { addDays, isSameDay, addWeeks, subWeeks } from "date-fns";
+import SingleTodo from "../../components/SingleTodo/SingleTodo";
 
 const Wrapper = styled.div`
   display: grid;
@@ -54,33 +50,26 @@ class WeeklyCalendar extends React.Component {
     }
     displayDate();
     const { todos } = this.props;
-    return (
-        dayOfTheWeek.map((day, i) => (
-            <DayContainer key={i}>
-              <h6 className="center">{day}</h6>
-              {todos
-                ? todos
-                    .filter((e) =>
-                      isSameDay(new Date(day), new Date(e.dueDate))
-                    )
-                    .sort((a, b) => (a.dueDate > b.dueDate ? 1 : -1))
-                    .map((e, i) => (
-                      <Task key={i} className="task">
-                        {e.todo} -{" "}
-                        {new Date(e.dueDate).toTimeString().slice(0, 5)}
-                      </Task>
-                    ))
-                : " "}
-            </DayContainer>
-          ))
-    )
+    return dayOfTheWeek.map((day, i) => (
+      <DayContainer key={i}>
+        <h6 className="center">{day}</h6>
+        {todos
+          ? todos
+              .filter((e) => isSameDay(new Date(day), new Date(e.dueDate)))
+              .sort((a, b) => (a.dueDate > b.dueDate ? 1 : -1))
+              .map((e, i) => (
+                <SingleTodo key={e.id} todo={e} className="task" calendar />
+              ))
+          : " "}
+      </DayContainer>
+    ));
   }
 
   nextWeek = () => {
     const newWeek = addWeeks(this.state.today, 1);
     console.log("clicked");
     this.setState({
-      today: newWeek
+      today: newWeek,
     });
     console.log(this.state.today);
   };
@@ -89,8 +78,8 @@ class WeeklyCalendar extends React.Component {
     const prevWeek = subWeeks(this.state.today, 1);
     console.log(prevWeek);
     this.setState({
-      today: prevWeek
-    })
+      today: prevWeek,
+    });
   };
   render() {
     return (
@@ -105,7 +94,7 @@ class WeeklyCalendar extends React.Component {
               <div className="icon">chevron_right</div>
             </div>
           </TitleWrapper>
-         {this.renderDaysOfWeek()}
+          {this.renderDaysOfWeek()}
         </Wrapper>
       </JournalMain>
     );
