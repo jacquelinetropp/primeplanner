@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import { addDays, isSameDay, addWeeks, subWeeks } from "date-fns";
 import SingleTodo from "../../components/SingleTodo/SingleTodo";
+import { getHighPriority } from "../../utils/HelperFunctions";
 
 const Wrapper = styled.div`
   display: grid;
@@ -21,13 +22,6 @@ const TitleWrapper = styled.div`
 
 const DayContainer = styled.div`
   overflow: auto;
-`;
-
-const Task = styled.div`
-  background-color: rgba(148, 242, 181, 0.8);
-  margin-bottom: 1px;
-  font-size: 1.4rem;
-  padding-left: 1rem;
 `;
 
 class Weekly extends React.Component {
@@ -54,24 +48,6 @@ class Weekly extends React.Component {
     });
     console.log(this.state.daysOfTheWeek);
   }
-  // renderDays() {
-  //   let dayOfTheWeek = [];
-  //   const today = this.state.today;
-  //   function displayDate() {
-  //     for (var i = 0; i < 8; i++) {
-  //       if (i === 0) {
-  //         dayOfTheWeek.push(today.toDateString());
-  //       } else {
-  //         let newDay = addDays(today, i);
-  //         dayOfTheWeek.push(new Date(newDay).toDateString());
-  //       }
-  //     }
-  //   }
-  //   displayDate();
-  //   this.setState({
-  //     daysOfTheWeek: dayOfTheWeek
-  //   })
-  // }
 
   nextWeek = () => {
     const newWeek = addWeeks(this.state.today, 1);
@@ -93,6 +69,8 @@ class Weekly extends React.Component {
   };
   render() {
     const { todos } = this.props;
+    const tasks = getHighPriority(todos);
+
     console.log(this.state.daysOfTheWeek);
     return (
       <JournalMain>
@@ -109,8 +87,8 @@ class Weekly extends React.Component {
           {this.state.daysOfTheWeek.map((day, i) => (
             <DayContainer key={i}>
               <h6 className="center">{day}</h6>
-              {todos
-                ? todos
+              {tasks
+                ? tasks
                     .filter((e) =>
                       isSameDay(new Date(day), new Date(e.dueDate))
                     )

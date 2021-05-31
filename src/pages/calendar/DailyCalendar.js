@@ -1,10 +1,10 @@
-import React, {Fragment} from "react";
+import React, { Fragment } from "react";
 import JournalMain from "../../components/layout/Journal/JournalMain/JournalMain";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { addDays, isSameDay, subDays } from "date-fns";
 import SingleTodo from "../../components/SingleTodo/SingleTodo";
-import { todaysTasks } from "../../utils/HelperFunctions";
+import { withRouter } from "react-router-dom";
 
 const Wrapper = styled.div`
   display: grid;
@@ -27,28 +27,33 @@ class DailyCalendar extends React.Component {
   state = {
     today: new Date(),
   };
+  componentDidMount() {
+    const day = this.props.match.params.day;
+    console.log(day);
+    const newDay =(new Date(+day));
+
+    if (day) {
+      this.setState({
+        today: newDay
+      })
+    }
+  }
 
   renderDay() {
     const today = this.state.today;
     const { todos } = this.props;
     const tasks = todos
-    .filter((e) => isSameDay(new Date(today), new Date(e.dueDate)))
-    .sort((a, b) => (a.dueDate > b.dueDate ? 1 : -1))
-    .map((e, i) => <SingleTodo key={e.id} todo={e} />);
+      .filter((e) => isSameDay(new Date(today), new Date(e.dueDate)))
+      .sort((a, b) => (a.dueDate > b.dueDate ? 1 : -1))
+      .map((e, i) => <SingleTodo key={e.id} todo={e} />);
     let content;
     console.log(tasks);
     if (tasks.length === 0) {
-        content = <Fragment>No tasks today!</Fragment>
+      content = <Fragment>No tasks today!</Fragment>;
     } else {
-        content = tasks;
+      content = tasks;
     }
-    return (
-      <DayContainer>
-        {todos
-          ? content
-          : " "}
-      </DayContainer>
-    );
+    return <DayContainer>{todos ? content : " "}</DayContainer>;
   }
 
   nextDay = () => {
@@ -92,4 +97,4 @@ const mapStateToProps = ({ todos }) => ({
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps)(DailyCalendar);
+export default withRouter(connect(mapStateToProps)(DailyCalendar));

@@ -46,11 +46,12 @@ const App = ({ authenticated, verified, editingProfile }) => {
           <Route exact path="/calendar/monthly" component={Monthly} />
           <Route exact path="/calendar/weekly" component={WeeklyCalendar} />
           <Route exact path="/calendar/daily" component={DailyCalendar} />
+          <Route exact path="/calendar/daily/:day" component={DailyCalendar} />
           <Route exact path="/weather" component={WeatherPage} />
           <Route exact path="/weather/current" component={CurrentDetails} />
           <Route exact path="/weather/daily" component={DailyWeather} />
           <Route exact path="/weather/hourly" component={HourlyWeather} />
-          <Route exact path="/projects" component={ProjectsPage} />
+          <Route exact path="/projects/" component={ProjectsPage} />
           <Route path="/project/:id" component={ProjectTodos} />
           <Redirect to="/" />
         </Switch>

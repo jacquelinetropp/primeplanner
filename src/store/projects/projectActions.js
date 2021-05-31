@@ -23,6 +23,7 @@ export const getProjects = () => async (
           name: doc.data().name,
           userId: doc.data().userId,
           createdAt: doc.data().createdAt,
+          color: doc.data().color
         });
       });
       dispatch({ type: actions.GET_PROJECT_SUCCESS, payload: projects });
@@ -72,6 +73,7 @@ export const addProject = (data) => async (
       name: data.project,
       userId: userId,
       createdAt: new Date().toISOString(),
+      color: data.color
     };
 
     await firestore
@@ -96,9 +98,11 @@ export const editProject = (id, data) => async (
   dispatch({ type: actions.ADD_PROJECT_START });
   try {
     const update = data.project;
+    const newColor = data.color
 
     await firestore.collection("projects").doc(id).update({
       name: update,
+      color: newColor
     });
 
     dispatch({ type: actions.ADD_PROJECT_SUCCESS });

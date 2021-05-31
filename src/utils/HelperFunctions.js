@@ -39,4 +39,14 @@ export function todaysTasks(todos) {
 
   return tasks;
 
+};
+
+export function getHighPriority(todos) {
+  let tasks = [];
+  todos.map(todo => {
+    if (todo.priority === "high") {
+      tasks.push(todo);
+    }
+  })
+  return tasks;
 }

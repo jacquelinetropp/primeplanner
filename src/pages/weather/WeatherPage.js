@@ -5,7 +5,7 @@ import JournalTag from "../../components/JournalTags/JournalTag";
 const WeatherPage = () => {
   return (
     <Fragment>
-      <JournalCategories title="Weather">
+      <JournalCategories title="Weather" hidden>
         <JournalTag link="/weather/current" name ="Current Details" />
         <JournalTag link="/weather/daily" name="Daily" color="green"/>
         <JournalTag link="/weather/hourly" name="Hourly" color="pink"/>

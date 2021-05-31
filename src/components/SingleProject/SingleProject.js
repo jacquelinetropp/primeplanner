@@ -18,12 +18,13 @@ const Wrapper = styled.div`
   text-align: center;
   z-index: 0;
 
+  background-color: ${({active}) => (active ? "#cccccc" : "transparent")};
+
   &:hover {
    background-color: ${({ bcolor }) => {
     if (bcolor === "yellow") return "var(--color-tertiary)";
     else if (bcolor === "pink") return "var(--color-mainLight)";
     else if (bcolor === "green") return "var(--color-second)";
-    else if (bcolor === "none") return "";
     else return "var(--color-main)";
   }};
   }
@@ -41,10 +42,9 @@ const SingleProject = ({ project, active, getTodos, getOneProject }) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
-
   return (
-    <Wrapper active={active}>
-      <JournalTag  onClick={() => (getTodos(project.id), getOneProject(project.id))} link={`/project/${project.id}`} name={project.name} bcolor/>
+    <Wrapper active={active} bcolor={project.color}>
+      <JournalTag color={project.color} onClick={() => (getTodos(project.id), getOneProject(project.id))} link={`/project/${project.id}`} name={project.name}/>
       <Controls>
         {" "}
         <StyledEdit 

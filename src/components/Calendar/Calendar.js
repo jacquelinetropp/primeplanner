@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import {withRouter} from 'react-router-dom';
 import * as actions from "../../store/actions/actions";
 import {
   format,
@@ -15,7 +16,6 @@ import {
   subMonths,
   getMonth,
   getYear,
-  parseISO,
 } from "date-fns";
 import "./Calendar.styles.css";
 
@@ -92,9 +92,6 @@ class Calendar extends React.Component {
         }
       }
     });
-    const dayTasks = tasks.map((task) => {
-      //loop through month to assign days
-    });
 
     const dateFormat = "d";
     const rows = [];
@@ -117,7 +114,7 @@ class Calendar extends React.Component {
                 : ""
             }`}
             key={day}
-            onClick={() => this.onDateClick(parse(cloneDay))}
+            onClick={() => this.onDateClick(cloneDay)}
           >
             <span className="number">{formattedDate}</span>
             {isSameMonth(day, monthStart) ? (
@@ -148,13 +145,16 @@ class Calendar extends React.Component {
       );
       days = [];
     }
-    return <div className="body">{rows}</div>;
+    console.log(rows.length)
+    return <div className={rows.length === 5 ? "body body5" : "body body6"}>{rows}</div>;
   }
 
   onDateClick = (day) => {
-    this.setState({
-      selectedDate: day,
-    });
+    const dayInMilli = new Date(day).getTime();
+    const {history} = this.props;
+
+    history.push(`/calendar/daily/${dayInMilli}`);
+  
   };
 
   nextMonth = () => {
@@ -184,4 +184,4 @@ const mapStateToProps = ({ todos }) => ({
   todos: todos.allTodos,
 });
 
-export default connect(mapStateToProps)(Calendar);
+export default withRouter(connect(mapStateToProps)(Calendar));

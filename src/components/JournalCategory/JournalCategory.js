@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 
 const Category = styled(Link)`
-    height: 30px;
+    min-height: 30px;
+    height: max-content;
     font-size: 1.4rem;
     display: flex;
     align-items: center;

@@ -18,7 +18,7 @@ const TagWrapper = styled(Link)`
   align-items: center;
   grid-template-columns: 20px 1fr;
   background-color: transparent;
-  height: 30px;
+  min-height: 30px;
   padding: 0 2rem;
 `;
 
