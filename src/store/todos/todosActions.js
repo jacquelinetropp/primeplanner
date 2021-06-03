@@ -28,7 +28,6 @@ export const getTodos = (id) => async (
       dispatch({ type: actions.GET_TODO_SUCCESS, payload: todos });
     });
   } catch (err) {
-    console.log(err);
     dispatch({ type: actions.GET_TODO_FAIL, payload: err });
   }
 };
@@ -50,7 +49,7 @@ export const addTodo = (data, id) => async (
       userId: userId,
       createdAt: new Date().valueOf(),
       dueDate: data.date.valueOf(),
-      completed: "false",
+      completed: false,
       priority: data.priority,
     };
 
@@ -128,8 +127,6 @@ export const completeTodo = (id) => async (
     const todoCall = await firestore.collection("todos").doc(id).get();
     const todo = todoCall.data();
 
-    console.log(todo.completed);
-
     if (todo.completed == true) {
       await firestore.collection("todos").doc(id).update({
         completed: false,
@@ -139,8 +136,7 @@ export const completeTodo = (id) => async (
         completed: true,
       });
     }
-    console.log(todo);
-    console.log(todo.completed);
+
 
     dispatch({ type: actions.COMPLETE_TODO_SUCCESS });
     return true;
@@ -178,7 +174,6 @@ export const getAllTodos = () => async (
       dispatch({ type: actions.GET_ALL_TODO_SUCCESS, payload: todos });
     });
   } catch (err) {
-    console.log(err);
     dispatch({ type: actions.GET_TODO_FAIL, payload: err });
   }
 };

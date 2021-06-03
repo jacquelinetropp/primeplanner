@@ -16,7 +16,7 @@ export function sevenDayTasks(todos) {
     const structuredDate = new Date(date).toDateString();
 
     for (var i = 0; i < days.length; i++) {
-      if (structuredDate === days[i]) {
+      if (structuredDate === days[i] && todo.completed == false) {
         next7tasks.push(todo);
       }
     }
@@ -41,7 +41,7 @@ export function setOverdueTasks(todos) {
   todos.map((todo) => {
     const date = todo.dueDate;
     const structuredDate = new Date(date);
-    if (isBefore(structuredDate, today)) {
+    if (isBefore(structuredDate, today) && todo.completed == false) {
       overdue.push(todo);
     }
   });
@@ -55,7 +55,7 @@ export function todaysTasks(todos) {
   todos.map((todo) => {
     const date = todo.dueDate;
     const structuredDate = new Date(date).toDateString();
-    if (structuredDate == today) {
+    if (structuredDate == today && todo.completed == false) {
       tasks.push(todo);
     }
   });
@@ -63,42 +63,6 @@ export function todaysTasks(todos) {
   return tasks;
 }
 
-function removeOverdueTasks(todos) {
-  const overdueTasks = setOverdueTasks(todos);
-  let futureTodos = [];
-
-  for (let i = 0; i < todos.length; i++) {
-    if (overdueTasks.indexOf(todos[i]) === -1) {
-      futureTodos.push(todos[i]);
-    }
-  }
-  return futureTodos;
-}
-
-function removeTodaysTasks(todos) {
-  const editedTodos = removeOverdueTasks(todos);
-  const todaysTodos = todaysTasks(todos);
-
-  const futureTodos = [];
-
-  editedTodos.forEach((t) => {
-    let found = false;
-    todaysTodos.forEach((today) => {
-      if (today.id === t.id) {
-        found = true;
-      }
-    });
-    if (!found) {
-      futureTodos.push(t);
-    }
-  });
-  // for (let i = 0; i < editedTodos.length; i++) {
-  //   if (todaysTodos.indexOf(todos[i]) === -1) {
-  //     futureTodos.push(todos[i]);
-  //   }
-  // }
-  return futureTodos;
-}
 
 export function getSevenMinusToday(todos) {
   const sevenTasks = sevenDayTasks(todos);
@@ -115,23 +79,8 @@ export function getSevenMinusToday(todos) {
       editedTodos.push(t);
     }
   });
+
   return editedTodos;
 }
 
-export function getFutureTasks(todos) {
-  const nextSeven = sevenDayTasks(todos);
-  console.log("next seven", nextSeven);
-  const editedTodos = removeTodaysTasks(todos);
-  console.log("removing today", editedTodos);
-  const futureTodos = [];
 
-  for (let i = 0; i < editedTodos.length; i++) {
-    if (nextSeven.indexOf(todos[i]) === -1) {
-      futureTodos.push(todos[i]);
-    }
-  }
-
-  console.log("result", futureTodos);
-
-  return futureTodos;
-}

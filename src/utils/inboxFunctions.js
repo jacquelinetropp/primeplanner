@@ -11,28 +11,34 @@ function removeOverDueTodos(todos) {
   return futureTodos;
 }
 
-function removeTodosDueToday(todos){
-    const editedTodos = removeOverDueTodos(todos);
-    const todaysTodos = todaysTasks(todos);
-    let futureTodos = [];
+function removeTodosDueToday(todos) {
+  const editedTodos = removeOverDueTodos(todos);
+  const todaysTodos = todaysTasks(todos);
+  let futureTodos = [];
 
-    for (let i = 0; i < editedTodos.length; i++){
-        if (todaysTodos.indexOf(editedTodos[i]) == -1){
-            futureTodos.push(editedTodos[i])
-        }
+  for (let i = 0; i < editedTodos.length; i++) {
+    if (todaysTodos.indexOf(editedTodos[i]) == -1) {
+      futureTodos.push(editedTodos[i]);
     }
-    return futureTodos;
+  }
+  return futureTodos;
 }
 
-export function getFutureTodos(todos){
-    const editedTodos = removeTodosDueToday(todos);
-    const sevenDaysOut = sevenDayTasks(todos);
+export function getFutureTodos(todos) {
+  const editedTodos = removeTodosDueToday(todos);
+  const sevenDaysOut = sevenDayTasks(todos);
 
-    let futureTodos = [];
-    for (let i = 0; i < editedTodos.length; i++){
-        if (sevenDaysOut.indexOf(editedTodos[i]) == -1){
-            futureTodos.push(editedTodos[i])
-        }
+  let futureTodos = [];
+  for (let i = 0; i < editedTodos.length; i++) {
+    if (sevenDaysOut.indexOf(editedTodos[i]) == -1) {
+      futureTodos.push(editedTodos[i]);
     }
-    return futureTodos;
+  }
+  let finalTodos = [];
+  futureTodos.map((todo) => {
+    if (todo.completed == false) {
+      finalTodos.push(todo);
+    }
+  });
+  return finalTodos;
 }
