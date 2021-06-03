@@ -4,8 +4,14 @@ import { connect } from "react-redux";
 import * as actions from "../store/actions/actions";
 import SingleTodo from "../components/SingleTodo/SingleTodo";
 import JournalMain from "../components/layout/Journal/JournalMain/JournalMain";
+import { getFutureTasks, sevenDayTasks, todaysTasks, setOverdueTasks } from "../utils/HelperFunctions";
 
 const Inbox = ({ todos, loading }) => {
+  const todaysTodos = todaysTasks(todos);
+  const next7 = sevenDayTasks(todos);
+  const futureTodos = getFutureTasks(todos);
+  const overdue = setOverdueTasks(todos);
+
   let content;
   if (loading && !todos) {
     content = <Fragment>Loading...</Fragment>;
@@ -14,7 +20,20 @@ const Inbox = ({ todos, loading }) => {
   } else {
     content = (
       <Fragment>
-        {todos.map((todo) => (
+        <h4>Overdue</h4>
+        {overdue.map((todo) => (
+          <SingleTodo key={todo.id} todo={todo} />
+        ))}
+        <h4>Today</h4>
+        {todaysTodos.map((todo) => (
+          <SingleTodo key={todo.id} todo={todo} />
+        ))}
+        <h4>Next 7 days</h4>
+        {next7.map((todo) => (
+          <SingleTodo key={todo.id} todo={todo} />
+        ))}
+        <h4>Future Tasks</h4>
+        {futureTodos.map((todo) => (
           <SingleTodo key={todo.id} todo={todo} />
         ))}
       </Fragment>
