@@ -4,12 +4,13 @@ import { connect } from "react-redux";
 import * as actions from "../store/actions/actions";
 import SingleTodo from "../components/SingleTodo/SingleTodo";
 import JournalMain from "../components/layout/Journal/JournalMain/JournalMain";
-import { getFutureTasks, sevenDayTasks, todaysTasks, setOverdueTasks } from "../utils/HelperFunctions";
+import { sevenDayTasks, todaysTasks, setOverdueTasks, getSevenMinusToday } from "../utils/HelperFunctions";
+import {getFutureTodos} from '../utils/inboxFunctions';
 
 const Inbox = ({ todos, loading }) => {
   const todaysTodos = todaysTasks(todos);
-  const next7 = sevenDayTasks(todos);
-  const futureTodos = getFutureTasks(todos);
+  const next7 = getSevenMinusToday(todos);
+  const futureTodos = getFutureTodos(todos);
   const overdue = setOverdueTasks(todos);
 
   let content;
