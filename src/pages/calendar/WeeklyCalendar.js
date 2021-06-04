@@ -23,13 +23,6 @@ const DayContainer = styled.div`
   overflow: auto;
 `;
 
-const Task = styled.div`
-  background-color: rgba(148, 242, 181, 0.8);
-  margin-bottom: 1px;
-  font-size: 1.4rem;
-  padding-left: 1rem;
-`;
-
 class WeeklyCalendar extends React.Component {
   state = {
     today: new Date(),
@@ -104,7 +97,5 @@ class WeeklyCalendar extends React.Component {
 const mapStateToProps = ({ todos }) => ({
   todos: todos.allTodos,
 });
-
-const mapDispatchToProps = {};
 
 export default connect(mapStateToProps)(WeeklyCalendar);

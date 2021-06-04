@@ -1,10 +1,10 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { Fragment } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/actions";
 import SingleTodo from "../components/SingleTodo/SingleTodo";
 import JournalMain from "../components/layout/Journal/JournalMain/JournalMain";
-import { sevenDayTasks, todaysTasks, setOverdueTasks, getSevenMinusToday } from "../utils/HelperFunctions";
+import { todaysTasks, setOverdueTasks, getSevenMinusToday } from "../utils/HelperFunctions";
 import {getFutureTodos} from '../utils/inboxFunctions';
 
 const Inbox = ({ todos, loading }) => {

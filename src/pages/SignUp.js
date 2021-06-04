@@ -3,7 +3,6 @@ import { Formik, Field } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { Form } from "formik";
 import * as actions from '../store/actions/actions';
 
 import Input from "../components/UI/Forms/Input";
@@ -11,7 +10,6 @@ import Button from "../components/UI/Button/Button";
 import {
   StyledForm,
   FormWrapper,
-  Corkboard,
   WhiteBackground,
 } from "../components/UI/Wrappers/Wrappers";
 
@@ -19,9 +17,7 @@ const MessageWrapper = styled.div`
   position: absolute;
   bottom: -15px;
 `;
-const Page = styled.div`
-  position: relative;
-`;
+
 const SignUpSchema = Yup.object().shape({
   firstName: Yup.string()
     .required("Your first name is required.")

@@ -9,24 +9,7 @@ import TaskPostit from "../../TaskPostit/TaskPostit";
 import WeatherHome from "../../WeatherHome/WeatherHome";
 import Button from "../../UI/Button/Button";
 import EditProfile from "../../../pages/EditProfile";
-import { Link } from "react-router-dom";
-import DailyWeather from "../../../pages/weather/DailyWeather";
 
-const HomeWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: min-content minmax(30px, 1fr);
-
-  @media only screen and (max-width: 768px) {
-    grid-column: 1/-1;
-    grid-template-rows: repeat(2, min-content);
-  }
-
-  @media only screen and (max-width: 425px) {
-    grid-template-rows: repeat(3, min-content);
-    width: 100vw;
-  }
-`;
 
 const TodayDateWrapper = styled.div`
   background-color: #fff;
@@ -39,11 +22,6 @@ const TodayDateWrapper = styled.div`
   align-items: center;
   justify-content: center;
   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
-/* 
-  @media only screen and (max-width: 768px) {
-    grid-column: 1/-1;
-    grid-row: 2/3;
-  } */
 
 `;
 
@@ -52,16 +30,11 @@ const TodaysDate = styled.h1`
 `
 
 const ButtonsWrapper = styled.div`
+background-color: #fff;
+width: 100%;
   grid-column: 4/6;
-  width: 50%;
   margin: 0 auto;
   display: flex;
-
-  /* @media only screen and (max-width: 768px) {
-    grid-column: 1/-1;
-    grid-row: 1/2;
-    display: flex;
-  } */
 `;
 
 const DailYWrapper = styled.div`

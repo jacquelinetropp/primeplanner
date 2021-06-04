@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import {withRouter} from 'react-router-dom';
-import * as actions from "../../store/actions/actions";
 import {
   format,
   startOfWeek,
@@ -11,7 +10,6 @@ import {
   endOfWeek,
   isSameMonth,
   isSameDay,
-  parse,
   addMonths,
   subMonths,
   getMonth,

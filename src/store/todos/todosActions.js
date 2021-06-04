@@ -120,13 +120,11 @@ export const completeTodo = (id) => async (
   const firestore = getFirestore();
   dispatch({ type: actions.COMPLETE_TODO_START });
   try {
-    // await firestore.collection("todos").doc(id).update({
-    //   completed: true,
-    // });
 
     const todoCall = await firestore.collection("todos").doc(id).get();
     const todo = todoCall.data();
 
+    // eslint-disable-next-line eqeqeq
     if (todo.completed == true) {
       await firestore.collection("todos").doc(id).update({
         completed: false,

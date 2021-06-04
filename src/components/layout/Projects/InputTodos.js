@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import styled from "styled-components";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
@@ -12,8 +12,6 @@ import { StyledForm } from "../../UI/Wrappers/Wrappers";
 import * as actions from "../../../store/actions/actions";
 import { useParams } from "react-router-dom";
 import DatePickerField from "../../DatePicker/DatePicker";
-
-import { DateTimePicker } from "react-rainbow-components";
 
 const ButtonsWrapper = styled.div`
   display: flex;
@@ -52,13 +50,6 @@ const InputTodo = ({
 
   const inputStyles = {
     maxWidth: 320,
-  };
-
-  const [date, setDate] = useState(new Date());
-  // console.log(date);
-
-  const onChange = (e) => {
-    setDate(e);
   };
 
   return (

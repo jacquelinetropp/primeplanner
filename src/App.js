@@ -38,7 +38,7 @@ const App = ({ authenticated, verified, editingProfile }) => {
         <Main />
         <JournalSidebar />
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={Inbox} />
           <Route exact path="/inbox" component={Inbox} />
           <Route exact path="/today" component={Today} />
           <Route exact path="/next7" component={Next7} />

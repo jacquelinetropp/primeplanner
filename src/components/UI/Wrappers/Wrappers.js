@@ -4,6 +4,8 @@ import HomeImage from "../../../images/cork-board.png";
 import { AiOutlineMinusCircle, AiOutlineHome  } from "react-icons/ai";
 import {BiEdit} from 'react-icons/bi';
 import {BsTrash2} from 'react-icons/bs';
+import {GrCalendar} from 'react-icons/gr';
+import {BiCalendarAlt, BiCalendarWeek} from 'react-icons/bi';
 
 export const StyledForm = styled(Form)`
   display: flex;
@@ -94,7 +96,17 @@ export const MinIcon = styled(AiOutlineMinusCircle)`
 export const HomeIcon = styled(AiOutlineHome)`
   font-size: 1.8rem;
   margin-right: 7px;
-`
+`;
+
+export const SevenDayIcon = styled(BiCalendarWeek)`
+font-size: 1.8rem;
+margin-right: 7px;
+`;
+
+export const TodayIcon = styled(BiCalendarAlt)`
+font-size: 1.8rem;
+margin-right: 7px;
+`;
 
 export const StyledEdit = styled(BiEdit)`
     font-size: 18px;

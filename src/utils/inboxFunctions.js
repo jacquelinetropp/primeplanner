@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import { setOverdueTasks, sevenDayTasks, todaysTasks } from "./HelperFunctions";
 
 function removeOverDueTodos(todos) {
@@ -35,6 +36,7 @@ export function getFutureTodos(todos) {
     }
   }
   let finalTodos = [];
+  // eslint-disable-next-line array-callback-return
   futureTodos.map((todo) => {
     if (todo.completed == false) {
       finalTodos.push(todo);

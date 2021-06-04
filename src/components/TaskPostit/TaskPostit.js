@@ -38,6 +38,7 @@ const PostContent = styled.div`
 const TaskPostit = ({ todos, getAllTodos, loading }) => {
   useEffect(() => {
     getAllTodos();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const [isOpen, setIsOpen] = useState(true);
 

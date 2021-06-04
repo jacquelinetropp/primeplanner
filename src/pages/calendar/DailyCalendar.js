@@ -95,6 +95,4 @@ const mapStateToProps = ({ todos }) => ({
   todos: todos.allTodos,
 });
 
-const mapDispatchToProps = {};
-
 export default withRouter(connect(mapStateToProps)(DailyCalendar));
