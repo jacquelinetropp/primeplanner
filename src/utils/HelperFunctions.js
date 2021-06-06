@@ -1,6 +1,6 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable array-callback-return */
-import { eachDayOfInterval, addDays, isBefore, format } from "date-fns";
+import { eachDayOfInterval, addDays, isBefore, format, addWeeks, addMonths } from "date-fns";
 
 export function sevenDayTasks(todos) {
   const today = new Date().toDateString();
@@ -86,3 +86,19 @@ export function getSevenMinusToday(todos) {
 }
 
 
+export function findNextDate(frequency, amount, date){
+  const number = parseFloat(frequency);
+  let newDate;
+
+  if (amount === "days"){
+    newDate = addDays(date, number)
+  } else if (amount === "weeks") {
+    newDate = addWeeks(date, number)
+  } else {
+    newDate = addMonths(date, number)
+  }
+
+  const nextDate = new Date(newDate).toDateString();
+
+  return nextDate;
+}

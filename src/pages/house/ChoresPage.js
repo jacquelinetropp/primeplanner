@@ -30,7 +30,6 @@ const ChoresPage = ({ chores, getChores, loading }) => {
   useEffect(() => {
     getChores();
   }, []);
-  console.log(chores);
   const [isAdding, setIsAdding] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -44,7 +43,6 @@ const ChoresPage = ({ chores, getChores, loading }) => {
     content = (
       <Fragment>
         {chores.map((chore) => {
-          console.log("testing");
           return <Chore key={chore.id} chore={chore} />
         })}
       </Fragment>

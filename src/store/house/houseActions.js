@@ -18,8 +18,6 @@ export const addChores = (data) => async (
         frequency: data.frequency,
         amount: data.amount,
         color: data.color,
-        lastDate: "Haven't completed yet",
-        nextDate: "complete task first"
       };
   
       await firestore
@@ -82,7 +80,7 @@ export const completeChore = (id, data) => async(dispatch, getState, {getFiresto
     // const choreCall = await firestore.collection("chores").doc(id).get();
     // const chore = choreCall.data();
 
-    const newLastDate = data.lastCompleted;
+    const newLastDate = data.date.valueOf();
     
     await firestore.collection("chores").doc(id).update({
       lastDate: newLastDate

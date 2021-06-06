@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { findNextDate } from "../../utils/HelperFunctions";
+import CompleteChore from "../CompleteChore/CompleteChore";
 import Button from "../UI/Button/Button";
+import { isBefore, parseISO } from "date-fns";
 
 const Wrapper = styled.div`
   display: grid;
@@ -42,6 +45,7 @@ const NextDateWrapper = styled.div`
   align-items: center;
   justify-items: center;
   padding: 0.5rem;
+  background-color: ${({ overdue }) => (overdue ? "none" : "")};
 `;
 
 const FrequencyWrapper = styled.div`
@@ -51,29 +55,41 @@ const FrequencyWrapper = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
-  grid-column:1/-1;
+  grid-column: 1/-1;
   width: 75%;
   justify-self: center;
-`
+`;
 
 const Chore = ({ chore }) => {
+  const [isCompleting, setIsCompleting] = useState(false);
+  const lastCompleted = new Date(chore.lastDate).toDateString();
+  const nextDate = findNextDate(chore.frequency, chore.amount, chore.lastDate);
+
+  const isOverdue = isBefore(parseISO(nextDate), new Date());
+  console.log(isOverdue);
+
   return (
     <Wrapper>
       <NameWrapper color={chore.color}>{chore.name}</NameWrapper>
       <LastDateWrapper>
         <p>Last completed...</p>
-        <p>{chore.lastDate}</p>
+        <p>{chore.lastDate ? lastCompleted : "Not completed"}</p>
       </LastDateWrapper>
-      <NextDateWrapper>
+      <NextDateWrapper overdue={isOverdue ? "overdue" : ""}>
         <p>Complete by...</p>
-        <p>{chore.nextDate}</p>
+        <p>{chore.lastDate ? nextDate : "Complete task first"}</p>
       </NextDateWrapper>
       <FrequencyWrapper>
         {chore.frequency} {chore.amount}
       </FrequencyWrapper>
       <ButtonWrapper>
-        <Button >Complete Task</Button>
+        <Button onClick={() => setIsCompleting(true)}>Complete Task</Button>
       </ButtonWrapper>
+      <CompleteChore
+        chore={chore}
+        opened={isCompleting}
+        close={() => setIsCompleting(false)}
+      />
     </Wrapper>
   );
 };
