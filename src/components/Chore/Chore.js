@@ -8,6 +8,7 @@ import { isBefore, parseISO } from "date-fns";
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-gap: .5rem;
   padding: 1rem;
   border: 1px solid var(--color-text);
   border-radius: 5px;
@@ -19,6 +20,7 @@ const NameWrapper = styled.div`
   text-align: center;
   border-radius: 5px;
   height: min-content;
+  font-weight: 600;
   background-color: ${({ color }) => {
     if (color === "yellow") return "var(--color-tertiary)";
     else if (color === "pink") return "var(--color-mainLight)";
@@ -33,8 +35,11 @@ const LastDateWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-items: center;
+  justify-content: center;
+  border-radius: 5px;
   padding: 0.5rem;
+  border: 1px solid var(--color-text);
+  min-height: 80px;
 `;
 
 const NextDateWrapper = styled.div`
@@ -43,9 +48,12 @@ const NextDateWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-items: center;
+  min-height: 80px;
+  justify-content: center;
   padding: 0.5rem;
-  background-color: ${({ overdue }) => (overdue ? "none" : "")};
+  background-color: ${({ overdue }) => (overdue ? "#f2b6e8" : "")};
+  border: 1px solid var(--color-text);
+  border-radius: 5px;
 `;
 
 const FrequencyWrapper = styled.div`
@@ -63,9 +71,8 @@ const ButtonWrapper = styled.div`
 const Chore = ({ chore }) => {
   const [isCompleting, setIsCompleting] = useState(false);
   const lastCompleted = new Date(chore.lastDate).toDateString();
-  const nextDate = findNextDate(chore.frequency, chore.amount, chore.lastDate);
-
-  const isOverdue = isBefore(parseISO(nextDate), new Date());
+  const nextComplete = new Date(chore.nextDate).toDateString();
+  const isOverdue = isBefore(chore.nextDate, new Date());
   console.log(isOverdue);
 
   return (
@@ -77,14 +84,15 @@ const Chore = ({ chore }) => {
       </LastDateWrapper>
       <NextDateWrapper overdue={isOverdue ? "overdue" : ""}>
         <p>Complete by...</p>
-        <p>{chore.lastDate ? nextDate : "Complete task first"}</p>
+        <p>{chore.lastDate ? nextComplete : "Complete task first"}</p>
       </NextDateWrapper>
-      <FrequencyWrapper>
-        {chore.frequency} {chore.amount}
-      </FrequencyWrapper>
       <ButtonWrapper>
-        <Button onClick={() => setIsCompleting(true)}>Complete Task</Button>
-      </ButtonWrapper>
+      <Button onClick={() => setIsCompleting(true)}>Complete Task</Button>
+    </ButtonWrapper>
+      <FrequencyWrapper>
+       Every {chore.frequency} {chore.amount}
+      </FrequencyWrapper>
+    
       <CompleteChore
         chore={chore}
         opened={isCompleting}

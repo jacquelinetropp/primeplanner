@@ -59,8 +59,6 @@ const InputChore = ({
   }
   getNumber();
 
-  const salem = [1,2,3,4,5,6]
-
   return (
     <Fragment>
       <Modal opened={opened} close={close}>

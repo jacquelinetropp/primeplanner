@@ -1,3 +1,4 @@
+import { findNextDate } from '../../utils/HelperFunctions';
 import * as actions from './houseTypes';
 
 // add chore
@@ -81,9 +82,15 @@ export const completeChore = (id, data) => async(dispatch, getState, {getFiresto
     // const chore = choreCall.data();
 
     const newLastDate = data.date.valueOf();
+    const nextDate = findNextDate(data.frequency, data.amount, data.date);
+    const newDate = new Date(nextDate).valueOf();
+
+    console.log(newDate);
+
     
     await firestore.collection("chores").doc(id).update({
-      lastDate: newLastDate
+      lastDate: newLastDate,
+      nextDate: newDate
     })
 
 

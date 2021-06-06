@@ -40,6 +40,8 @@ const CompleteChore = ({
         <Formik
           initialValues={{
             date: new Date(),
+            amount: chore.amount,
+            frequency: chore.frequency
           }}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             // send our project
