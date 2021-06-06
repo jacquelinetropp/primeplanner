@@ -32,9 +32,11 @@ const DownIcon = styled(BsChevronDown)`
 
 const Content = styled.div`
   display: ${({ isOpen }) => (isOpen ? "block" : "none")};
+  transform: translateY(${(isOpen) => (isOpen ? "0%" : "-100%")});
+  transition: all 0.1s cubic-bezier(0.445, 0.05, 0.55, 0.95);
 `;
 
-const JournalCategories = ({ title, disabled, children, action, hidden }) => {
+const JournalCategories = ({ title, disabled, children, action, hidden, text }) => {
   const [isOpen, setIsOpen] = useState(true);
 
   const toggleOpen = () => {
@@ -48,7 +50,7 @@ const JournalCategories = ({ title, disabled, children, action, hidden }) => {
         <Header>{title}</Header>
       </HeaderWrapper>
       {isOpen && <Content isOpen={isOpen}>{children}</Content>}
-      <AddButton disabled={disabled} action={action} hidden={hidden}>Add Page</AddButton>
+      <AddButton disabled={disabled} action={action} hidden={hidden}>{text}</AddButton>
     </CategoriesWrapper>
   );
 };

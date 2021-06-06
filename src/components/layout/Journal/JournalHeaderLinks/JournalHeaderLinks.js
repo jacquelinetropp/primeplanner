@@ -6,6 +6,7 @@ const Wrapper = styled(Link)`
     display: flex;
     justify-content: space-between;
     padding: .5rem 1rem;
+    color: var(--color-text);
 `;
 
 const Header = styled.div`

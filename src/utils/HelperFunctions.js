@@ -1,3 +1,5 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable array-callback-return */
 import { eachDayOfInterval, addDays, isBefore, format } from "date-fns";
 
 export function sevenDayTasks(todos) {

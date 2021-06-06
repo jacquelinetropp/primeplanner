@@ -6,7 +6,7 @@ const HousePage = () => {
   return (
     <Fragment>
       <JournalCategories hidden title="Household">
-        <JournalTag link="/weather/current" name ="Current Details" />
+        <JournalTag link="/house/chores" name ="Chores" />
         <JournalTag link="/weather/daily" name="Daily" color="green"/>
         <JournalTag link="/weather/hourly" name="Hourly" color="pink"/>
       </JournalCategories>

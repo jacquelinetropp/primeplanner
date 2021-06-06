@@ -6,6 +6,7 @@ import authReducer from "./user/authreducer";
 import weatherReducer from './weather/weatherReducer';
 import projectReducer from "./projects/projectReducer";
 import todosReducer from './todos/todosReducer';
+import houseReducer from './house/houseReducer';
 
 
 export default combineReducers({
@@ -13,6 +14,7 @@ export default combineReducers({
   weather: weatherReducer,
   projects: projectReducer,
   todos: todosReducer,
+  house: houseReducer,
   firebase: firebaseReducer,
   firestore: firestoreReducer,
 });

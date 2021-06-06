@@ -27,6 +27,8 @@ import Next7 from "./pages/Next7";
 import Monthly from "./pages/calendar/Monthly";
 import WeeklyCalendar from "./pages/calendar/WeeklyCalendar";
 import DailyCalendar from "./pages/calendar/DailyCalendar";
+import HousePage from "./pages/house/HousePage";
+import ChoresPage from "./pages/house/ChoresPage";
 
 
 const App = ({ authenticated, verified, editingProfile }) => {
@@ -52,6 +54,8 @@ const App = ({ authenticated, verified, editingProfile }) => {
           <Route exact path="/weather/daily" component={DailyWeather} />
           <Route exact path="/weather/hourly" component={HourlyWeather} />
           <Route exact path="/projects/" component={ProjectsPage} />
+          <Route exact path="/house" component={HousePage} />
+          <Route exact path="/house/chores" component={ChoresPage} />
           <Route path="/project/:id" component={ProjectTodos} />
           <Redirect to="/" />
         </Switch>

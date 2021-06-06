@@ -23,4 +23,10 @@ export {
   projectCleanUp,
 } from "../projects/projectActions";
 
+export {
+  addChores,
+  getChores,
+  completeChore
+} from '../house/houseActions';
+
 export { addTodo, deleteTodo, editTodo, getTodos, completeTodo, getAllTodos } from "../todos/todosActions";

@@ -40,7 +40,7 @@ const ProjectsPage = ({ projects, getProjects, loading, history }) => {
   return (
     <Fragment>
       {" "}
-      <JournalCategories title="Projects" action={() => setIsAdding(true)}>
+      <JournalCategories text="Add Project" title="Projects" action={() => setIsAdding(true)}>
         {content}
       </JournalCategories>
       <InputProject opened={isAdding} close={() => setIsAdding(false)} />

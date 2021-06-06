@@ -22,19 +22,19 @@ const Inbox = ({ todos, loading }) => {
     content = (
       <Fragment>
         <h4>Overdue</h4>
-        {overdue.map((todo) => (
+        {overdue.length === 0 ? "No overdue tasks!" : overdue.map((todo) => (
           <SingleTodo key={todo.id} todo={todo} />
         ))}
         <h4>Today</h4>
-        {todaysTodos.map((todo) => (
+        {todaysTodos.length === 0 ? "No Tasks today" : todaysTodos.map((todo) => (
           <SingleTodo key={todo.id} todo={todo} />
         ))}
         <h4>Next 7 days</h4>
-        {next7.map((todo) => (
+        {next7.length === 0 ? "No tasks for the next seven days" : next7.map((todo) => (
           <SingleTodo key={todo.id} todo={todo} />
         ))}
         <h4>Future Tasks</h4>
-        {futureTodos.map((todo) => (
+        {futureTodos.length === 0 ? "No future tasks" : futureTodos.map((todo) => (
           <SingleTodo key={todo.id} todo={todo} />
         ))}
       </Fragment>
