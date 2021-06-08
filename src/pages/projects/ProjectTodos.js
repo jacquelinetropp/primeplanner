@@ -48,7 +48,6 @@ const ProjectTodos = ({
 }) => {
   const { id } = useParams();
   useEffect(() => {
-    console.log("getting todos");
     getOneProject(id);
     getTodos(id);
   }, []);

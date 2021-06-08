@@ -1,6 +1,14 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable array-callback-return */
-import { eachDayOfInterval, addDays, isBefore, format, addWeeks, addMonths } from "date-fns";
+import {
+  eachDayOfInterval,
+  addDays,
+  isBefore,
+  format,
+  addWeeks,
+  addMonths,
+} from "date-fns";
+import isSameDay from "date-fns/isSameDay";
 
 export function sevenDayTasks(todos) {
   const today = new Date().toDateString();
@@ -65,7 +73,6 @@ export function todaysTasks(todos) {
   return tasks;
 }
 
-
 export function getSevenMinusToday(todos) {
   const sevenTasks = sevenDayTasks(todos);
   const todaysTodos = todaysTasks(todos);
@@ -85,20 +92,25 @@ export function getSevenMinusToday(todos) {
   return editedTodos;
 }
 
-
-export function findNextDate(frequency, amount, date){
+export function findNextDate(frequency, amount, date) {
   const number = parseFloat(frequency);
   let newDate;
 
-  if (amount === "days"){
-    newDate = addDays(date, number)
+  if (amount === "days") {
+    newDate = addDays(date, number);
   } else if (amount === "weeks") {
-    newDate = addWeeks(date, number)
+    newDate = addWeeks(date, number);
   } else {
-    newDate = addMonths(date, number)
+    newDate = addMonths(date, number);
   }
 
   const nextDate = new Date(newDate).toDateString();
 
   return nextDate;
+}
+
+export function filterAndSortItems(items, compareDate) {
+  items
+    .filter((e) => isSameDay(new Date(compareDate), new Date(e.nextDate)))
+    // .sort((a, b) => (a.date > b.date ? 1 : -1));
 }

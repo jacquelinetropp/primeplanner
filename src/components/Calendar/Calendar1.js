@@ -12,7 +12,20 @@ import {
   addMonths,
   subMonths,
 } from "date-fns";
-import "./Calendar.styles.css";
+import "./Calendar.styles.scss";
+import styled from "styled-components";
+const Workout = styled.div`
+  background-color: ${({ type }) => {
+    if (type === "strength") return "var(--color-tertiary)";
+    else if (type === "cardio") return "var(--color-mainLight)";
+    else if (type === "HIIT") return "var(--color-second)";
+    else if (type === "recovery") return "var(--color-main)";
+    else return "var(--color-main)";
+  }};
+  height: 100%;
+  margin-bottom: 1px;
+  padding: 1rem;
+`;
 
 class Calendar extends React.Component {
   state = {
@@ -60,8 +73,6 @@ class Calendar extends React.Component {
   renderCells() {
     const { currentMonth, selectedDate } = this.state;
     const { todos, workouts, workoutList, chores } = this.props;
-    console.log(todos);
-    console.log(workoutList);
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
@@ -109,35 +120,37 @@ class Calendar extends React.Component {
                   ""
                 )}
                 {chores ? (
-                    <div className="choresDiv">
-                      {chores
-                        .filter((e) => isSameDay(cloneDay, new Date(e.nextDate)))
-                        .sort((a, b) => (a.nextDate > b.nextDate ? 1 : -1))
-                        .map((e, i) => (
-                          <div key={i} className="chores">
-                            {e.name} -{" "}
-                            {new Date(e.nextDate).toTimeString().slice(0, 5)}
-                          </div>
-                        ))}
-                    </div>
-                  ) : (
-                    ""
-                  )}
+                  <div className="choresDiv">
+                    {chores
+                      .filter((e) => isSameDay(cloneDay, new Date(e.nextDate)))
+                      .sort((a, b) => (a.nextDate > b.nextDate ? 1 : -1))
+                      .map((e, i) => (
+                        <div key={i} className="chores">
+                          {e.name} -{" "}
+                          {new Date(e.nextDate).toTimeString().slice(0, 5)}
+                        </div>
+                      ))}
+                  </div>
+                ) : (
+                  ""
+                )}
                 {workouts ? (
-                    <div className="workoutDiv">
+                  <div className="workoutDiv">
                     {workouts
                       .filter((e) => isSameDay(cloneDay, new Date(e.date)))
                       .sort((a, b) => (a.date > b.date ? 1 : -1))
                       .map((e, i) => (
-                        <div key={i} className="workout">
+                        <Workout key={i} className="workout" type={e.type}>
                           {e.name} -{" "}
                           {new Date(e.date).toTimeString().slice(0, 5)}
-                        </div>
+                        </Workout>
                       ))}
-                    </div>
-                ) : ""}
+                  </div>
+                ) : (
+                  ""
+                )}
                 {workoutList ? (
-                    <div className="workoutDiv">
+                  <div className="workoutDiv">
                     {workoutList
                       .filter((e) => isSameDay(cloneDay, new Date(e.date)))
                       .sort((a, b) => (a.date > b.date ? 1 : -1))
@@ -147,8 +160,10 @@ class Calendar extends React.Component {
                           {new Date(e.date).toTimeString().slice(0, 5)}
                         </div>
                       ))}
-                    </div>
-                ) : ""}
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
             ) : (
               " "

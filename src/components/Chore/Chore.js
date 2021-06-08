@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { findNextDate } from "../../utils/HelperFunctions";
 import CompleteChore from "../CompleteChore/CompleteChore";
 import Button from "../UI/Button/Button";
-import { isBefore, parseISO } from "date-fns";
+import { isBefore } from "date-fns";
 
 const Wrapper = styled.div`
   display: grid;
@@ -73,7 +72,6 @@ const Chore = ({ chore }) => {
   const lastCompleted = new Date(chore.lastDate).toDateString();
   const nextComplete = new Date(chore.nextDate).toDateString();
   const isOverdue = isBefore(chore.nextDate, new Date());
-  console.log(isOverdue);
 
   return (
     <Wrapper>

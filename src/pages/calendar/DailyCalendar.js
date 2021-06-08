@@ -5,8 +5,9 @@ import { connect } from "react-redux";
 import { addDays, isSameDay, subDays } from "date-fns";
 import SingleTodo from "../../components/SingleTodo/SingleTodo";
 import { withRouter } from "react-router-dom";
-import * as action from '../../store/actions/actions';
-import { actionTypes } from "react-redux-firebase";
+import * as action from "../../store/actions/actions";
+import SingleChore from "../../components/Chore/SingleChore";
+import SingleWorkout from "../../components/SingleWorkout/SingleWorkout";
 
 const Wrapper = styled.div`
   display: grid;
@@ -31,30 +32,40 @@ class DailyCalendar extends React.Component {
   };
   componentDidMount() {
     const day = this.props.match.params.day;
-    const newDay =(new Date(+day));
-    const chores = action.getChores;
-    console.log(chores);
-
+    const newDay = new Date(+day);
     if (day) {
       this.setState({
-        today: newDay
-      })
+        today: newDay,
+      });
     }
   }
 
   renderDay() {
     const today = this.state.today;
-    const { todos } = this.props;
+    const { todos, chores, workouts } = this.props;
     const tasks = todos
       .filter((e) => isSameDay(new Date(today), new Date(e.dueDate)))
       .sort((a, b) => (a.dueDate > b.dueDate ? 1 : -1))
       .map((e, i) => <SingleTodo key={e.id} todo={e} />);
- 
+    const choresList = chores
+      .filter((e) => isSameDay(new Date(today), new Date(e.nextDate)))
+      .sort((a, b) => (a.nextDate > b.nextDate ? 1 : -1))
+      .map((e, i) => <SingleChore key={e.id} chore={e} />);
+    const workoutList = workouts.filter((e) => isSameDay(new Date(today), new Date(e.date)))
+    .sort((a, b) => (a.date > b.date ? 1 : -1))
+    .map((e, i) => <SingleWorkout key={e.id} workout={e} />);
     let content;
-    if (tasks.length === 0) {
+    if (tasks.length === 0 && choresList.length === 0 && workoutList.length === 0 ) {
       content = <Fragment>No tasks today!</Fragment>;
     } else {
-      content = tasks;
+      content = (
+        <Fragment>
+          {tasks}
+          {choresList}
+          {workoutList}
+          
+        </Fragment>
+      );
     }
     return <DayContainer>{todos ? content : " "}</DayContainer>;
   }
@@ -94,10 +105,11 @@ class DailyCalendar extends React.Component {
 
 const mapStateToProps = ({ todos, house }) => ({
   todos: todos.allTodos,
-  chores: house.chores
+  chores: house.chores,
+  workouts: house.workouts.workoutList
 });
 
-const mapDispatchToProps = {
-  getChores: actionTypes.getChores
-}
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DailyCalendar));
+const mapDispatchToProps = {};
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(DailyCalendar)
+);

@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import { addDays, isSameDay, addWeeks, subWeeks } from "date-fns";
 import SingleTodo from "../../components/SingleTodo/SingleTodo";
+import SingleChore from "../../components/Chore/SingleChore";
+import SingleWorkout from "../../components/SingleWorkout/SingleWorkout";
 
 const Wrapper = styled.div`
   display: grid;
@@ -42,7 +44,7 @@ class WeeklyCalendar extends React.Component {
       }
     }
     displayDate();
-    const { todos } = this.props;
+    const { todos, chores, workouts } = this.props;
     return dayOfTheWeek.map((day, i) => (
       <DayContainer key={i}>
         <h6 className="center">{day}</h6>
@@ -54,6 +56,22 @@ class WeeklyCalendar extends React.Component {
                 <SingleTodo key={e.id} todo={e} className="task" calendar />
               ))
           : " "}
+          {chores
+            ? chores
+                .filter((e) => isSameDay(new Date(day), new Date(e.nextDate)))
+                .sort((a, b) => (a.nextDate > b.nextDate ? 1 : -1))
+                .map((e, i) => (
+                  <SingleChore key={e.id} chore={e} className="task" calendar />
+                ))
+            : " "}
+            {workouts
+              ? workouts
+                  .filter((e) => isSameDay(new Date(day), new Date(e.date)))
+                  .sort((a, b) => (a.date > b.date ? 1 : -1))
+                  .map((e, i) => (
+                    <SingleWorkout key={e.id} workout={e} className="task" calendar />
+                  ))
+              : " "}
       </DayContainer>
     ));
   }
@@ -94,8 +112,10 @@ class WeeklyCalendar extends React.Component {
   }
 }
 
-const mapStateToProps = ({ todos }) => ({
+const mapStateToProps = ({ todos, house }) => ({
   todos: todos.allTodos,
+  chores: house.chores,
+  workouts: house.workouts.workoutList
 });
 
 export default connect(mapStateToProps)(WeeklyCalendar);

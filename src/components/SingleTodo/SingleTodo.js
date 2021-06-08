@@ -33,6 +33,7 @@ const TaskCircle = styled.div`
   border-radius: 50%;
   border: 1px solid black;
   transition: all 1s;
+  cursor: pointer;
 
   background-color: ${({ completed }) => (completed ? "black" : "none")};
 
