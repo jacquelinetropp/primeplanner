@@ -79,7 +79,7 @@ const InputChore = ({
               : (await addChore(values, id), close(), resetForm());
           }}
         >
-          {({ isSubmitting, isValid, resetForm, values, setFieldValue }) => (
+          {({ isSubmitting, isValid, resetForm, }) => (
             <StyledForm>
               <Field
                 type="text"
@@ -89,6 +89,7 @@ const InputChore = ({
               />
               <PriorityWrapper>
                 <h6>Frequency</h6>
+                <div>
                 <Field as="select" name="frequency">
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -127,6 +128,7 @@ const InputChore = ({
                   <option value="weeks">weeks</option>
                   <option value="months">months</option>
                 </Field>
+                </div>
               </PriorityWrapper>
 
               <PriorityWrapper>

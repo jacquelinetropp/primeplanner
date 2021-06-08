@@ -26,7 +26,9 @@ export {
 export {
   addChores,
   getChores,
-  completeChore
+  completeChore,
+  addWorkout,
+  getWorkouts
 } from '../house/houseActions';
 
 export { addTodo, deleteTodo, editTodo, getTodos, completeTodo, getAllTodos } from "../todos/todosActions";

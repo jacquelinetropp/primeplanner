@@ -154,3 +154,23 @@
   .taskDiv {
     overflow: auto;
   }
+
+  .workoutDiv {
+    overflow: auto;
+  }
+
+  .workoutMonthly {
+    margin-bottom: 1px;
+    padding-right: 1rem;
+    background-color: #f2b6e8;
+  }
+
+  .choresDiv {
+    overflow: auto
+  }
+
+  .chores {
+    margin-bottom: 1px;
+    padding-right: 1rem;
+    background-color: #99e2f2;
+  }

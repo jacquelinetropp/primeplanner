@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { addDays, isSameDay, subDays } from "date-fns";
 import SingleTodo from "../../components/SingleTodo/SingleTodo";
 import { withRouter } from "react-router-dom";
+import * as action from '../../store/actions/actions';
+import { actionTypes } from "react-redux-firebase";
 
 const Wrapper = styled.div`
   display: grid;
@@ -29,8 +31,9 @@ class DailyCalendar extends React.Component {
   };
   componentDidMount() {
     const day = this.props.match.params.day;
-    console.log(day);
     const newDay =(new Date(+day));
+    const chores = action.getChores;
+    console.log(chores);
 
     if (day) {
       this.setState({
@@ -46,8 +49,8 @@ class DailyCalendar extends React.Component {
       .filter((e) => isSameDay(new Date(today), new Date(e.dueDate)))
       .sort((a, b) => (a.dueDate > b.dueDate ? 1 : -1))
       .map((e, i) => <SingleTodo key={e.id} todo={e} />);
+ 
     let content;
-    console.log(tasks);
     if (tasks.length === 0) {
       content = <Fragment>No tasks today!</Fragment>;
     } else {
@@ -58,11 +61,9 @@ class DailyCalendar extends React.Component {
 
   nextDay = () => {
     const newDay = addDays(this.state.today, 1);
-    console.log("clicked");
     this.setState({
       today: newDay,
     });
-    console.log(this.state.today);
   };
 
   previousDay = () => {
@@ -91,8 +92,12 @@ class DailyCalendar extends React.Component {
   }
 }
 
-const mapStateToProps = ({ todos }) => ({
+const mapStateToProps = ({ todos, house }) => ({
   todos: todos.allTodos,
+  chores: house.chores
 });
 
-export default withRouter(connect(mapStateToProps)(DailyCalendar));
+const mapDispatchToProps = {
+  getChores: actionTypes.getChores
+}
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DailyCalendar));

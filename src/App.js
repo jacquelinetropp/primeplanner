@@ -29,6 +29,7 @@ import WeeklyCalendar from "./pages/calendar/WeeklyCalendar";
 import DailyCalendar from "./pages/calendar/DailyCalendar";
 import HousePage from "./pages/house/HousePage";
 import ChoresPage from "./pages/house/ChoresPage";
+import WorkoutPage from "./pages/house/WorkoutPage";
 
 
 const App = ({ authenticated, verified, editingProfile }) => {
@@ -56,6 +57,7 @@ const App = ({ authenticated, verified, editingProfile }) => {
           <Route exact path="/projects/" component={ProjectsPage} />
           <Route exact path="/house" component={HousePage} />
           <Route exact path="/house/chores" component={ChoresPage} />
+          <Route exact path="/house/workouts" component={WorkoutPage} />
           <Route path="/project/:id" component={ProjectTodos} />
           <Redirect to="/" />
         </Switch>

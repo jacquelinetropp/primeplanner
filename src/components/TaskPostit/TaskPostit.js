@@ -35,10 +35,10 @@ const PostContent = styled.div`
   overflow: auto;
 `;
 
-const TaskPostit = ({ todos, getAllTodos, loading }) => {
+const TaskPostit = ({ todos, getAllTodos, loading, getChores, chores }) => {
   useEffect(() => {
     getAllTodos();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    getChores();
   }, []);
   const [isOpen, setIsOpen] = useState(true);
 
@@ -49,13 +49,12 @@ const TaskPostit = ({ todos, getAllTodos, loading }) => {
   const today = new Date().toDateString();
 
   let content;
-  if (loading || !todos) {
+  if (loading || !todos || !chores) {
     content = <Fragment>Loading...</Fragment>;
-  } else if (todos.length === 0) {
-    content = <Fragment>No todos for today!</Fragment>;
+  } else if (todos.length === 0 && chores === 0) {
+    content = <Fragment>No tasks for today!</Fragment>;
   } else {
     let tasks = [];
-
     todos.map((todo) => {
       const date = todo.dueDate;
       const structuredDate = new Date(date).toDateString();
@@ -63,18 +62,26 @@ const TaskPostit = ({ todos, getAllTodos, loading }) => {
         tasks.push(todo);
       }
     });
-    if (tasks.length === 0) {
-      content = (
-        <h5 className="center">No high priority tasks today!</h5>
-      )
+    let choresList = [];
+    chores.map((chore) => {
+      const date = chores.nextDate;
+      const structuredDate = new Date(date).toDateString();
+
+      if (structuredDate == today) {
+        choresList.push(chore);
+      }
+    });
+    if (tasks.length === 0 && choresList.length === 0) {
+      content = <h5 className="center">No high priority tasks today!</h5>;
     } else {
-    content = (
-      <Fragment>
-        {tasks.map((task) => (
-          <SingleTodo key={task.id} todo={task} />
-        ))}
-      </Fragment>
-    ); }
+      content = (
+        <Fragment>
+          {tasks.map((task) => (
+            <SingleTodo key={task.id} todo={task} />
+          ))}
+        </Fragment>
+      );
+    }
   }
 
   return (
@@ -92,13 +99,15 @@ const TaskPostit = ({ todos, getAllTodos, loading }) => {
   );
 };
 
-const mapStateToProps = ({ todos }) => ({
+const mapStateToProps = ({ todos, house }) => ({
   todos: todos.allTodos,
   loading: todos.loading,
+  chores: house.chores,
 });
 
 const mapDispatchToProps = {
   getAllTodos: actions.getAllTodos,
+  getChores: actions.getChores,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskPostit);
