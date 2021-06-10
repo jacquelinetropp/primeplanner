@@ -31,4 +31,11 @@ export {
   getWorkouts
 } from '../house/houseActions';
 
+export {
+  getBudget,
+  setBudget,
+  addBudgetItem,
+  getMaxBudget
+} from '../budget/budgetActions';
+
 export { addTodo, deleteTodo, editTodo, getTodos, completeTodo, getAllTodos } from "../todos/todosActions";

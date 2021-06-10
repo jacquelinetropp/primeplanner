@@ -8,7 +8,7 @@ const HousePage = () => {
       <JournalCategories hidden title="Household">
         <JournalTag link="/house/chores" name ="Chores" />
         <JournalTag link="/house/workouts" name="Workouts" color="green"/>
-        <JournalTag link="/weather/hourly" name="Hourly" color="pink"/>
+        <JournalTag link="/house/budget" name="Budget" color="pink"/>
       </JournalCategories>
     </Fragment>
   );

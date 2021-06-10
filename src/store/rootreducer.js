@@ -7,6 +7,7 @@ import weatherReducer from './weather/weatherReducer';
 import projectReducer from "./projects/projectReducer";
 import todosReducer from './todos/todosReducer';
 import houseReducer from './house/houseReducer';
+import budgetReducer from "./budget/budgetReducer";
 
 
 export default combineReducers({
@@ -15,6 +16,7 @@ export default combineReducers({
   projects: projectReducer,
   todos: todosReducer,
   house: houseReducer,
+  finance: budgetReducer,
   firebase: firebaseReducer,
   firestore: firestoreReducer,
 });

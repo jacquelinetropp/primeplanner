@@ -42,7 +42,6 @@ const InputChore = ({
   error,
   opened,
   close,
-  editTodo,
 }) => {
   const { id } = useParams();
   const loadingText = chore ? "Editing..." : "Adding...";
@@ -74,9 +73,10 @@ const InputChore = ({
           validationSchema={ChoreSchema}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             // send our chore
-            const res = chore
-              ? (await editTodo(chore.id, values), close())
-              : (await addChore(values, id), close(), resetForm());
+            // const res = chore
+            //   ? (await editTodo(chore.id, values), close())
+            //   : (await addChore(values, id), close(), resetForm());
+            await addChore(values,id); close(); resetForm();
           }}
         >
           {({ isSubmitting, isValid, resetForm, }) => (
@@ -178,7 +178,6 @@ const mapStateToProps = ({ house }) => ({
 
 const mapDispatchToProps = {
   addChore: actions.addChores,
-  editTodo: actions.editTodo,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(InputChore);

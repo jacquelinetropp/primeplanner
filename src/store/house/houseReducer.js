@@ -101,8 +101,6 @@ const houseReducer = (state = initialState, { type, payload }) => {
     case actions.GET_WORKOUT_SUCCESS:
       return {
         ...state,
-        loading: false,
-        error: false,
         workouts: {
           ...state.workouts,
           loading: false,
