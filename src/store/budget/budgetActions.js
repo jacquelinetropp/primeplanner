@@ -9,15 +9,16 @@ export const addBudgetItem =
     dispatch({ type: actions.ADD_BUDGET_START });
     const budgetItem = {
       name: data.name,
-      price: data.price,
+      price: data.amount,
       userId: userId,
-      dueDate: data.date.valueOf(),
+      date: data.date.valueOf(),
     };
     try {
       await firestore.collection("budget").add(budgetItem);
       dispatch({ type: actions.ADD_BUDGET_SUCCESS });
     } catch (err) {
       dispatch({ type: actions.ADD_BUDGET_FAIL, payload: err });
+      console.log(err);
     }
   };
 

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { filterAndSortItems } from "../../utils/HelperFunctions";
 
 const Wrapper = styled.div`
+grid-column: 1/-1;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 `;
