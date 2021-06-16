@@ -36,7 +36,9 @@ export {
   setBudget,
   addBudgetItem,
   getMaxBudget,
-  editBudget
+  editBudget,
+  editBudgetItem,
+  deleteBudgetItem
 } from '../budget/budgetActions';
 
 export { addTodo, deleteTodo, editTodo, getTodos, completeTodo, getAllTodos } from "../todos/todosActions";

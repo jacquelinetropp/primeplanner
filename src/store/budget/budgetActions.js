@@ -22,6 +22,44 @@ export const addBudgetItem =
     }
   };
 
+  //Edit budget item
+export const editBudgetItem =
+(data, id) =>
+async (dispatch, getState, { getFirestore }) => {
+  const firestore = getFirestore();
+  const userId = getState().firebase.auth.uid;
+  dispatch({ type: actions.ADD_BUDGET_START });
+  const budgetItem = {
+    name: data.name,
+    price: data.amount,
+    userId: userId,
+    date: data.date.valueOf(),
+  };
+  try {
+    await firestore.collection("budget").doc(id).update(budgetItem);
+    dispatch({ type: actions.ADD_BUDGET_SUCCESS });
+  } catch (err) {
+    dispatch({ type: actions.ADD_BUDGET_FAIL, payload: err });
+    console.log(err);
+  }
+};
+
+  //Delete budget item
+  export const deleteBudgetItem =
+  (id) =>
+  async (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    dispatch({ type: actions.DELETE_BUDGET_START });
+    try {
+      await firestore.collection("budget").doc(id).delete();
+      dispatch({ type: actions.DELETE_BUDGET_SUCCESS });
+    } catch (err) {
+      dispatch({ type: actions.DELETE_BUDGET_FAIL, payload: err });
+      console.log(err);
+    }
+  };
+  
+
 //Get budget Items
 export const getBudget =
   () =>
@@ -81,21 +119,6 @@ export const editBudget =
 
     dispatch({ type: actions.SET_BUDGET_START });
     try {
-      // let docId;
-      // const doc = await firestore
-      //   .collection("finance")
-      //   .where("userId", "==", userId);
-      // doc.onSnapshot((snapShot) => {
-      //   snapShot.docs.forEach((doc) => {
-      //     const docId = doc.id;
-      //   });
-      // });
-      // console.log(docId);
-      // await firestore.collection("finance").doc(docId).update({
-      //   amount: data.amount,
-      // });
-
-      // await firestore.collection("finance").doc(docId)
       await firestore.collection('finance').doc(docId).update({
         amount: data.amount
       })

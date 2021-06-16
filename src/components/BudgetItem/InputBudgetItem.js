@@ -36,7 +36,7 @@ const BudgetSchema = Yup.object().shape({
     amount: Yup.number().required("This item is required")
   });
 
-const InputBudgetItem = ({ loading, error, opened, close, addBudgetItem }) => {
+const InputBudgetItem = ({ item, loading, error, opened, close, addBudgetItem, editBudgetItem }) => {
   const inputStyles = {
     maxWidth: 320,
   };
@@ -48,16 +48,13 @@ const InputBudgetItem = ({ loading, error, opened, close, addBudgetItem }) => {
         <h4>Please add date and amount</h4>
         <Formik
           initialValues={{
-            name: "",
-            amount: "",
-            date: new Date(),
+            name: item ? item.name : "",
+            amount: item ? item.price : "",
+            date: item ? item.date : new Date(),
           }}
           validationSchema={BudgetSchema}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
-            // send our todo
-            // const res = todo
-            //   ? (await editTodo(todo.id, values), close())
-            //   : (await addTodo(values, id), close(), resetForm());
+           item ? await editBudgetItem(values, item.id) :
             await addBudgetItem(values); close(); resetForm();
           }}
         >
@@ -90,7 +87,7 @@ const InputBudgetItem = ({ loading, error, opened, close, addBudgetItem }) => {
                   disabled={!isValid || isSubmitting}
                   loading={loading ? "loading..." : null}
                 >
-                  Add Budget Item
+                  {item ? "Edit Budget Item" : "Add Budget Item"}
                 </Button>
                 <Button
                   type="button"
@@ -120,6 +117,7 @@ const mapStateToProps = ({ finance }) => ({
 
 const mapDispatchToProps = {
   addBudgetItem: actions.addBudgetItem,
+  editBudgetItem: actions.editBudgetItem
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(InputBudgetItem);

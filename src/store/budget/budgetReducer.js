@@ -58,6 +58,23 @@ const budgetReducer = (state = initialState, { type, payload }) => {
         loading: false,
         error: payload,
       };
+    case actions.DELETE_BUDGET_START:
+      return {
+        ...state,
+        loading: true
+      }
+    case actions.DELETE_BUDGET_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: false
+      }
+    case actions.DELETE_BUDGET_FAIL: 
+    return {
+      ...state,
+      loading: false,
+      error: payload
+    }
     case actions.GET_MAX_START:
       return {
         ...state,

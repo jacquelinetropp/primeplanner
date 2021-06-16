@@ -43,7 +43,7 @@ const SetBudget = ({ maxBudget, loading, error, opened, close, setBudget, editBu
         <h4>What do you want to spend each month?</h4>
         <Formik
           initialValues={{
-            amount: maxBudget ? maxBudget : "",
+            amount: "",
             id: maxBudget ? maxBudget.id : "",
           }}
           validationSchema={BudgetSchema}

@@ -79,7 +79,6 @@ const JournalSidebar = ({ todos }) => {
             <ProjectsPage />
             <HousePage />
           </div>
-          <AddButton>Add Section</AddButton>
         </Fragment>
       )}
     </SidebarWrapper>

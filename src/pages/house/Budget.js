@@ -23,7 +23,7 @@ const BudgetMaxWrapper = styled.div`
 
 const BudgetItemWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 `;
 
 const BudgetCalculations = styled.div`
@@ -32,13 +32,16 @@ const BudgetCalculations = styled.div`
 `;
 
 const StyledAmount = styled.div`
-  border: 1px solid black;
+  border: ${({ color }) =>
+    color
+      ? "1px solid var(--color-second)"
+      : "1px solid var(--color-errorRed)"};
   width: min-content;
   padding: 1rem 2rem;
   font-size: 1.4rem;
   justify-self: center;
   color: ${({ color }) =>
-    color ? "var(--color-secondary)" : "var(--color-errorRed)"};
+    color ? "var(--color-second)" : "var(--color-errorRed)"};
 `;
 
 const CenteredDiv = styled.div`
@@ -115,6 +118,18 @@ const Budget = ({
   };
   remainingBalance();
 
+  //color of boxes:
+  let color;
+  const colorfunc = () => {
+    if (!maxBudget.amount && loading) {
+      return (color = "");
+    } else if (!maxBudget[0]) {
+      return (color = "");
+    } else {
+      return (color = amountSpent < maxBudget[0].amount ? "color" : "");
+    }
+  };
+
   return (
     <JournalMain>
       <Wrapper>
@@ -135,11 +150,21 @@ const Budget = ({
         <BudgetCalculations>
           <CenteredDiv>
             <h6>Amount Spent: </h6>
-            <StyledAmount>{amountSpent}</StyledAmount>
+            <StyledAmount
+              color={
+                colorfunc()
+              }
+            >
+              {amountSpent}
+            </StyledAmount>
           </CenteredDiv>
           <CenteredDiv>
             <h6>Amount Remaining: </h6>
-            <StyledAmount color={amountSpent < maxBudget ? "color" : ""}>
+            <StyledAmount
+              color={
+                colorfunc()
+              }
+            >
               {remainingBalanceAmount}
             </StyledAmount>
           </CenteredDiv>
