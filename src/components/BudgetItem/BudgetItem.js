@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { filterAndSortItems } from "../../utils/HelperFunctions";
 
 const Wrapper = styled.div`
 grid-column: 1/-1;

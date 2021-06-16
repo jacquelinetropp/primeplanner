@@ -4,7 +4,7 @@ const initialState = {
   loading: false,
   error: null,
   budget: [],
-  max: null,
+  max: [],
 };
 
 const budgetReducer = (state = initialState, { type, payload }) => {
@@ -60,16 +60,19 @@ const budgetReducer = (state = initialState, { type, payload }) => {
       };
     case actions.GET_MAX_START:
       return {
+        ...state,
         loading: true,
       };
     case actions.GET_MAX_SUCCESS:
       return {
+        ...state,
         loading: false,
         error: false,
         max: payload,
       };
     case actions.GET_MAX_FAIL:
       return {
+        ...state,
         loading: false,
         error: payload,
       };

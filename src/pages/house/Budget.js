@@ -9,6 +9,7 @@ import BudgetItem from "../../components/BudgetItem/BudgetItem";
 import AddButton from "../../components/UI/Button/AddButton";
 import InputBudgetItem from "../../components/BudgetItem/InputBudgetItem";
 import { getAmountSpent } from "../../utils/BudgetUtils";
+import SetBudget from "../../components/SetBudget/SetBudget";
 
 const Wrapper = styled.div`
   text-align: center;
@@ -31,19 +32,20 @@ const BudgetCalculations = styled.div`
 `;
 
 const StyledAmount = styled.div`
-    border: 1px solid black;
-    width: min-content;
-    padding: 1rem 2rem;
-    font-size: 1.4rem;
-    justify-self: center;
-    color: ${({color}) => (color ? "var(--color-secondary)" : "var(--color-errorRed)")};
-`
+  border: 1px solid black;
+  width: min-content;
+  padding: 1rem 2rem;
+  font-size: 1.4rem;
+  justify-self: center;
+  color: ${({ color }) =>
+    color ? "var(--color-secondary)" : "var(--color-errorRed)"};
+`;
 
 const CenteredDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
 
 const Budget = ({
   maxBudget,
@@ -57,6 +59,7 @@ const Budget = ({
     getBudgetItems();
   }, []);
 
+  const [setBudget, isSettingBudget] = useState(false);
 
   //Set Budget Items
   let content;
@@ -78,30 +81,39 @@ const Budget = ({
 
   //set Budget
   let maxBudgetContent;
-  if (maxBudget === null) {
+  if (!maxBudget && loading) {
+    maxBudgetContent = "Loading...";
+  } else if (!maxBudget[0]) {
     maxBudgetContent = <p>Please set your monthly budget</p>;
   } else {
-    maxBudgetContent = <p>{maxBudget}</p>;
+    maxBudgetContent = <p>{maxBudget[0].amount}</p>;
   }
   const [isAdding, setIsAdding] = useState(false);
 
   //set Amount spent
-  const amountSpent = budgetItems.reduce((acc, value) => {
-    return acc + parseFloat(value.price)
-  }, 0);
-
+  let amountSpent;
+  if (loading && !budgetItems) {
+    amountSpent = "Loading...";
+  } else if (!budgetItems) {
+    amountSpent = "Please add Items";
+  } else {
+    amountSpent = budgetItems.reduce((acc, value) => {
+      return acc + value.price;
+    }, 0);
+  }
 
   //set Remaining Balance
   let remainingBalanceAmount;
   const remainingBalance = () => {
-    if (maxBudget === null) {
-     return remainingBalanceAmount = "N/A"
+    if (!maxBudget.amount && loading) {
+      return (remainingBalanceAmount = "Loading...");
+    } else if (!maxBudget[0]) {
+      return (remainingBalanceAmount = "N/A");
     } else {
-      return remainingBalanceAmount = maxBudget - amountSpent;
+      return (remainingBalanceAmount = maxBudget[0].amount - amountSpent);
     }
-  }
+  };
   remainingBalance();
-
 
   return (
     <JournalMain>
@@ -111,22 +123,26 @@ const Budget = ({
           <h6>Your monthly Budget: $ </h6>
           {maxBudgetContent}
           {maxBudget ? (
-            <Button contain>Change Budget</Button>
+            <Button onClick={() => isSettingBudget(true)} contain>
+              Change Budget
+            </Button>
           ) : (
-            <Button contain>Set Budget</Button>
+            <Button onClick={() => isSettingBudget(true)} contain>
+              Set Budget
+            </Button>
           )}
         </BudgetMaxWrapper>
         <BudgetCalculations>
-            <CenteredDiv>
-              <h6>Amount Spent: </h6>
-              <StyledAmount>{amountSpent}</StyledAmount>
-            </CenteredDiv>
-            <CenteredDiv>
-              <h6>Amount Remaining: </h6>
-              <StyledAmount color={amountSpent < maxBudget ? "color" : ""}>{remainingBalanceAmount}</StyledAmount>
-            
-            </CenteredDiv>
-        
+          <CenteredDiv>
+            <h6>Amount Spent: </h6>
+            <StyledAmount>{amountSpent}</StyledAmount>
+          </CenteredDiv>
+          <CenteredDiv>
+            <h6>Amount Remaining: </h6>
+            <StyledAmount color={amountSpent < maxBudget ? "color" : ""}>
+              {remainingBalanceAmount}
+            </StyledAmount>
+          </CenteredDiv>
         </BudgetCalculations>
         <BudgetItemWrapper>
           <h6>Item</h6>
@@ -136,6 +152,11 @@ const Budget = ({
       </Wrapper>
       <AddButton action={() => setIsAdding(true)}>Add Budget Item</AddButton>
       <InputBudgetItem opened={isAdding} close={() => setIsAdding(false)} />
+      <SetBudget
+        maxBudget={maxBudget}
+        opened={setBudget}
+        close={() => isSettingBudget(false)}
+      />
     </JournalMain>
   );
 };

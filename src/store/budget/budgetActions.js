@@ -42,7 +42,7 @@ export const getBudget =
             name: doc.data().name,
             userId: doc.data().userId,
             price: doc.data().price,
-            date: doc.data().date
+            date: doc.data().date,
           });
         });
         dispatch({ type: actions.GET_BUDGET_SUCCESS, payload: budget });
@@ -58,16 +58,51 @@ export const setBudget =
     const firestore = getFirestore();
     const userId = getState().firebase.auth.uid;
 
-    dispatch({ dispatch: actions.SET_BUDGET_START });
+    dispatch({ type: actions.SET_BUDGET_START });
     const info = {
       userId: userId,
       amount: data.amount,
     };
+
     try {
-      await firestore.collection("finance").add(info);
+      firestore.collection("finance").add(info);
+
       dispatch({ type: actions.SET_BUDGET_SUCCESS });
     } catch (err) {
-      dispatch({ type: actions.SET_BUDGET_FAIL, payload: err });
+      dispatch({ type: actions.SET_BUDGET_FAIL, payload: err.message });
+    }
+  };
+export const editBudget =
+  (data) =>
+  async (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    const userId = getState().firebase.auth.uid;
+    const docId = getState().finance.max[0].id;
+
+    dispatch({ type: actions.SET_BUDGET_START });
+    try {
+      // let docId;
+      // const doc = await firestore
+      //   .collection("finance")
+      //   .where("userId", "==", userId);
+      // doc.onSnapshot((snapShot) => {
+      //   snapShot.docs.forEach((doc) => {
+      //     const docId = doc.id;
+      //   });
+      // });
+      // console.log(docId);
+      // await firestore.collection("finance").doc(docId).update({
+      //   amount: data.amount,
+      // });
+
+      // await firestore.collection("finance").doc(docId)
+      await firestore.collection('finance').doc(docId).update({
+        amount: data.amount
+      })
+
+      dispatch({ type: actions.SET_BUDGET_SUCCESS });
+    } catch (err) {
+      dispatch({ type: actions.SET_BUDGET_FAIL, payload: err.message });
     }
   };
 // get Max budget
@@ -76,7 +111,7 @@ export const getMaxBudget =
   async (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     const userId = getState().firebase.auth.uid;
-    dispatch({ type: actions.GET_BUDGET_START });
+    dispatch({ type: actions.GET_MAX_START });
 
     try {
       const budgetList = await firestore
@@ -91,9 +126,9 @@ export const getMaxBudget =
             amount: doc.data().amount,
           });
         });
-        dispatch({ type: actions.GET_BUDGET_SUCCESS, payload: budget });
+        dispatch({ type: actions.GET_MAX_SUCCESS, payload: budget });
       });
     } catch (err) {
-      dispatch({ type: actions.GET_BUDGET_FAIL, payload: err });
+      dispatch({ type: actions.GET_MAX_FAIL, payload: err });
     }
   };

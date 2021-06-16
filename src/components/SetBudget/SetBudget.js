@@ -9,9 +9,9 @@ import Modal from "../modal/Modal";
 import Input from "../UI/Forms/Input";
 import { StyledForm } from "../UI/Wrappers/Wrappers";
 
-
 import * as actions from "../../store/actions/actions";
-import DatePickerField from "../DatePicker/DatePicker";
+
+
 const ButtonsWrapper = styled.div`
   display: flex;
   width: 100%;
@@ -32,55 +32,34 @@ const PriorityWrapper = styled.div`
   width: 100%;
 `;
 const BudgetSchema = Yup.object().shape({
-    name: Yup.string().required("The item is required.").min(2, "Too short."),
     amount: Yup.number().required("This item is required")
   });
 
-const InputBudgetItem = ({ loading, error, opened, close, addBudgetItem }) => {
-  const inputStyles = {
-    maxWidth: 320,
-  };
-
+const SetBudget = ({ maxBudget, loading, error, opened, close, setBudget, editBudget }) => {
   return (
     <Fragment>
       <Modal opened={opened} close={close}>
-        <h1>Add Your Item</h1>
-        <h4>Please add date and amount</h4>
+        <h1>Set Your Budget</h1>
+        <h4>What do you want to spend each month?</h4>
         <Formik
           initialValues={{
-            name: "",
-            amount: "",
-            date: new Date(),
+            amount: maxBudget ? maxBudget : "",
+            id: maxBudget ? maxBudget.id : "",
           }}
           validationSchema={BudgetSchema}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
-            // send our todo
-            // const res = todo
-            //   ? (await editTodo(todo.id, values), close())
-            //   : (await addTodo(values, id), close(), resetForm());
-            await addBudgetItem(values); close(); resetForm();
+            maxBudget ? await editBudget(values) : 
+            await setBudget(values); close(); resetForm();
           }}
         >
-          {({ isSubmitting, isValid, resetForm, values, setFieldValue }) => (
+          {({ isSubmitting, isValid, resetForm}) => (
             <StyledForm>
-              <Field
-                type="text"
-                name="name"
-                placeholder="Write your item..."
-                component={Input}
-              />
               <Field
               type="number"
               name="amount"
-              placeholder="How much was this..."
+              placeholder="What is your monthly budget..."
               component={Input}
             />
-
-              <DatePickerField
-                name="date"
-                value={values.date}
-                onChange={setFieldValue}
-              />
 
               <ButtonsWrapper>
                 <Button
@@ -90,7 +69,7 @@ const InputBudgetItem = ({ loading, error, opened, close, addBudgetItem }) => {
                   disabled={!isValid || isSubmitting}
                   loading={loading ? "loading..." : null}
                 >
-                  Add Budget Item
+                  Set Budget
                 </Button>
                 <Button
                   type="button"
@@ -119,7 +98,9 @@ const mapStateToProps = ({ finance }) => ({
 });
 
 const mapDispatchToProps = {
-  addBudgetItem: actions.addBudgetItem,
+  setBudget: actions.setBudget,
+  editBudget: actions.editBudget
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(InputBudgetItem);
+export default connect(mapStateToProps, mapDispatchToProps)(SetBudget);
+
