@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import {withRouter} from 'react-router-dom';
 import {
@@ -16,11 +16,14 @@ import {
   getYear,
 } from "date-fns";
 import "./Calendar.styles.css";
+import DeleteWorkout from "../SingleWorkout/DeleteWorkout";
+import {StyledDelete} from '../UI/Wrappers/Wrappers';
 
 class Calendar extends React.Component {
   state = {
     currentMonth: new Date(),
     selectedDate: new Date(),
+    isDeleting: false
   };
 
   renderHeader() {
@@ -123,7 +126,10 @@ class Calendar extends React.Component {
                     .sort((a, b) => (a.dueDate > b.dueDate ? 1 : -1))
                     .map((e, i) => (
                       <div key={i} className="task">
+                      <Fragment>
                         {e.todo} - {new Date(e.dueDate).toTimeString().slice(0, 5)}
+                        <StyledDelete show={this.state.isDeleting} close={() => this.setState({isDeleting: false})} />
+                        </Fragment>
                       </div>
                     ))}
                 </div>

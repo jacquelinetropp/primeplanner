@@ -28,7 +28,8 @@ export {
   getChores,
   completeChore,
   addWorkout,
-  getWorkouts
+  getWorkouts,
+  deleteWorkout
 } from '../house/houseActions';
 
 export {

@@ -9,6 +9,10 @@ const initialState = {
     error: null,
     workoutList: [],
   },
+  deleteWorkouts: {
+    loading: false,
+    error: null
+  }
 };
 
 const houseReducer = (state = initialState, { type, payload }) => {
@@ -118,6 +122,32 @@ const houseReducer = (state = initialState, { type, payload }) => {
           error: payload,
         },
       };
+    case actions.DELETE_WORKOUT_START:
+      return {
+        ...state,
+        deleteWorkouts: {
+          ...state.deleteWorkouts,
+          loading: true
+        }
+      }
+      case actions.DELETE_WORKOUT_SUCCESS:
+        return {
+          ...state,
+          deleteWorkouts: {
+            ...state.deleteWorkouts,
+            loading: false,
+            error: false
+          }
+        }
+        case actions.DELETE_WORKOUT_FAIL:
+          return {
+            ...state,
+            deleteWorkouts: {
+              ...state.deleteWorkouts,
+              loading: false,
+              error: payload
+            }
+          }
     default:
       return state;
   }

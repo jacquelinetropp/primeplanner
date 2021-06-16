@@ -14,6 +14,10 @@ import {
 } from "date-fns";
 import "./Calendar.styles.scss";
 import styled from "styled-components";
+import DeleteWorkout from "../SingleWorkout/DeleteWorkout";
+import { StyledDelete } from "../UI/Wrappers/Wrappers";
+import SingleCalendarWorkout from "../SingleWorkout/SingleCalendarWorkout";
+
 const Workout = styled.div`
   background-color: ${({ type }) => {
     if (type === "strength") return "var(--color-tertiary)";
@@ -31,6 +35,7 @@ class Calendar extends React.Component {
   state = {
     currentMonth: new Date(),
     selectedDate: new Date(),
+    isDeleting: false
   };
 
   renderHeader() {
@@ -85,6 +90,8 @@ class Calendar extends React.Component {
     let day = startDate;
     let formattedDate = "";
 
+    console.log(this.state.isDeleting);
+
     while (day <= endDate) {
       for (let i = 0; i < 7; i++) {
         formattedDate = format(day, dateFormat);
@@ -99,7 +106,7 @@ class Calendar extends React.Component {
                 : ""
             }`}
             key={day}
-            onClick={() => this.onDateClick(cloneDay)}
+            onClick={workouts ? null : (() => this.onDateClick(cloneDay))}
           >
             <span className="number">{formattedDate}</span>
             {isSameMonth(day, monthStart) ? (
@@ -140,9 +147,8 @@ class Calendar extends React.Component {
                       .filter((e) => isSameDay(cloneDay, new Date(e.date)))
                       .sort((a, b) => (a.date > b.date ? 1 : -1))
                       .map((e, i) => (
-                        <Workout key={i} className="workout" type={e.type}>
-                          {e.name} -{" "}
-                          {new Date(e.date).toTimeString().slice(0, 5)}
+                        <Workout key={i} className="workout" type={e.type}>                        
+                          <SingleCalendarWorkout item={e} />
                         </Workout>
                       ))}
                   </div>
@@ -168,7 +174,7 @@ class Calendar extends React.Component {
             ) : (
               " "
             )}
-            <span className="bg">{formattedDate}</span>
+      
           </div>
         );
         day = addDays(day, 1);
@@ -217,8 +223,5 @@ class Calendar extends React.Component {
   }
 }
 
-const mapStateToProps = ({ todos }) => ({
-  todos: todos.allTodos,
-});
 
 export default withRouter(Calendar);

@@ -142,3 +142,18 @@ export const addWorkout =
       console.log(err);
     }
   };
+
+  //Delete Workout
+  export const deleteWorkout =
+  (id) =>
+  async (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    dispatch({ type: actions.DELETE_WORKOUT_START });
+    try {
+      await firestore.collection("workouts").doc(id).delete();
+      dispatch({ type: actions.DELETE_WORKOUT_SUCCESS });
+    } catch (err) {
+      dispatch({ type: actions.DELETE_WORKOUT_FAIL, payload: err });
+      console.log(err);
+    }
+  };

@@ -27,21 +27,21 @@ const TodoWrapper = styled.div`
   color: var(--color-white);
 `;
 
-const DeleteBudgetItem = ({ show, close, item, deleteItem, loading, error }) => {
+const DeleteWorkoutItem = ({ show, close, item, deleteWorkout, loading, error }) => {
   return (
     <Modal opened={show} close={close}>
       <h1>
-        Delete Budget Item
+        Delete Workout
       </h1>
       <h4>
-        Are you sure you want to delete this item?
+        Are you sure you want to delete this workout?
       </h4>
       <TodoWrapper>{item.name}</TodoWrapper>
       <ButtonsWrapper>
         <Button
           contain
           color="red"
-          onClick={async () => await deleteItem(item.id)}
+          onClick={async () => await deleteWorkout(item.id)}
           disabled={loading}
           loading={loading ? "Deleting..." : null}
         >
@@ -58,13 +58,13 @@ const DeleteBudgetItem = ({ show, close, item, deleteItem, loading, error }) => 
   );
 };
 
-const mapStateToProps = ({ finance }) => ({
-  error: finance.error,
-  loading: finance.loading,
+const mapStateToProps = ({ house }) => ({
+  error: house.deleteWorkouts.error,
+  loading: house.deleteWorkouts.loading,
 });
 
 const mapDispatchToProps = {
-  deleteItem: actions.deleteBudgetItem,
+  deleteWorkout: actions.deleteWorkout,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DeleteBudgetItem);
+export default connect(mapStateToProps, mapDispatchToProps)(DeleteWorkoutItem);
