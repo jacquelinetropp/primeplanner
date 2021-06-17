@@ -1,11 +1,9 @@
 import { Form } from "formik";
 import styled from "styled-components";
-import HomeImage from "../../../images/cork-board.png";
-import { AiOutlineMinusCircle, AiOutlineHome  } from "react-icons/ai";
-import {BiEdit} from 'react-icons/bi';
-import {BsTrash2} from 'react-icons/bs';
-import {GrCalendar} from 'react-icons/gr';
-import {BiCalendarAlt, BiCalendarWeek} from 'react-icons/bi';
+import { AiOutlineMinusCircle, AiOutlineHome } from "react-icons/ai";
+import { BiEdit } from "react-icons/bi";
+import { BsTrash2 } from "react-icons/bs";
+import { BiCalendarAlt, BiCalendarWeek } from "react-icons/bi";
 
 export const StyledForm = styled(Form)`
   display: flex;
@@ -16,11 +14,11 @@ export const StyledForm = styled(Form)`
 `;
 
 export const WhiteBackground = styled.div`
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 1rem;
-    margin: 1rem;
-    border-radius: 10px;
-`
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 10px;
+`;
 
 export const FormWrapper = styled.div`
   width: 50%;
@@ -39,6 +37,25 @@ export const FormWrapper = styled.div`
   }
 `;
 
+export const StyledSelectField = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  margin-bottom: 1.5rem;
+`;
+
+export const FormButtonsWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  margin-bottom: 2rem;
+  justify-content: space-around;
+`;
+
+export const MessageWrapper = styled.div`
+  position: absolute;
+  bottom: -15px;
+`
+
 export const ProfileFormWrapper = styled.div`
   background-color: rgba(255, 255, 255, 1);
   padding: 5rem;
@@ -53,15 +70,14 @@ export const ProfileFormWrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
 `;
 
 export const LoggedOutWrapper = styled.div`
-    background-image: url(${HomeImage});
-    min-height: 100vh;
-    display: grid;
-    grid-template-rows: 100px auto;
-    position: relative;
+  background-color: var(--color-grayDark);
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 100px auto;
+  position: relative;
 `;
 
 export const LoggedInWrapper = styled.div`
@@ -72,23 +88,22 @@ export const LoggedInWrapper = styled.div`
 `;
 
 export const JournalWrapper = styled.div`
-    grid-column: 1/-1;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-    box-shadow: 0 0 2rem rgba(0,0,0, 0.3);
+  grid-column: 1/-1;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
 
-    display: grid;
-    grid-template-columns: 150px 150px auto;
+  display: grid;
+  grid-template-columns: 150px 150px auto;
 `;
-
 
 //Icons
 
 export const MinIcon = styled(AiOutlineMinusCircle)`
   transform: scale(2.3);
   color: var(--color-text);
-  float: ${({left}) => (left ? "left" : "right")};
-  margin-top:4px;
+  float: ${({ left }) => (left ? "left" : "right")};
+  margin-top: 4px;
   margin-right: 4px;
   cursor: pointer;
 `;
@@ -99,22 +114,22 @@ export const HomeIcon = styled(AiOutlineHome)`
 `;
 
 export const SevenDayIcon = styled(BiCalendarWeek)`
-font-size: 1.8rem;
-margin-right: 7px;
+  font-size: 1.8rem;
+  margin-right: 7px;
 `;
 
 export const TodayIcon = styled(BiCalendarAlt)`
-font-size: 1.8rem;
-margin-right: 7px;
+  font-size: 1.8rem;
+  margin-right: 7px;
 `;
 
 export const StyledEdit = styled(BiEdit)`
-    font-size: 18px;
-    margin-right: 2px;
-    cursor: pointer;
+  font-size: 18px;
+  margin-right: 2px;
+  cursor: pointer;
 `;
 
 export const StyledDelete = styled(BsTrash2)`
-    font-size: 18px;
-    cursor: pointer;
+  font-size: 18px;
+  cursor: pointer;
 `;

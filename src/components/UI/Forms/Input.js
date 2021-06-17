@@ -5,7 +5,7 @@ const InputWrapper = styled.div`
   width: 100%;
   display: flex;
   position: relative;
-  margin-bottom: 3.5rem;
+  margin-bottom: 1.5rem;
   flex-direction: column;
   &:last-of-type {
     margin-bottom: 4.5rem;

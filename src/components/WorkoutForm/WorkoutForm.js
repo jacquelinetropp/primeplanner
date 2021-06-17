@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import styled from "styled-components";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
@@ -7,30 +6,12 @@ import { connect } from "react-redux";
 import Button from "../UI/Button/Button";
 import Modal from "../modal/Modal";
 import Input from "../UI/Forms/Input";
-import { StyledForm } from "../UI/Wrappers/Wrappers";
+import { StyledForm, StyledSelectField, FormButtonsWrapper, MessageWrapper } from "../UI/Wrappers/Wrappers";
 
 import * as actions from "../../store/actions/actions";
 import { useParams } from "react-router-dom";
 import DatePickerField from "../DatePicker/DatePicker";
-
-const ButtonsWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  margin-bottom: 2rem;
-  justify-content: space-around;
-`;
-const MessageWrapper = styled.div`
-  position: absolute;
-  bottom: 0 rem;
-  width: 100%;
-  padding: 0 3rem;
-`;
-
-const TypeWrapper = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-`;
+import Message from "../UI/Forms/Message";
 
 const WorkoutSchema = Yup.object().shape({
     name: Yup.string().required("The todo is required.").min(2, "Too short."),
@@ -76,7 +57,7 @@ const WorkoutForm = ({
                 placeholder="Write your workout..."
                 component={Input}
               />
-              <TypeWrapper>
+              <StyledSelectField>
                 <h6>Type</h6>
                 <Field as="select" name="type">
                   <option value="strength">Strength</option>
@@ -84,7 +65,7 @@ const WorkoutForm = ({
                   <option value="recovery">Recovery</option>
                   <option value="HIIT">HIIT</option>
                 </Field>
-              </TypeWrapper>
+              </StyledSelectField>
 
               <DatePickerField
                 name="date"
@@ -92,7 +73,7 @@ const WorkoutForm = ({
                 onChange={setFieldValue}
               />
 
-              <ButtonsWrapper>
+              <FormButtonsWrapper>
                 <Button
                   contain
                   color="main"
@@ -113,8 +94,12 @@ const WorkoutForm = ({
                 >
                   Cancel
                 </Button>
-              </ButtonsWrapper>
-              <MessageWrapper></MessageWrapper>
+              </FormButtonsWrapper>
+              <MessageWrapper>
+              <Message error show={error}>
+                {error}
+              </Message>
+            </MessageWrapper>
             </StyledForm>
           )}
         </Formik>

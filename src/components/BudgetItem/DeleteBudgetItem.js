@@ -6,19 +6,8 @@ import * as actions from "../../store/actions/actions";
 
 import Modal from "../modal/Modal";
 import Button from "../UI/Button/Button";
-
-const ButtonsWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  margin-bottom: 2rem;
-  justify-content: space-around;
-`;
-const MessageWrapper = styled.div`
-  position: absolute;
-  bottom: 0 rem;
-  width: 100%;
-  padding: 0 3rem;
-`;
+import Message from "../UI/Forms/Message";
+import { FormButtonsWrapper, MessageWrapper } from "../UI/Wrappers/Wrappers";
 
 const TodoWrapper = styled.div`
   margin: 1rem 0rem;
@@ -37,7 +26,7 @@ const DeleteBudgetItem = ({ show, close, item, deleteItem, loading, error }) => 
         Are you sure you want to delete this item?
       </h4>
       <TodoWrapper>{item.name}</TodoWrapper>
-      <ButtonsWrapper>
+      <FormButtonsWrapper>
         <Button
           contain
           color="red"
@@ -50,10 +39,12 @@ const DeleteBudgetItem = ({ show, close, item, deleteItem, loading, error }) => 
         <Button type="button" color="main" contain onClick={close}>
           Cancel
         </Button>
-      </ButtonsWrapper>
+      </FormButtonsWrapper>
       <MessageWrapper>
-    
-      </MessageWrapper>
+      <Message error show={error}>
+        {error}
+      </Message>
+    </MessageWrapper>
     </Modal>
   );
 };

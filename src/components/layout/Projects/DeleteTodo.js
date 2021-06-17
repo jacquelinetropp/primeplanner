@@ -6,19 +6,8 @@ import * as actions from "../../../store/actions/actions";
 
 import Modal from "../../modal/Modal";
 import Button from "../../UI/Button/Button";
-
-const ButtonsWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  margin-bottom: 2rem;
-  justify-content: space-around;
-`;
-const MessageWrapper = styled.div`
-  position: absolute;
-  bottom: 0 rem;
-  width: 100%;
-  padding: 0 3rem;
-`;
+import Message from "../../UI/Forms/Message";
+import { MessageWrapper, FormButtonsWrapper } from "../../UI/Wrappers/Wrappers";
 
 const TodoWrapper = styled.div`
   margin: 1rem 0rem;
@@ -30,14 +19,10 @@ const TodoWrapper = styled.div`
 const DeleteTodo = ({ show, close, todo, deleteTodo, loading, error }) => {
   return (
     <Modal opened={show} close={close}>
-      <h1>
-        Deleting Task
-      </h1>
-      <h4>
-        Are you sure you want to delete this task?
-      </h4>
+      <h1>Deleting Task</h1>
+      <h4>Are you sure you want to delete this task?</h4>
       <TodoWrapper>{todo.todo}</TodoWrapper>
-      <ButtonsWrapper>
+      <FormButtonsWrapper>
         <Button
           contain
           color="red"
@@ -50,9 +35,11 @@ const DeleteTodo = ({ show, close, todo, deleteTodo, loading, error }) => {
         <Button type="button" color="main" contain onClick={close}>
           Cancel
         </Button>
-      </ButtonsWrapper>
+      </FormButtonsWrapper>
       <MessageWrapper>
-    
+        <Message error show={error}>
+          {error}
+        </Message>
       </MessageWrapper>
     </Modal>
   );

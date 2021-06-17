@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
-import styled from "styled-components";
 import * as actions from '../store/actions/actions';
 
 import Input from "../components/UI/Forms/Input";
@@ -11,12 +10,9 @@ import {
   StyledForm,
   FormWrapper,
   WhiteBackground,
+  MessageWrapper
 } from "../components/UI/Wrappers/Wrappers";
-
-const MessageWrapper = styled.div`
-  position: absolute;
-  bottom: -15px;
-`;
+import Message from "../components/UI/Forms/Message";
 
 const SignUpSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -116,6 +112,11 @@ const SignUp = ({ signUp, loading, error, cleanUp }) => {
                 >
                   Sign up
                 </Button>
+                <MessageWrapper>
+                <Message error show={error}>
+                  {error}
+                </Message>
+              </MessageWrapper>
             
               </StyledForm>
         </FormWrapper>

@@ -1,5 +1,4 @@
 import React, {Fragment} from "react";
-import styled from "styled-components";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
@@ -7,30 +6,12 @@ import { connect } from "react-redux";
 import Button from "../UI/Button/Button";
 import Modal from "../modal/Modal";
 import Input from "../UI/Forms/Input";
-import { StyledForm } from "../UI/Wrappers/Wrappers";
+import Message from '../UI/Forms/Message';
+import { FormButtonsWrapper, MessageWrapper, StyledForm } from "../UI/Wrappers/Wrappers";
 
 import * as actions from "../../store/actions/actions";
 
 
-const ButtonsWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  margin-bottom: 2rem;
-  justify-content: space-around;
-`;
-
-const MessageWrapper = styled.div`
-  position: absolute;
-  bottom: 0 rem;
-  width: 100%;
-  padding: 0 3rem;
-`;
-
-const PriorityWrapper = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-`;
 const BudgetSchema = Yup.object().shape({
     amount: Yup.number().required("This item is required")
   });
@@ -61,7 +42,7 @@ const SetBudget = ({ maxBudget, loading, error, opened, close, setBudget, editBu
               component={Input}
             />
 
-              <ButtonsWrapper>
+              <FormButtonsWrapper>
                 <Button
                   contain
                   color="main"
@@ -82,8 +63,12 @@ const SetBudget = ({ maxBudget, loading, error, opened, close, setBudget, editBu
                 >
                   Cancel
                 </Button>
-              </ButtonsWrapper>
-              <MessageWrapper></MessageWrapper>
+              </FormButtonsWrapper>
+              <MessageWrapper>
+              <Message error show={error}>
+                {error}
+              </Message>
+            </MessageWrapper>
             </StyledForm>
           )}
         </Formik>

@@ -5,7 +5,7 @@ import DeleteBudgetItem from "./DeleteBudgetItem";
 import InputBudgetItem from "./InputBudgetItem";
 
 const Wrapper = styled.div`
-grid-column: 1/-1;
+  grid-column: 1/-1;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 `;
@@ -15,28 +15,33 @@ const ItemName = styled.div`
 `;
 
 const PriceDiv = styled.div`
-    font-size: 1.4rem;
+  font-size: 1.4rem;
 `;
 
-const Controls = styled.div`
-
-`
+const Controls = styled.div``;
 
 const BudgetItem = ({ item }) => {
-  const [isEdting, setIsEditing] =useState(false);
-  const [isDeleting, setIsDeleting] =useState(false);
+  const [isEdting, setIsEditing] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   console.log(isDeleting);
   return (
     <Wrapper>
       <ItemName>{item.name}</ItemName>
       <PriceDiv>{item.price}</PriceDiv>
       <Controls>
-      <StyledEdit onClick={() => setIsEditing(true)} />
-      <StyledDelete onClick={() => setIsDeleting(true)} />
-      
+        <StyledEdit onClick={() => setIsEditing(true)} />
+        <StyledDelete onClick={() => setIsDeleting(true)} />
       </Controls>
-      <InputBudgetItem item={item} opened={isEdting} close={() => setIsEditing(false)} />
-      <DeleteBudgetItem item={item} show={isDeleting} close={() => setIsDeleting(false)} />
+      <InputBudgetItem
+        item={item}
+        opened={isEdting}
+        close={() => setIsEditing(false)}
+      />
+      <DeleteBudgetItem
+        item={item}
+        show={isDeleting}
+        close={() => setIsDeleting(false)}
+      />
     </Wrapper>
   );
 };

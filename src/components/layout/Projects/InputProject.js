@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import styled from "styled-components";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
@@ -7,28 +6,10 @@ import { connect } from "react-redux";
 import Button from "../../UI/Button/Button";
 import Modal from "../../modal/Modal";
 import Input from "../../UI/Forms/Input";
-import { StyledForm } from "../../UI/Wrappers/Wrappers";
+import { StyledForm, StyledSelectField, FormButtonsWrapper, MessageWrapper } from "../../UI/Wrappers/Wrappers";
 
 import * as actions from "../../../store/actions/actions";
-
-const ButtonsWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  margin-bottom: 2rem;
-  justify-content: space-around;
-`;
-const MessageWrapper = styled.div`
-  position: absolute;
-  bottom: 0 rem;
-  width: 100%;
-  padding: 0 3rem;
-`;
-
-const ColorWrapper = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-`;
+import Message from "../../UI/Forms/Message";
 
 const ProjectSchema = Yup.object().shape({
   project: Yup.string()
@@ -44,8 +25,6 @@ const InputProject = ({
   opened,
   close,
   editProject,
-  cleanUp,
-  getProjects,
 }) => {
   const loadingText = project ? "Editing..." : "Adding...";
 
@@ -79,15 +58,15 @@ const InputProject = ({
                 value={values.project}
                 component={Input}
               />
-              <ColorWrapper>
+              <StyledSelectField>
                 <h6>Color</h6>
                 <Field as="select" name="color">
                   <option value="blue">Blue</option>
                   <option value="green">Green</option>
                   <option value="pink">Pink</option>
                 </Field>
-              </ColorWrapper>
-              <ButtonsWrapper>
+              </StyledSelectField>
+              <FormButtonsWrapper>
                 <Button
                   contain
                   color="main"
@@ -108,8 +87,12 @@ const InputProject = ({
                 >
                   Cancel
                 </Button>
-              </ButtonsWrapper>
-              <MessageWrapper></MessageWrapper>
+              </FormButtonsWrapper>
+              <MessageWrapper>
+                <Message error show={error}>
+                  {error}
+                </Message>
+              </MessageWrapper>
             </StyledForm>
           )}
         </Formik>
@@ -126,8 +109,6 @@ const mapStateToProps = ({ projects }) => ({
 const mapDispatchToProps = {
   addProject: actions.addProject,
   editProject: actions.editProject,
-  cleanUp: actions.projectCleanUp,
-  getProjects: actions.getProjects,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(InputProject);

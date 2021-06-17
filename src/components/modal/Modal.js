@@ -21,7 +21,7 @@ const WrappedModal = styled.div`
   max-width: 50rem;
   box-shadow: 0 0.5rem 3.5em var(--shadow);
   border-radius: 5px;
-  background-color: var(--color-main);
+  background-color: var(--color-gray);
   transition: all 0.1s;
 `;
 
@@ -33,6 +33,7 @@ const InsideWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 4rem 3rem;
+  color: var(--color-main);
 `;
 
 const Modal = React.memo(({ opened, close, children })=> {

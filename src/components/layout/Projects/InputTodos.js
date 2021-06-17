@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import styled from "styled-components";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
@@ -7,30 +6,17 @@ import { connect } from "react-redux";
 import Button from "../../UI/Button/Button";
 import Modal from "../../modal/Modal";
 import Input from "../../UI/Forms/Input";
-import { StyledForm } from "../../UI/Wrappers/Wrappers";
+import {
+  StyledForm,
+  StyledSelectField,
+  FormButtonsWrapper,
+  MessageWrapper
+} from "../../UI/Wrappers/Wrappers";
 
 import * as actions from "../../../store/actions/actions";
 import { useParams } from "react-router-dom";
 import DatePickerField from "../../DatePicker/DatePicker";
-
-const ButtonsWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  margin-bottom: 2rem;
-  justify-content: space-around;
-`;
-const MessageWrapper = styled.div`
-  position: absolute;
-  bottom: 0 rem;
-  width: 100%;
-  padding: 0 3rem;
-`;
-
-const PriorityWrapper = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-`;
+import Message from "../../UI/Forms/Message";
 
 const TodoSchema = Yup.object().shape({
   todo: Yup.string().required("The todo is required.").min(2, "Too short."),
@@ -47,10 +33,6 @@ const InputTodo = ({
 }) => {
   const { id } = useParams();
   const loadingText = todo ? "Editing..." : "Adding...";
-
-  const inputStyles = {
-    maxWidth: 320,
-  };
 
   return (
     <Fragment>
@@ -79,14 +61,14 @@ const InputTodo = ({
                 placeholder="Write your task..."
                 component={Input}
               />
-              <PriorityWrapper>
+              <StyledSelectField>
                 <h6>Priority</h6>
                 <Field as="select" name="priority">
                   <option value="high">High</option>
                   <option value="medium">Medium</option>
                   <option value="low">Low</option>
                 </Field>
-              </PriorityWrapper>
+              </StyledSelectField>
 
               <DatePickerField
                 name="date"
@@ -94,7 +76,7 @@ const InputTodo = ({
                 onChange={setFieldValue}
               />
 
-              <ButtonsWrapper>
+              <FormButtonsWrapper>
                 <Button
                   contain
                   color="main"
@@ -115,8 +97,12 @@ const InputTodo = ({
                 >
                   Cancel
                 </Button>
-              </ButtonsWrapper>
-              <MessageWrapper></MessageWrapper>
+              </FormButtonsWrapper>
+              <MessageWrapper>
+                <Message error show={error}>
+                  {error}
+                </Message>
+              </MessageWrapper>
             </StyledForm>
           )}
         </Formik>

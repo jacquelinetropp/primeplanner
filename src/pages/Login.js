@@ -1,27 +1,21 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
-import styled from "styled-components";
 import { withRouter } from "react-router-dom";
 
 import * as actions from "../store/actions/actions";
 
 import Input from "../components/UI/Forms/Input";
 import Button from "../components/UI/Button/Button";
-import { Form } from "formik";
 
 import {
   StyledForm,
   FormWrapper,
-  Corkboard,
   WhiteBackground,
+  MessageWrapper
 } from "../components/UI/Wrappers/Wrappers";
-
-const MessageWrapper = styled.div`
-  position: absolute;
-  bottom: -15px;
-`;
+import Message from "../components/UI/Forms/Message";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("The email is required"),
@@ -76,6 +70,11 @@ const Login = ({ loading, error, login, history, cleanUp }) => {
             >
               Login
             </Button>
+            <MessageWrapper>
+            <Message error show={error}>
+              {error}
+            </Message>
+          </MessageWrapper>
           </StyledForm>
         </FormWrapper>
       )}

@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
-import { Formik, Field } from "formik";
+import { Formik } from "formik";
 import { connect } from "react-redux";
 
 import Button from "../UI/Button/Button";
@@ -44,10 +44,6 @@ const CompleteChore = ({
             frequency: chore.frequency
           }}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
-            // send our project
-            // const res = project
-            //   ? await editProject(project.id, values)
-            //   : (await addProject(values), close(), resetForm());
             await completeChore(chore.id, values, close());
           }}
         >

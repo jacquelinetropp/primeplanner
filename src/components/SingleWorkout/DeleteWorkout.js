@@ -6,38 +6,30 @@ import * as actions from "../../store/actions/actions";
 
 import Modal from "../modal/Modal";
 import Button from "../UI/Button/Button";
+import Message from "../UI/Forms/Message";
+import { FormButtonsWrapper, MessageWrapper } from "../UI/Wrappers/Wrappers";
 
-const ButtonsWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  margin-bottom: 2rem;
-  justify-content: space-around;
-`;
-const MessageWrapper = styled.div`
-  position: absolute;
-  bottom: 0 rem;
-  width: 100%;
-  padding: 0 3rem;
-`;
-
-const TodoWrapper = styled.div`
+const WorkoutWrapper = styled.div`
   margin: 1rem 0rem;
   font-size: 1.3rem;
   text-align: center;
   color: var(--color-white);
 `;
 
-const DeleteWorkoutItem = ({ show, close, item, deleteWorkout, loading, error }) => {
+const DeleteWorkoutItem = ({
+  show,
+  close,
+  item,
+  deleteWorkout,
+  loading,
+  error,
+}) => {
   return (
     <Modal opened={show} close={close}>
-      <h1>
-        Delete Workout
-      </h1>
-      <h4>
-        Are you sure you want to delete this workout?
-      </h4>
-      <TodoWrapper>{item.name}</TodoWrapper>
-      <ButtonsWrapper>
+      <h1>Delete Workout</h1>
+      <h4>Are you sure you want to delete this workout?</h4>
+      <WorkoutWrapper>{item.name}</WorkoutWrapper>
+      <FormButtonsWrapper>
         <Button
           contain
           color="red"
@@ -50,9 +42,11 @@ const DeleteWorkoutItem = ({ show, close, item, deleteWorkout, loading, error })
         <Button type="button" color="main" contain onClick={close}>
           Cancel
         </Button>
-      </ButtonsWrapper>
+      </FormButtonsWrapper>
       <MessageWrapper>
-    
+        <Message error show={error}>
+          {error}
+        </Message>
       </MessageWrapper>
     </Modal>
   );
