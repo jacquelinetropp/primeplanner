@@ -23,7 +23,7 @@ const Controls = styled.div``;
 const BudgetItem = ({ item }) => {
   const [isEdting, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  console.log(isDeleting);
+
   return (
     <Wrapper>
       <ItemName>{item.name}</ItemName>

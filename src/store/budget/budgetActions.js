@@ -1,3 +1,4 @@
+import { batch } from "react-redux";
 import * as actions from "./budgetTypes";
 
 //Add budget item
@@ -22,30 +23,30 @@ export const addBudgetItem =
     }
   };
 
-  //Edit budget item
+//Edit budget item
 export const editBudgetItem =
-(data, id) =>
-async (dispatch, getState, { getFirestore }) => {
-  const firestore = getFirestore();
-  const userId = getState().firebase.auth.uid;
-  dispatch({ type: actions.ADD_BUDGET_START });
-  const budgetItem = {
-    name: data.name,
-    price: data.amount,
-    userId: userId,
-    date: data.date.valueOf(),
+  (data, id) =>
+  async (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    const userId = getState().firebase.auth.uid;
+    dispatch({ type: actions.ADD_BUDGET_START });
+    const budgetItem = {
+      name: data.name,
+      price: data.amount,
+      userId: userId,
+      date: data.date.valueOf(),
+    };
+    try {
+      await firestore.collection("budget").doc(id).update(budgetItem);
+      dispatch({ type: actions.ADD_BUDGET_SUCCESS });
+    } catch (err) {
+      dispatch({ type: actions.ADD_BUDGET_FAIL, payload: err });
+      console.log(err);
+    }
   };
-  try {
-    await firestore.collection("budget").doc(id).update(budgetItem);
-    dispatch({ type: actions.ADD_BUDGET_SUCCESS });
-  } catch (err) {
-    dispatch({ type: actions.ADD_BUDGET_FAIL, payload: err });
-    console.log(err);
-  }
-};
 
-  //Delete budget item
-  export const deleteBudgetItem =
+//Delete budget item
+export const deleteBudgetItem =
   (id) =>
   async (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
@@ -58,7 +59,6 @@ async (dispatch, getState, { getFirestore }) => {
       console.log(err);
     }
   };
-  
 
 //Get budget Items
 export const getBudget =
@@ -119,9 +119,9 @@ export const editBudget =
 
     dispatch({ type: actions.SET_BUDGET_START });
     try {
-      await firestore.collection('finance').doc(docId).update({
-        amount: data.amount
-      })
+      await firestore.collection("finance").doc(docId).update({
+        amount: data.amount,
+      });
 
       dispatch({ type: actions.SET_BUDGET_SUCCESS });
     } catch (err) {
@@ -153,5 +153,32 @@ export const getMaxBudget =
       });
     } catch (err) {
       dispatch({ type: actions.GET_MAX_FAIL, payload: err });
+    }
+  };
+
+//Delete All Budget Items
+
+export const resetBudget =
+  () =>
+  async (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    const userId = getState().firebase.auth.uid;
+
+    dispatch({ type: actions.RESET_BUDGET_START });
+    try {
+      firestore
+        .collection("budget")
+        .where("userId", "==", userId)
+        .get()
+        .then((querySnapshot) => {
+          let batch = firestore.batch();
+          querySnapshot.forEach((doc) => {
+            batch.delete(doc.ref);
+          });
+          return batch.commit();
+        });
+      dispatch({ type: actions.RESET_BUDGET_SUCCESS });
+    } catch (err) {
+      dispatch({ type: actions.RESET_BUDGET_FAIL, payload: err });
     }
   };

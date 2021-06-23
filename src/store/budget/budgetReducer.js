@@ -5,6 +5,10 @@ const initialState = {
   error: null,
   budget: [],
   max: [],
+  resetBudget: {
+    loading: false,
+    error: null
+  }
 };
 
 const budgetReducer = (state = initialState, { type, payload }) => {
@@ -93,6 +97,32 @@ const budgetReducer = (state = initialState, { type, payload }) => {
         loading: false,
         error: payload,
       };
+    case actions.RESET_BUDGET_START:
+      return {
+        ...state,
+        resetBudget: {
+          ...state.resetBudget,
+          loading: true
+        }
+      }
+      case actions.RESET_BUDGET_SUCCESS:
+        return {
+          ...state,
+          resetBudget: {
+            ...state.resetBudget,
+            loading: false,
+            error: false
+          }
+        }
+        case actions.RESET_BUDGET_FAIL:
+          return {
+            ...state,
+            resetBudget: {
+              ...state.resetBudget,
+              loading: false,
+              error: payload
+            }
+          }
     default:
       return state;
   }

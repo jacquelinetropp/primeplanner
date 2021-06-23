@@ -8,8 +8,8 @@ import Button from "../../components/UI/Button/Button";
 import BudgetItem from "../../components/BudgetItem/BudgetItem";
 import AddButton from "../../components/UI/Button/AddButton";
 import InputBudgetItem from "../../components/BudgetItem/InputBudgetItem";
-import { getAmountSpent } from "../../utils/BudgetUtils";
 import SetBudget from "../../components/SetBudget/SetBudget";
+import ResetBudget from "../../components/ResetBudget/ResetBudget";
 
 const Wrapper = styled.div`
   text-align: center;
@@ -50,6 +50,11 @@ const CenteredDiv = styled.div`
   align-items: center;
 `;
 
+const Div = styled.div`
+ grid-column: 1/-1;
+ font-size: 1.5rem;
+`
+
 const Budget = ({
   maxBudget,
   getMaxBudget,
@@ -63,13 +68,15 @@ const Budget = ({
   }, []);
 
   const [setBudget, isSettingBudget] = useState(false);
+  const [deleteBudget, setDeletingBudget] = useState(false);
+  console.log(deleteBudget);
 
   //Set Budget Items
   let content;
   if (loading || !budgetItems) {
-    content = <div>Loading...</div>;
+    content = <Div>Loading...</Div>;
   } else if (budgetItems.length === 0) {
-    content = <div>No budget items</div>;
+    content = <Div>No budget items</Div>;
   } else {
     content = (
       <Fragment>
@@ -146,25 +153,18 @@ const Budget = ({
               Set Budget
             </Button>
           )}
+          <Button onClick={() => setDeletingBudget(true)} contain>
+            Reset Budget
+          </Button>
         </BudgetMaxWrapper>
         <BudgetCalculations>
           <CenteredDiv>
             <h6>Amount Spent: </h6>
-            <StyledAmount
-              color={
-                colorfunc()
-              }
-            >
-              {amountSpent}
-            </StyledAmount>
+            <StyledAmount color={colorfunc()}>{amountSpent}</StyledAmount>
           </CenteredDiv>
           <CenteredDiv>
             <h6>Amount Remaining: </h6>
-            <StyledAmount
-              color={
-                colorfunc()
-              }
-            >
+            <StyledAmount color={colorfunc()}>
               {remainingBalanceAmount}
             </StyledAmount>
           </CenteredDiv>
@@ -181,6 +181,10 @@ const Budget = ({
         maxBudget={maxBudget}
         opened={setBudget}
         close={() => isSettingBudget(false)}
+      />
+      <ResetBudget
+        show={deleteBudget}
+        close={() => setDeletingBudget(false)}
       />
     </JournalMain>
   );
