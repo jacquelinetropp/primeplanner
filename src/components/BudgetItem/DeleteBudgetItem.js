@@ -16,15 +16,18 @@ const TodoWrapper = styled.div`
   color: var(--color-white);
 `;
 
-const DeleteBudgetItem = ({ show, close, item, deleteItem, loading, error }) => {
+const DeleteBudgetItem = ({
+  show,
+  close,
+  item,
+  deleteItem,
+  loading,
+  error,
+}) => {
   return (
     <Modal opened={show} close={close}>
-      <h1>
-        Delete Budget Item
-      </h1>
-      <h4>
-        Are you sure you want to delete this item?
-      </h4>
+      <h1>Delete Budget Item</h1>
+      <h4>Are you sure you want to delete this item?</h4>
       <TodoWrapper>{item.name}</TodoWrapper>
       <FormButtonsWrapper>
         <Button
@@ -41,10 +44,10 @@ const DeleteBudgetItem = ({ show, close, item, deleteItem, loading, error }) => 
         </Button>
       </FormButtonsWrapper>
       <MessageWrapper>
-      <Message error show={error}>
-        {error}
-      </Message>
-    </MessageWrapper>
+        <Message error show={error}>
+          {error}
+        </Message>
+      </MessageWrapper>
     </Modal>
   );
 };

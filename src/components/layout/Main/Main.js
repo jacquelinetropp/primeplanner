@@ -10,7 +10,6 @@ import WeatherHome from "../../WeatherHome/WeatherHome";
 import Button from "../../UI/Button/Button";
 import EditProfile from "../../../pages/EditProfile";
 
-
 const TodayDateWrapper = styled.div`
   background-color: #fff;
   border-radius: 5px;
@@ -23,18 +22,27 @@ const TodayDateWrapper = styled.div`
   justify-content: center;
   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
 
+  @media only screen and (max-width: 768px){
+    grid-column: 1/-1;
+    grid-row: 2/3;
+  }
 `;
 
 const TodaysDate = styled.h1`
-  font-size:1.8rem;
-`
+  font-size: 1.8rem;
+`;
 
 const ButtonsWrapper = styled.div`
-background-color: #fff;
-width: 100%;
+  background-color: #fff;
+  width: 100%;
   grid-column: 4/6;
   margin: 0 auto;
   display: flex;
+
+  @media only screen and (max-width: 768px){
+    grid-column: 1/-1;
+    grid-row: 1/2;
+  }
 `;
 
 const DailYWrapper = styled.div`
@@ -43,8 +51,10 @@ const DailYWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
 
+  @media only screen and (max-width: 768px){
+    grid-row: 3/4;
+  }
 `;
-
 
 const Main = ({ logout, toggleProfile }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -65,8 +75,8 @@ const Main = ({ logout, toggleProfile }) => {
         <Button onClick={() => logout()}>Logout</Button>
       </ButtonsWrapper>
       <DailYWrapper>
-      <TaskPostit />
-      <WeatherHome />
+        <TaskPostit />
+        <WeatherHome />
       </DailYWrapper>
       {isOpen && <EditProfile close={togglePopup} />}
     </Fragment>

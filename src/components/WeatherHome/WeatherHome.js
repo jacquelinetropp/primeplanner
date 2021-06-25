@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
@@ -10,22 +9,19 @@ const WeatherWrapper = styled.div`
   grid-column: 3/5;
   border-radius: 5px;
   border-bottom: 1px solid var(--color-grayDark);
+  border-right: 1px solid var(--color-grayDark);
   height: ${({ isOpen }) => (isOpen ? "100%" : "min-content")};
-  /* 
-  @media only screen and (max-width: 425px) {
+
+  @media only screen and (max-width: 768px) {
     grid-column: 1/-1;
-    grid-row: 5/6;
-    width: 100vw;
-  } */
-`;
-
-const MinimizeWrapper = styled.div`
-  display: none;
-
-  @media only screen and (max-width: 425px) {
-    display: ${({ isOpen }) => (isOpen ? "block" : "none")};
   }
 `;
+
+const Header = styled.h2`
+  font-size: ${({ isOpen }) => (isOpen ? "3rem" : "1.2rem")};
+`
+
+const MinimizeWrapper = styled.div``;
 
 const WeatherHeader = styled.div`
   background-color: var(--color-gray);
@@ -85,46 +81,50 @@ const WeatherHome = ({ getWeather, data, loading, lat, lng }) => {
         <MinimizeWrapper>
           <MinIcon onClick={togglePopup} />
         </MinimizeWrapper>
-        {isOpen && (
-          <WeatherHeader isOpen={isOpen}>
-            <h2 className="center">Current Weather</h2>
-            <p className="center">As of {new Date().toLocaleTimeString()}</p>
-            <Content>
-              <Info>
-                <h1>
-                  {" "}
-                  {data.current.temp}
-                  <sup>o</sup>
-                </h1>
-                <h5>
-                  Feels like {data.current.feels_like}
-                  <sup>o</sup>
-                </h5>
+        <WeatherHeader>
+          <Header isOpen={isOpen} className="center">Current Weather</Header>
+          {isOpen && (
+            <Fragment>
+              <p className="center">As of {new Date().toLocaleTimeString()}</p>
+              <Content>
+                <Info>
+                  <h1>
+                    {" "}
+                    {data.current.temp}
+                    <sup>o</sup>
+                  </h1>
+                  <h5>
+                    Feels like {data.current.feels_like}
+                    <sup>o</sup>
+                  </h5>
 
-                <div className="flex">
-                  <h6 className="padding-xs">{data.current.weather[0].main}</h6>
-                  <p className="padding-xs">
-                    {data.current.weather[0].description}
-                  </p>
-                </div>
-              </Info>
-              <Image>
-                <StyledImage
-                  className="icon"
-                  src={iconurl}
-                  alt="weather symbol"
-                />
-                <h5>
-                  {data.daily[0].temp.max} <sup>o</sup>/
-                </h5>
-                <h5>
-                  {data.daily[0].temp.min}
-                  <sup>o</sup>
-                </h5>
-              </Image>
-            </Content>
-          </WeatherHeader>
-        )}
+                  <div className="flex">
+                    <h6 className="padding-xs">
+                      {data.current.weather[0].main}
+                    </h6>
+                    <p className="padding-xs">
+                      {data.current.weather[0].description}
+                    </p>
+                  </div>
+                </Info>
+                <Image>
+                  <StyledImage
+                    className="icon"
+                    src={iconurl}
+                    alt="weather symbol"
+                  />
+                  <h5>
+                    {data.daily[0].temp.max} <sup>o</sup>/
+                  </h5>
+                  <h5>
+                    {data.daily[0].temp.min}
+                    <sup>o</sup>
+                  </h5>
+                </Image>
+              </Content>
+            </Fragment>
+          )}
+        </WeatherHeader>
       </WeatherWrapper>
     );
   }

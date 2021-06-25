@@ -4,6 +4,7 @@ import { AiOutlineMinusCircle, AiOutlineHome } from "react-icons/ai";
 import { BiEdit } from "react-icons/bi";
 import { BsTrash2 } from "react-icons/bs";
 import { BiCalendarAlt, BiCalendarWeek } from "react-icons/bi";
+import {VscChromeMinimize} from 'react-icons/vsc';
 
 export const StyledForm = styled(Form)`
   display: flex;
@@ -83,7 +84,7 @@ export const LoggedOutWrapper = styled.div`
 export const LoggedInWrapper = styled.div`
   display: grid;
   min-height: 100vh;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: min-content repeat(4, 1fr);
   grid-template-rows: min-content min-content 1fr;
 `;
 
@@ -99,12 +100,14 @@ export const JournalWrapper = styled.div`
 
 //Icons
 
-export const MinIcon = styled(AiOutlineMinusCircle)`
-  transform: scale(2.3);
+export const MinIcon = styled(VscChromeMinimize)`
+  transform: scale(1.3);
   color: var(--color-text);
+  opacity: .7;
   float: ${({ left }) => (left ? "left" : "right")};
   margin-top: 4px;
   margin-right: 4px;
+  margin-left: 4px;
   cursor: pointer;
 `;
 

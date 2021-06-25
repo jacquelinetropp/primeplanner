@@ -19,22 +19,23 @@ import { sevenDayTasks, todaysTasks } from "../../../../utils/HelperFunctions";
 
 const SidebarWrapper = styled.div`
   border-right: 1px solid #f0efef;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
   grid-column: 1/2;
   grid-row: 2/-1;
+
+  @media only screen and (max-width: 768px){
+    grid-row: 3/-1;
+  }
 `;
 
 const SidebarHeader = styled.div`
-  /* text-align: center;
-  display: flex;
-  align-items: center; */
+  display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
+  flex-direction: column;
+  justify-content: space-between;
+  
 `;
 
 const IconWrapper = styled.div`
-  position: absolute;
+  float: left;
 `;
 
 const JournalSidebar = ({ todos }) => {
@@ -50,11 +51,13 @@ const JournalSidebar = ({ todos }) => {
 
   return (
     <SidebarWrapper>
-      <IconWrapper></IconWrapper>
+      <IconWrapper>
+        <MinIcon left onClick={togglePopup} />
+      </IconWrapper>
       {isOpen && (
         <Fragment>
           <div>
-            <SidebarHeader>
+            <SidebarHeader isOpen={isOpen}>
               <JournalHeaderLinks
                 link="/inbox"
                 text="Inbox"

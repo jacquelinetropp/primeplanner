@@ -12,30 +12,39 @@ const PostWrapper = styled.div`
   border-radius: 5px;
   grid-column: 1/3;
   height: ${({ isOpen }) => (isOpen ? "100%" : "min-content")};
-  border-right: 1px solid var(--color-grayDark);
   border-bottom: 1px solid var(--color-grayDark);
+  border-right: 1px solid var(--color-grayDark);
+
+  @media only screen and (max-width: 768px) {
+    grid-column: 1/-1;
+  }
 `;
 
-const MinimizeWrapper = styled.div`
-  display: none;
+const MinimizeWrapper = styled.div``;
 
-  @media only screen and (max-width: 425px) {
-    display: ${({ isOpen }) => (isOpen ? "block" : "none")};
-  }
+const Header = styled.h2`
+  font-size: ${({ isOpen }) => (isOpen ? "3rem" : "1.2rem")};
 `;
 
 const PostContent = styled.div`
   background-color: var(--color-gray);
   height: 100%;
-  display: ${({ isOpen }) => (isOpen ? "block" : "none")};
   overflow: auto;
 `;
 
-const TaskPostit = ({ todos, getAllTodos, loading, getChores, chores, getWorkouts, workouts }) => {
+const TaskPostit = ({
+  todos,
+  getAllTodos,
+  loading,
+  getChores,
+  chores,
+  getWorkouts,
+  workouts,
+}) => {
   useEffect(() => {
     getAllTodos();
     getChores();
-    getWorkouts()
+    getWorkouts();
   }, []);
   const [isOpen, setIsOpen] = useState(true);
 
@@ -48,7 +57,11 @@ const TaskPostit = ({ todos, getAllTodos, loading, getChores, chores, getWorkout
   let content;
   if (loading || !todos || !chores || !workouts) {
     content = <Fragment>Loading...</Fragment>;
-  } else if (todos.length === 0 && chores.length === 0 && workouts.length === 0) {
+  } else if (
+    todos.length === 0 &&
+    chores.length === 0 &&
+    workouts.length === 0
+  ) {
     content = <Fragment>No tasks for today!</Fragment>;
   } else {
     let tasks = [];
@@ -69,14 +82,18 @@ const TaskPostit = ({ todos, getAllTodos, loading, getChores, chores, getWorkout
       }
     });
     let workoutList = [];
-    workouts.map(workout => {
+    workouts.map((workout) => {
       const date = workout.date;
       const structuredDate = new Date(date).toDateString();
       if (structuredDate === today) {
-        workoutList.push(workout)
+        workoutList.push(workout);
       }
-    })
-    if (tasks.length === 0 && choresList.length === 0 && workoutList.length === 0) {
+    });
+    if (
+      tasks.length === 0 &&
+      choresList.length === 0 &&
+      workoutList.length === 0
+    ) {
       content = <h5 className="center">No high priority tasks today!</h5>;
     } else {
       content = (
@@ -85,10 +102,10 @@ const TaskPostit = ({ todos, getAllTodos, loading, getChores, chores, getWorkout
             <SingleTodo key={task.id} todo={task} />
           ))}
           {choresList.map((chore) => (
-            <SingleChore chore={chore} kye={chore.id}/>
+            <SingleChore chore={chore} kye={chore.id} />
           ))}
-          {workoutList.map(workout => (
-            <SingleWorkout workout={workout} key={workout.id}/>
+          {workoutList.map((workout) => (
+            <SingleWorkout workout={workout} key={workout.id} />
           ))}
         </Fragment>
       );
@@ -100,12 +117,12 @@ const TaskPostit = ({ todos, getAllTodos, loading, getChores, chores, getWorkout
       <MinimizeWrapper>
         <MinIcon onClick={togglePopup} />
       </MinimizeWrapper>
-      {isOpen && (
-        <PostContent isOpen={isOpen}>
-          <h2 className="center">Today's High Priority Tasks</h2>
-          {content}
-        </PostContent>
-      )}
+      <PostContent>
+        <Header isOpen={isOpen} className="center">
+          Today's High Priority Tasks
+        </Header>
+        {isOpen && <Fragment>{content}</Fragment>}
+      </PostContent>
     </PostWrapper>
   );
 };
@@ -114,13 +131,13 @@ const mapStateToProps = ({ todos, house }) => ({
   todos: todos.allTodos,
   loading: todos.loading,
   chores: house.chores,
-  workouts: house.workouts.workoutList
+  workouts: house.workouts.workoutList,
 });
 
 const mapDispatchToProps = {
   getAllTodos: actions.getAllTodos,
   getChores: actions.getChores,
-  getWorkouts: actions.getWorkouts
+  getWorkouts: actions.getWorkouts,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskPostit);
