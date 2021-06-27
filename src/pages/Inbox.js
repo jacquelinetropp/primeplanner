@@ -17,7 +17,7 @@ const Inbox = ({ todos, loading }) => {
   if (loading && !todos) {
     content = <Fragment>Loading...</Fragment>;
   } else if (todos.length === 0) {
-    content = <Fragment>No todos!</Fragment>;
+    content = <h5 className="center">No todos!</h5>;
   } else {
     content = (
       <Fragment>

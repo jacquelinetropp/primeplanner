@@ -62,7 +62,7 @@ const TaskPostit = ({
     chores.length === 0 &&
     workouts.length === 0
   ) {
-    content = <Fragment>No tasks for today!</Fragment>;
+    content = <h5 className="center">No high priority tasks today!</h5>;
   } else {
     let tasks = [];
     todos.map((todo) => {

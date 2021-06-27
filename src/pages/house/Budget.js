@@ -16,7 +16,8 @@ const Wrapper = styled.div`
 `;
 
 const BudgetMaxWrapper = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   justify-content: center;
   align-items: center;
 `;

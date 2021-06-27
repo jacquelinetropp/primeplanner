@@ -20,6 +20,7 @@ const SidebarWrapper = styled.div`
   border-right: 1px solid #f0efef;
   grid-column: 1/2;
   grid-row: 2/-1;
+  display: flex;
 
   @media only screen and (max-width: 768px){
     grid-row: 3/-1;
@@ -34,7 +35,7 @@ const SidebarHeader = styled.div`
 `;
 
 const IconWrapper = styled.div`
-  float: left;
+  margin-right: 5px;
 `;
 
 const JournalSidebar = ({ todos }) => {

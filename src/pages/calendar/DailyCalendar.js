@@ -56,7 +56,7 @@ class DailyCalendar extends React.Component {
     .map((e, i) => <SingleWorkout key={e.id} workout={e} />);
     let content;
     if (tasks.length === 0 && choresList.length === 0 && workoutList.length === 0 ) {
-      content = <Fragment>No tasks today!</Fragment>;
+      content = <h6 className="center">No tasks today!</h6>;
     } else {
       content = (
         <Fragment>

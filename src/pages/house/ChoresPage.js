@@ -38,7 +38,7 @@ const ChoresPage = ({ chores, getChores, loading }) => {
   if (!chores || loading) {
     content = <Fragment>Loading</Fragment>;
   } else if (chores.length === 0) {
-    content = <div>No chores</div>;
+    content = <h6 className="center">No chores</h6>;
   } else {
     content = (
       <Fragment>

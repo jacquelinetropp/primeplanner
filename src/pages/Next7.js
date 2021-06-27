@@ -11,13 +11,13 @@ const Next7 = ({ todos, loading }) => {
   if (loading || !todos) {
     content = <Fragment>Loading...</Fragment>;
   } else if (todos.length === 0) {
-    content = <Fragment>No todos for today!</Fragment>;
+    content = <h5 className="center">No todos!</h5>;;
   } else {
 
     const tasks = sevenDayTasks(todos);
 
     if (tasks.length === 0) {
-      content = <h5>No tasks due in the next 7 days</h5>;
+      content = <h5 className="center">No tasks due in the next 7 days</h5>;
     } else {
       content = (
         <Fragment>

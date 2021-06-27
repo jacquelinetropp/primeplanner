@@ -10,11 +10,11 @@ const Today = ({ todos, loading }) => {
   if (loading || !todos) {
     content = <Fragment>Loading...</Fragment>;
   } else if (todos.length === 0) {
-    content = <Fragment>No todos for today!</Fragment>;
+    content = <h5 className="center">No todos today!</h5>;
   } else {
     const tasks = todaysTasks(todos);
     if (tasks.length === 0) {
-      content = <h5>No tasks due today</h5>;
+      content = <h5 className="center">No tasks due today</h5>;
     } else {
       content = (
         <Fragment>

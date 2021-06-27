@@ -23,7 +23,7 @@ const ProjectsPage = ({ projects, getProjects, loading, history }) => {
   if (!projects || loading) {
     content = <Fragment>Loading</Fragment>;
   } else if (projects.length === 0) {
-    content = <div>No projects</div>;
+    content = <h6 className="center">No projects</h6>;
   } else {
     content = (
       <Fragment>

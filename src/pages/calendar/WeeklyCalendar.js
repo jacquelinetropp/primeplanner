@@ -12,6 +12,11 @@ const Wrapper = styled.div`
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 50px repeat(2, 1fr);
   height: 100%;
+
+  @media only screen and (max-width: 800px) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 50px repeat(4, 1fr);
+  }
 `;
 
 const TitleWrapper = styled.div`
@@ -56,22 +61,27 @@ class WeeklyCalendar extends React.Component {
                 <SingleTodo key={e.id} todo={e} className="task" calendar />
               ))
           : " "}
-          {chores
-            ? chores
-                .filter((e) => isSameDay(new Date(day), new Date(e.nextDate)))
-                .sort((a, b) => (a.nextDate > b.nextDate ? 1 : -1))
-                .map((e, i) => (
-                  <SingleChore key={e.id} chore={e} className="task" calendar />
-                ))
-            : " "}
-            {workouts
-              ? workouts
-                  .filter((e) => isSameDay(new Date(day), new Date(e.date)))
-                  .sort((a, b) => (a.date > b.date ? 1 : -1))
-                  .map((e, i) => (
-                    <SingleWorkout key={e.id} workout={e} className="task" calendar />
-                  ))
-              : " "}
+        {chores
+          ? chores
+              .filter((e) => isSameDay(new Date(day), new Date(e.nextDate)))
+              .sort((a, b) => (a.nextDate > b.nextDate ? 1 : -1))
+              .map((e, i) => (
+                <SingleChore key={e.id} chore={e} className="task" calendar />
+              ))
+          : " "}
+        {workouts
+          ? workouts
+              .filter((e) => isSameDay(new Date(day), new Date(e.date)))
+              .sort((a, b) => (a.date > b.date ? 1 : -1))
+              .map((e, i) => (
+                <SingleWorkout
+                  key={e.id}
+                  workout={e}
+                  className="task"
+                  calendar
+                />
+              ))
+          : " "}
       </DayContainer>
     ));
   }
@@ -115,7 +125,7 @@ class WeeklyCalendar extends React.Component {
 const mapStateToProps = ({ todos, house }) => ({
   todos: todos.allTodos,
   chores: house.chores,
-  workouts: house.workouts.workoutList
+  workouts: house.workouts.workoutList,
 });
 
 export default connect(mapStateToProps)(WeeklyCalendar);
