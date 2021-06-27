@@ -86,6 +86,10 @@ export const LoggedInWrapper = styled.div`
   min-height: 100vh;
   grid-template-columns: min-content repeat(4, 1fr);
   grid-template-rows: min-content min-content 1fr;
+
+  @media only screen and (max-width: 768px) {
+    grid-template-rows: repeat(3, min-content) 1fr;
+  }
 `;
 
 export const JournalWrapper = styled.div`
@@ -104,7 +108,7 @@ export const MinIcon = styled(VscChromeMinimize)`
   transform: scale(1.3);
   color: var(--color-text);
   opacity: .7;
-  float: ${({ left }) => (left ? "left" : "right")};
+  /* float: ${({ left }) => (left ? "left" : "right")}; */
   margin-top: 4px;
   margin-right: 4px;
   margin-left: 4px;

@@ -1,10 +1,9 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 
 import JournalHeaderLinks from "../JournalHeaderLinks/JournalHeaderLinks";
 
-import AddButton from "../../../UI/Button/AddButton";
 import {
   MinIcon,
   HomeIcon,
@@ -40,6 +39,19 @@ const IconWrapper = styled.div`
 
 const JournalSidebar = ({ todos }) => {
   const [isOpen, setIsOpen] = useState(true);
+  const [width, setWidth] = useState(window.innerWidth);
+
+  const updateWidth = () => {
+    setWidth(window.innerWidth);
+  }
+
+  useEffect(() => {
+      window.addEventListener("resize", updateWidth);
+      if (width < 768) {
+        setIsOpen(false);
+      }
+      return () => window.removeEventListener("resize", updateWidth)
+  }, [])
 
   const todayLength = todaysTasks(todos).length;
 
@@ -52,7 +64,7 @@ const JournalSidebar = ({ todos }) => {
   return (
     <SidebarWrapper>
       <IconWrapper>
-        <MinIcon left onClick={togglePopup} />
+        <MinIcon onClick={togglePopup} />
       </IconWrapper>
       {isOpen && (
         <Fragment>
