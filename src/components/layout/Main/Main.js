@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from "react";
 import styled from "styled-components";
-import Moment from "react-moment";
 import { connect } from "react-redux";
 
 import * as actions from "../../../store/actions/actions";
@@ -9,6 +8,7 @@ import TaskPostit from "../../TaskPostit/TaskPostit";
 import WeatherHome from "../../WeatherHome/WeatherHome";
 import Button from "../../UI/Button/Button";
 import EditProfile from "../../../pages/EditProfile";
+import { format } from "date-fns";
 
 const TodayDateWrapper = styled.div`
   background-color: #fff;
@@ -63,11 +63,13 @@ const Main = ({ logout, toggleProfile }) => {
     setIsOpen(!isOpen);
   };
 
+  const FormattedDate = format(new Date(), "eeee LLLL d, yyyy")
+
   return (
     <Fragment>
       <TodayDateWrapper>
         <TodaysDate>
-          <Moment format="dddd MMMM Do, YYYY">{new Date()}</Moment>
+      {FormattedDate}
         </TodaysDate>
       </TodayDateWrapper>
       <ButtonsWrapper>

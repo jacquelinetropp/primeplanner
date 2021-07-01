@@ -1,6 +1,5 @@
 import React from 'react';
 import { DateTimePicker } from "react-rainbow-components";
-// import DatePicker from "react-datepicker";
 
 const DatePickerField = ({ name, value, onChange }) => {
     return (
