@@ -105,6 +105,4 @@ const mapStateToProps = ({ todos }) => ({
   todos: todos.allTodos,
 });
 
-const mapDispatchToProps = {};
-
 export default connect(mapStateToProps)(JournalSidebar);

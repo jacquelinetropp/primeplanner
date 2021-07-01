@@ -11,6 +11,7 @@ import Navbar from "./components/Navigation/Navbar";
 import Main from "./components/layout/Main/Main";
 import JournalSidebar from "./components/layout/Journal/JournalSidebar/JournalSidebar";
 import LoadingCircle from "./components/Loading/Loading";
+import Login from './pages/Login';
 
 //Lazy Loading
 const DailyWeather = lazy(() => import("./pages/weather/DailyWeather"));
@@ -29,7 +30,6 @@ const ChoresPage = lazy(() => import("./pages/house/ChoresPage"));
 const WorkoutPage = lazy(() => import("./pages/house/WorkoutPage"));
 const Budget = lazy(() => import("./pages/house/Budget"));
 
-const Login = lazy(() => import("./pages/Login"));
 const SignUp = lazy(() => import("./pages/SignUp"));
 const WeatherPage = lazy(() => import("./pages/weather/WeatherPage"));
 const CalendarPage = lazy(() => import("./pages/calendar/CalendarPage"));
