@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { MinIcon } from "../UI/Wrappers/Wrappers";
 
 import * as actions from "../../store/actions/actions";
+import LoadingCircle from "../Loading/Loading";
 
 const WeatherWrapper = styled.div`
   grid-column: 3/5;
@@ -11,6 +12,7 @@ const WeatherWrapper = styled.div`
   border-bottom: 1px solid var(--color-grayDark);
   border-right: 1px solid var(--color-grayDark);
   height: ${({ isOpen }) => (isOpen ? "100%" : "min-content")};
+  position: relative;
 
   @media only screen and (max-width: 768px) {
     grid-column: 1/-1;
@@ -19,7 +21,7 @@ const WeatherWrapper = styled.div`
 
 const Header = styled.h2`
   font-size: ${({ isOpen }) => (isOpen ? "3rem" : "1.2rem")};
-`
+`;
 
 const MinimizeWrapper = styled.div``;
 
@@ -67,10 +69,18 @@ const WeatherHome = ({ getWeather, data, loading, lat, lng }) => {
   };
 
   let content;
-  if (loading && !data) {
-    content = <div>Loading</div>;
+  if (loading || !data) {
+    content = (
+      <WeatherWrapper>
+        <LoadingCircle />
+      </WeatherWrapper>
+    );
   } else if (data.length === 0) {
-    content = <div>no content</div>;
+    content = (
+      <WeatherWrapper>
+        <h6> No Content</h6>
+      </WeatherWrapper>
+    );
   } else {
     const iconurl =
       "http://openweathermap.org/img/w/" +
@@ -82,7 +92,9 @@ const WeatherHome = ({ getWeather, data, loading, lat, lng }) => {
           <MinIcon onClick={togglePopup} />
         </MinimizeWrapper>
         <WeatherHeader>
-          <Header isOpen={isOpen} className="center">Current Weather</Header>
+          <Header isOpen={isOpen} className="center">
+            Current Weather
+          </Header>
           {isOpen && (
             <Fragment>
               <p className="center">As of {new Date().toLocaleTimeString()}</p>

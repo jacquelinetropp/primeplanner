@@ -1,14 +1,12 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import JournalCategories from "../../components/layout/Journal/JournalCategories/JournalCategories";
-import JournalCategory from "../../components/JournalCategory/JournalCategory";
 import * as actions from "../../store/actions/actions";
-import styled from "styled-components";
 import InputProject from "../../components/layout/Projects/InputProject";
 
-import AddButton from "../../components/UI/Button/AddButton";
 import SingleProject from "../../components/SingleProject/SingleProject";
 import { withRouter } from "react-router-dom";
+import LoadingCircle from "../../components/Loading/Loading";
 
 const ProjectsPage = ({ projects, getProjects, loading, history }) => {
   useEffect(() => {
@@ -21,7 +19,7 @@ const ProjectsPage = ({ projects, getProjects, loading, history }) => {
   
   let content;
   if (!projects || loading) {
-    content = <Fragment>Loading</Fragment>;
+    content = <LoadingCircle />;
   } else if (projects.length === 0) {
     content = <h6 className="center">No projects</h6>;
   } else {
@@ -50,7 +48,7 @@ const ProjectsPage = ({ projects, getProjects, loading, history }) => {
 
 const mapStateToProps = ({ projects }) => ({
   projects: projects.projects,
-  loading: projects.loading,
+  loading: projects.getProject.loading,
 });
 
 const mapDispatchToProps = {

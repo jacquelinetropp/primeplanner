@@ -6,6 +6,7 @@ import SingleTodo from "../components/SingleTodo/SingleTodo";
 import JournalMain from "../components/layout/Journal/JournalMain/JournalMain";
 import { todaysTasks, setOverdueTasks, getSevenMinusToday } from "../utils/HelperFunctions";
 import {getFutureTodos} from '../utils/inboxFunctions';
+import LoadingCircle from '../components/Loading/Loading';
 
 const Inbox = ({ todos, loading }) => {
   const todaysTodos = todaysTasks(todos);
@@ -14,8 +15,8 @@ const Inbox = ({ todos, loading }) => {
   const overdue = setOverdueTasks(todos);
 
   let content;
-  if (loading && !todos) {
-    content = <Fragment>Loading...</Fragment>;
+  if (loading || !todos) {
+    content = <LoadingCircle />;
   } else if (todos.length === 0) {
     content = <h5 className="center">No todos!</h5>;
   } else {

@@ -7,6 +7,7 @@ import { Fragment } from "react";
 import SingleTodo from "../SingleTodo/SingleTodo";
 import SingleChore from "../Chore/SingleChore";
 import SingleWorkout from "../SingleWorkout/SingleWorkout";
+import LoadingCircle from '../Loading/Loading';
 
 const PostWrapper = styled.div`
   border-radius: 5px;
@@ -14,6 +15,7 @@ const PostWrapper = styled.div`
   height: ${({ isOpen }) => (isOpen ? "100%" : "min-content")};
   border-bottom: 1px solid var(--color-grayDark);
   border-right: 1px solid var(--color-grayDark);
+  position: relative;
 
   @media only screen and (max-width: 768px) {
     grid-column: 1/-1;
@@ -56,7 +58,7 @@ const TaskPostit = ({
 
   let content;
   if (loading || !todos || !chores || !workouts) {
-    content = <Fragment>Loading...</Fragment>;
+    content = <LoadingCircle />;
   } else if (
     todos.length === 0 &&
     chores.length === 0 &&

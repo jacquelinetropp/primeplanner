@@ -10,6 +10,7 @@ import AddButton from "../../components/UI/Button/AddButton";
 import InputBudgetItem from "../../components/BudgetItem/InputBudgetItem";
 import SetBudget from "../../components/SetBudget/SetBudget";
 import ResetBudget from "../../components/ResetBudget/ResetBudget";
+import LoadingCircle from "../../components/Loading/Loading";
 
 const Wrapper = styled.div`
   text-align: center;
@@ -75,7 +76,7 @@ const Budget = ({
   //Set Budget Items
   let content;
   if (loading || !budgetItems) {
-    content = <Div>Loading...</Div>;
+    content = <LoadingCircle />;
   } else if (budgetItems.length === 0) {
     content = <Div>No budget items</Div>;
   } else {

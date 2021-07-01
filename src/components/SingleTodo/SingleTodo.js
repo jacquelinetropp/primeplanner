@@ -88,17 +88,24 @@ const SingleTodo = ({ todo, completeTodo, calendar }) => {
       <Controls calendar={calendar}>
         <StyledEdit onClick={() => setIsEditing(true)} />
         <StyledDelete onClick={() => setIsDeleting(true)} />
-
-        <InputTodo
-          todo={todo}
-          opened={isEditing}
-          close={() => setIsEditing(false)}
-        />
-        <DeleteTodo
-          todo={todo}
-          show={isDeleting}
-          close={() => setIsDeleting(false)}
-        />
+        {isEditing ? (
+          <InputTodo
+            todo={todo}
+            opened={isEditing}
+            close={() => setIsEditing(false)}
+          />
+        ) : (
+          ""
+        )}
+        {isDeleting ? (
+          <DeleteTodo
+            todo={todo}
+            show={isDeleting}
+            close={() => setIsDeleting(false)}
+          />
+        ) : (
+          ""
+        )}
       </Controls>
     </Wrapper>
   );

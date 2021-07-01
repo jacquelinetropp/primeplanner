@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import JournalMain from "../../components/layout/Journal/JournalMain/JournalMain";
-import Calendar1 from "../../components/Calendar/Calendar1";
+import Calendar from "../../components/Calendar/Calendar";
 import * as actions from "../../store/actions/actions";
 
 import { connect } from "react-redux";
@@ -12,7 +12,7 @@ const Monthly = ({ todos, workouts, getWorkouts, getChores, chores }) => {
   }, []);
   return (
     <JournalMain>
-      <Calendar1 todos={todos} workoutList={workouts} chores={chores}/>
+      <Calendar todos={todos} workoutList={workouts} chores={chores}/>
     </JournalMain>
   );
 };

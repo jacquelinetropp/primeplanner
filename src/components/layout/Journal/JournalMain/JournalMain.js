@@ -6,6 +6,7 @@ const Wrapper = styled.div`
   grid-column: 2/-1;
   grid-row: 3/-1;
   padding: 1rem;
+  position: relative;
 
   @media only screen and (max-width: 768px){
     grid-row: 4/-1;

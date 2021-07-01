@@ -4,11 +4,12 @@ import { Fragment } from "react";
 import SingleTodo from "../components/SingleTodo/SingleTodo";
 import JournalMain from "../components/layout/Journal/JournalMain/JournalMain";
 import { todaysTasks } from "../utils/HelperFunctions";
+import LoadingCircle from "../components/Loading/Loading";
 
 const Today = ({ todos, loading }) => {
   let content;
   if (loading || !todos) {
-    content = <Fragment>Loading...</Fragment>;
+    content = <LoadingCircle />;
   } else if (todos.length === 0) {
     content = <h5 className="center">No todos today!</h5>;
   } else {

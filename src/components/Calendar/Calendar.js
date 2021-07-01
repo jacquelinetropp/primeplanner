@@ -1,6 +1,5 @@
-import React, { Fragment } from "react";
-import { connect } from "react-redux";
-import {withRouter} from 'react-router-dom';
+import React from "react";
+import { withRouter } from "react-router-dom";
 import {
   format,
   startOfWeek,
@@ -12,12 +11,23 @@ import {
   isSameDay,
   addMonths,
   subMonths,
-  getMonth,
-  getYear,
 } from "date-fns";
-import "./Calendar.styles.css";
-import DeleteWorkout from "../SingleWorkout/DeleteWorkout";
-import {StyledDelete} from '../UI/Wrappers/Wrappers';
+import "./Calendar.styles.scss";
+import styled from "styled-components";
+import SingleCalendarWorkout from "../SingleWorkout/SingleCalendarWorkout";
+
+const Workout = styled.div`
+  background-color: ${({ type }) => {
+    if (type === "strength") return "var(--color-tertiary)";
+    else if (type === "cardio") return "var(--color-mainLight)";
+    else if (type === "HIIT") return "var(--color-second)";
+    else if (type === "recovery") return "var(--color-main)";
+    else return "var(--color-main)";
+  }};
+  height: 100%;
+  margin-bottom: 1px;
+  padding: 1rem;
+`;
 
 class Calendar extends React.Component {
   state = {
@@ -65,34 +75,11 @@ class Calendar extends React.Component {
 
   renderCells() {
     const { currentMonth, selectedDate } = this.state;
-    const currentMonthNumber = getMonth(currentMonth);
-    const currentYear = getYear(currentMonth);
-    const { todos } = this.props;
-
+    const { todos, workouts, workoutList, chores } = this.props;
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
     const endDate = endOfWeek(monthEnd);
-
-    const yearTasks = [];
-    const yearTodos = todos.map(todo => {
-      const todoYear = getYear(todo.dueDate);
-      if (todo.priority === "high") {
-        if (todoYear === currentYear) {
-          yearTasks.push(todo);
-        }
-      }
-    });
-
-    let tasks = [];
-    const monthTodos = yearTasks.map((todo) => {
-      const todoMonth = getMonth(todo.dueDate);
-      if (todo.priority === "high") {
-        if (todoMonth === currentMonthNumber) {
-          tasks.push(todo);
-        }
-      }
-    });
 
     const dateFormat = "d";
     const rows = [];
@@ -100,6 +87,8 @@ class Calendar extends React.Component {
     let days = [];
     let day = startDate;
     let formattedDate = "";
+
+    console.log(this.state.isDeleting);
 
     while (day <= endDate) {
       for (let i = 0; i < 7; i++) {
@@ -115,29 +104,75 @@ class Calendar extends React.Component {
                 : ""
             }`}
             key={day}
-            onClick={() => this.onDateClick(cloneDay)}
+            onClick={workouts ? null : (() => this.onDateClick(cloneDay))}
           >
             <span className="number">{formattedDate}</span>
             {isSameMonth(day, monthStart) ? (
               <div>
-                <div className="taskDiv">
-                  {tasks
-                    .filter((e) => isSameDay(cloneDay, new Date(e.dueDate)))
-                    .sort((a, b) => (a.dueDate > b.dueDate ? 1 : -1))
-                    .map((e, i) => (
-                      <div key={i} className="task">
-                      <Fragment>
-                        {e.todo} - {new Date(e.dueDate).toTimeString().slice(0, 5)}
-                        <StyledDelete show={this.state.isDeleting} close={() => this.setState({isDeleting: false})} />
-                        </Fragment>
-                      </div>
-                    ))}
-                </div>
+                {todos ? (
+                  <div className="taskDiv">
+                    {todos
+                      .filter((e) => isSameDay(cloneDay, new Date(e.dueDate)))
+                      .sort((a, b) => (a.dueDate > b.dueDate ? 1 : -1))
+                      .map((e, i) => (
+                        <div key={i} className="task">
+                          {e.todo} -{" "}
+                          {new Date(e.dueDate).toTimeString().slice(0, 5)}
+                        </div>
+                      ))}
+                  </div>
+                ) : (
+                  ""
+                )}
+                {chores ? (
+                  <div className="choresDiv">
+                    {chores
+                      .filter((e) => isSameDay(cloneDay, new Date(e.nextDate)))
+                      .sort((a, b) => (a.nextDate > b.nextDate ? 1 : -1))
+                      .map((e, i) => (
+                        <div key={i} className="chores">
+                          {e.name} -{" "}
+                          {new Date(e.nextDate).toTimeString().slice(0, 5)}
+                        </div>
+                      ))}
+                  </div>
+                ) : (
+                  ""
+                )}
+                {workouts ? (
+                  <div className="workoutDiv">
+                    {workouts
+                      .filter((e) => isSameDay(cloneDay, new Date(e.date)))
+                      .sort((a, b) => (a.date > b.date ? 1 : -1))
+                      .map((e, i) => (
+                        <Workout key={i} className="workout" type={e.type}>                        
+                          <SingleCalendarWorkout item={e} />
+                        </Workout>
+                      ))}
+                  </div>
+                ) : (
+                  ""
+                )}
+                {workoutList ? (
+                  <div className="workoutDiv">
+                    {workoutList
+                      .filter((e) => isSameDay(cloneDay, new Date(e.date)))
+                      .sort((a, b) => (a.date > b.date ? 1 : -1))
+                      .map((e, i) => (
+                        <div key={i} className="workoutMonthly">
+                          {e.name} -{" "}
+                          {new Date(e.date).toTimeString().slice(0, 5)}
+                        </div>
+                      ))}
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
             ) : (
               " "
             )}
-            <span className="bg">{formattedDate}</span>
+      
           </div>
         );
         day = addDays(day, 1);
@@ -149,16 +184,18 @@ class Calendar extends React.Component {
       );
       days = [];
     }
-    console.log(rows.length)
-    return <div className={rows.length === 5 ? "body body5" : "body body6"}>{rows}</div>;
+    return (
+      <div className={rows.length === 5 ? "body body5" : "body body6"}>
+        {rows}
+      </div>
+    );
   }
 
   onDateClick = (day) => {
     const dayInMilli = new Date(day).getTime();
-    const {history} = this.props;
+    const { history } = this.props;
 
     history.push(`/calendar/daily/${dayInMilli}`);
-  
   };
 
   nextMonth = () => {
@@ -184,8 +221,5 @@ class Calendar extends React.Component {
   }
 }
 
-const mapStateToProps = ({ todos }) => ({
-  todos: todos.allTodos,
-});
 
-export default withRouter(connect(mapStateToProps)(Calendar));
+export default withRouter(Calendar);

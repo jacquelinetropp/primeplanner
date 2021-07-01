@@ -8,6 +8,7 @@ import { ThemeProvider } from "styled-components";
 import GlobalStyles from "./utils/global";
 import theme from './utils/theme';
 import { Provider } from "react-redux";
+import LoadingCircle from "./components/Loading/Loading";
 
 import store from './store/index';
 
@@ -17,7 +18,7 @@ ReactDOM.render(
   <ThemeProvider theme={theme}>
     <Fragment>
   
-        <p>Loading</p>
+        <LoadingCircle />
   
       <GlobalStyles />
     </Fragment>

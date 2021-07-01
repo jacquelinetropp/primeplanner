@@ -10,6 +10,7 @@ const CategoriesWrapper = styled.div`
   flex-direction: column;
   border-right: 1px solid #f0efef;
   padding: 1rem;
+  position: relative;
 `;
 
 const HeaderWrapper = styled.div`

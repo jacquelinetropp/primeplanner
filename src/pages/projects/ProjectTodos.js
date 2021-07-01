@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import Button from "../../components/UI/Button/Button";
 import * as actions from "../../store/actions/actions";
 import styled from "styled-components";
 
@@ -14,6 +13,8 @@ import {
 } from "../../components/UI/Wrappers/Wrappers";
 import InputProject from "../../components/layout/Projects/InputProject";
 import SingleTodo from "../../components/SingleTodo/SingleTodo";
+import LoadingCircle from "../../components/Loading/Loading";
+import DeleteProject from "../../components/layout/Projects/DeleteProject";
 
 const Wrapper = styled.div`
   display: flex;
@@ -58,10 +59,10 @@ const ProjectTodos = ({
 
   let content;
 
-  if (!currentTodos && loading) {
+  if (!currentTodos || loading) {
     content = (
       <Content>
-        <div>Loading..</div>
+        <LoadingCircle />
       </Content>
     );
   } else if (currentTodos.length === 0) {
@@ -95,6 +96,10 @@ const ProjectTodos = ({
           opened={isEditing}
           close={() => setIsEditing(false)}
         />
+        <DeleteProject
+            project={currentProject}
+            show={isDeleting}
+            close={() => setIsDeleting(false)} />
         {content}
 
         <AddButton action={() => setIsAdding(true)}>Add Task</AddButton>
