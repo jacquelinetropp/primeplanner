@@ -15,7 +15,7 @@ const Wrapper = styled.div`
 
 const NameWrapper = styled.div`
   grid-column: 1/-1;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   text-align: center;
   border-radius: 5px;
   height: min-content;
@@ -77,11 +77,11 @@ const Chore = ({ chore }) => {
     <Wrapper>
       <NameWrapper color={chore.color}>{chore.name}</NameWrapper>
       <LastDateWrapper>
-        <p>Last completed...</p>
+        <h6>Last completed...</h6>
         <p>{chore.lastDate ? lastCompleted : "Not completed"}</p>
       </LastDateWrapper>
       <NextDateWrapper overdue={isOverdue ? "overdue" : ""}>
-        <p>Complete by...</p>
+        <h6>Complete by...</h6>
         <p>{chore.lastDate ? nextComplete : "Complete task first"}</p>
       </NextDateWrapper>
       <ButtonWrapper>

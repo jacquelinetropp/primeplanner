@@ -53,6 +53,7 @@ const Image = styled.div`
 
 const StyledImage = styled.img`
   height: 60px;
+  width: 60px;
 `;
 
 const WeatherHome = ({ getWeather, data, loading, lat, lng }) => {

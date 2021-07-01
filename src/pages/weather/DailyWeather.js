@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import WeatherPage from "./WeatherPage";
 import JournalMain from "../../components/layout/Journal/JournalMain/JournalMain";
 
 const DailyWrapper = styled.div`
@@ -13,6 +12,7 @@ const DailyWrapper = styled.div`
   @media only screen and (max-width: 900px) {
     grid-column: 1/-1;
     grid-row: 2/3;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   @media only screen and (max-width: 768px) {
@@ -20,7 +20,7 @@ const DailyWrapper = styled.div`
   }
 
   @media only screen and (max-width: 425px) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 `;
 
@@ -101,7 +101,5 @@ const DailyWeather = ({ data }) => {
 const mapStateToProps = ({ weather }) => ({
   data: weather.forecast.daily,
 });
-
-const mapDispatchToProps = {};
 
 export default connect(mapStateToProps)(DailyWeather);

@@ -6,29 +6,19 @@ import {
   LoggedOutWrapper,
   LoggedInWrapper,
 } from "./components/UI/Wrappers/Wrappers";
-
 import "./App.css";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
 import Navbar from "./components/Navigation/Navbar";
 import Main from "./components/layout/Main/Main";
-import WeatherPage from "./pages/weather/WeatherPage";
 import JournalSidebar from "./components/layout/Journal/JournalSidebar/JournalSidebar";
-import CalendarPage from "./pages/calendar/CalendarPage";
-import ProjectsPage from "./pages/projects/ProjectsPage";
-import ProjectTodos from "./pages/projects/ProjectTodos";
-
-import HousePage from "./pages/house/HousePage";
 import LoadingCircle from "./components/Loading/Loading";
 
 //Lazy Loading
-const DailyWeather = lazy(() => import ("./pages/weather/DailyWeather"));
+const DailyWeather = lazy(() => import("./pages/weather/DailyWeather"));
 const CurrentDetails = lazy(() => import("./pages/weather/CurrentDetails"));
 const HourlyWeather = lazy(() => import("./pages/weather/HourlyWeather"));
 
-const Inbox = lazy(() => import('./pages/Inbox'));
-const Today = lazy(() => import('./pages/Today'));
+const Inbox = lazy(() => import("./pages/Inbox"));
+const Today = lazy(() => import("./pages/Today"));
 const Next7 = lazy(() => import("./pages/Next7"));
 
 const Monthly = lazy(() => import("./pages/calendar/Monthly"));
@@ -38,6 +28,14 @@ const DailyCalendar = lazy(() => import("./pages/calendar/DailyCalendar"));
 const ChoresPage = lazy(() => import("./pages/house/ChoresPage"));
 const WorkoutPage = lazy(() => import("./pages/house/WorkoutPage"));
 const Budget = lazy(() => import("./pages/house/Budget"));
+
+const Login = lazy(() => import("./pages/Login"));
+const SignUp = lazy(() => import("./pages/SignUp"));
+const WeatherPage = lazy(() => import("./pages/weather/WeatherPage"));
+const CalendarPage = lazy(() => import("./pages/calendar/CalendarPage"));
+const ProjectsPage = lazy(() => import("./pages/projects/ProjectsPage"));
+const ProjectTodos = lazy(() => import("./pages/projects/ProjectTodos"));
+const HousePage = lazy(() => import("./pages/house/HousePage"));
 
 const App = ({ authenticated }) => {
   let routes;
@@ -81,12 +79,14 @@ const App = ({ authenticated }) => {
     routes = (
       <LoggedOutWrapper>
         <Navbar />
-        <Switch>
-          <Route exact path="/" component={Login} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/signup" component={SignUp} />
-          <Redirect to="/login" />
-        </Switch>
+        <Suspense fallback={<LoadingCircle />}>
+          <Switch>
+            <Route exact path="/" component={Login} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={SignUp} />
+            <Redirect to="/login" />
+          </Switch>
+        </Suspense>
       </LoggedOutWrapper>
     );
   }

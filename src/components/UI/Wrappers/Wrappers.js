@@ -108,7 +108,6 @@ export const MinIcon = styled(VscChromeMinimize)`
   transform: scale(1.3);
   color: var(--color-text);
   opacity: .7;
-  /* float: ${({ left }) => (left ? "left" : "right")}; */
   margin-top: 4px;
   margin-right: 4px;
   margin-left: 4px;

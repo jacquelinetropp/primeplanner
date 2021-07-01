@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import styled from "styled-components";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/actions";
 import SingleTodo from "../components/SingleTodo/SingleTodo";
