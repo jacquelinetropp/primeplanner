@@ -58,6 +58,18 @@ export function setOverdueTasks(todos) {
   return overdue;
 }
 
+export function allTodos(todos) {
+  let tasks = [];
+
+  todos.map((todo) => {
+    if (todo.completed == false) {
+      tasks.push(todo);
+    }
+  });
+
+  return tasks;
+}
+
 export function todaysTasks(todos) {
   const today = new Date().toDateString();
   let tasks = [];
@@ -110,7 +122,6 @@ export function findNextDate(frequency, amount, date) {
 }
 
 export function filterAndSortItems(items, compareDate) {
-  items
-    .filter((e) => isSameDay(new Date(compareDate), new Date(e.nextDate)))
-    // .sort((a, b) => (a.date > b.date ? 1 : -1));
+  items.filter((e) => isSameDay(new Date(compareDate), new Date(e.nextDate)));
+  // .sort((a, b) => (a.date > b.date ? 1 : -1));
 }

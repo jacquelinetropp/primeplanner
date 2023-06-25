@@ -117,8 +117,6 @@ const SingleTodo = ({ todo, completeTodo, calendar }) => {
     priority = "Low Priority";
   }
 
-  console.log(todo.priority);
-
   return (
     <Wrapper>
       <ColorDiv priority={todo.priority} />

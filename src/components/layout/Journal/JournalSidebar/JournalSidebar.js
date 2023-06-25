@@ -17,7 +17,11 @@ import WeatherPage from "../../../../pages/weather/WeatherPage";
 import ProjectsPage from "../../../../pages/projects/ProjectsPage";
 import CalendarPage from "../../../../pages/calendar/CalendarPage";
 import HousePage from "../../../../pages/house/HousePage";
-import { sevenDayTasks, todaysTasks } from "../../../../utils/HelperFunctions";
+import {
+  allTodos,
+  sevenDayTasks,
+  todaysTasks,
+} from "../../../../utils/HelperFunctions";
 import JournalHeaderMainLinks from "../JournalHeaderLinks/JournalHeaderMainLinks";
 import WeatherHome from "../../../WeatherHome/WeatherHome";
 import EditProfile from "../../../../pages/EditProfile";
@@ -106,6 +110,8 @@ const JournalSidebar = ({ todos, logout, toggleProfile }) => {
 
   const length = sevenDayTasks(todos).length;
 
+  const inbox = allTodos(todos).length;
+
   return (
     <Fragment>
       <SidebarWrapper>
@@ -119,7 +125,7 @@ const JournalSidebar = ({ todos, logout, toggleProfile }) => {
               <JournalHeaderLinks
                 link="/inbox"
                 text="Inbox"
-                number={todos.length}
+                number={inbox}
                 img={<HomeIcon />}
               />
               <JournalHeaderLinks
