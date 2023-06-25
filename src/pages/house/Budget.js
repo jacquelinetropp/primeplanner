@@ -145,13 +145,13 @@ const Budget = ({
         <BudgetMaxWrapper>
           <h6>Your monthly Budget: $ </h6>
           {maxBudgetContent}
-          {maxBudget ? (
+          {maxBudget.length === 0 ? (
             <Button onClick={() => isSettingBudget(true)} contain>
-              Change Budget
+              Set Budget
             </Button>
           ) : (
             <Button onClick={() => isSettingBudget(true)} contain>
-              Set Budget
+              Change Budget
             </Button>
           )}
           <Button onClick={() => setDeletingBudget(true)} contain>

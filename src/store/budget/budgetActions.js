@@ -96,8 +96,6 @@ export const setBudget =
     const firestore = getFirestore();
     const userId = getState().firebase.auth.uid;
 
-    console.log("working");
-
     dispatch({ type: actions.SET_BUDGET_START });
     const info = {
       userId: userId,
@@ -112,6 +110,7 @@ export const setBudget =
       dispatch({ type: actions.SET_BUDGET_FAIL, payload: err.message });
     }
   };
+
 export const editBudget =
   (data) =>
   async (dispatch, getState, { getFirestore }) => {

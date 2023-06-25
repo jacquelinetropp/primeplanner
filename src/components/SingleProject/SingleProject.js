@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import styled from "styled-components";
 import InputProject from "../layout/Projects/InputProject";
@@ -12,28 +13,25 @@ const Wrapper = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-
+  padding: 1rem;
   font-size: 1.4rem;
   font-weight: 700;
   text-align: center;
   z-index: 0;
-
+  color: ${({ active }) =>
+    active ? "var(--color-main)" : "var(--color-white)"};
   background-color: ${({ active }) => (active ? "#cccccc" : "transparent")};
-
-  &:hover {
-    background-color: ${({ bcolor }) => {
-      if (bcolor === "yellow") return "var(--color-tertiary)";
-      else if (bcolor === "pink") return "var(--color-mainLight)";
-      else if (bcolor === "green") return "var(--color-second)";
-      else return "var(--color-main)";
-    }};
-  }
 `;
+
 const Controls = styled.div`
   width: 100%;
   display: flex;
-  padding: 1rem;
   justify-content: flex-end;
+`;
+
+const StyledLink = styled(Link)`
+  color: ${({ active }) =>
+    active ? "var(--color-main)" : "var(--color-white)"};
 `;
 
 const SingleProject = ({ project, active, getTodos, getOneProject }) => {
@@ -42,12 +40,14 @@ const SingleProject = ({ project, active, getTodos, getOneProject }) => {
 
   return (
     <Wrapper active={active} bcolor={project.color}>
-      <JournalTag
-        color={project.color}
+      <StyledLink
         onClick={() => (getTodos(project.id), getOneProject(project.id))}
-        link={`/project/${project.id}`}
-        name={project.name}
-      />
+        to={`/project/${project.id}`}
+        active={active}
+      >
+        {project.name}
+      </StyledLink>
+
       <Controls>
         {" "}
         <StyledEdit onClick={() => setIsEditing(true)} />

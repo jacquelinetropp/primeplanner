@@ -18,6 +18,7 @@ const Wrapper = styled.div`
   padding: 0.5rem 1rem;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
   border-radius: 5px;
+  margin: 5px 0px;
 `;
 
 const ColorDiv = styled.div`
@@ -112,9 +113,11 @@ const SingleTodo = ({ todo, completeTodo, calendar }) => {
     priority = "High Priority";
   } else if (todo.priority === "medium") {
     priority = "Medium Priority";
-  } else if (todo.priority === "medium") {
+  } else if (todo.priority === "low") {
     priority = "Low Priority";
   }
+
+  console.log(todo.priority);
 
   return (
     <Wrapper>

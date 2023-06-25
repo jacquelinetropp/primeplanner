@@ -36,11 +36,12 @@ const SetBudget = ({
         <Formik
           initialValues={{
             amount: "",
-            id: maxBudget ? maxBudget.userId : "",
           }}
           validationSchema={BudgetSchema}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
-            maxBudget ? await editBudget(values) : await setBudget(values);
+            maxBudget.length === 0
+              ? await setBudget(values)
+              : await editBudget(values);
             close();
             resetForm();
           }}
