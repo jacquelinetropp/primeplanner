@@ -6,6 +6,10 @@ const NavbarWrapper = styled.div`
   align-self: center;
   justify-self: end;
 
+  a {
+    color: var(--color-white);
+  }
+
   @media only screen and (max-width: 425px) {
     justify-self: center;
   }

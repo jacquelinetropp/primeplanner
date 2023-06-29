@@ -26,9 +26,9 @@ const ColorDiv = styled.div`
   top: 0;
   left: 0;
   background-color: ${({ priority }) => {
-    if (priority === "high") return "var(--color-mainDark)";
+    if (priority === "high") return "var(--color-second)";
     else if (priority === "medium") return "var(--color-main)";
-    else if (priority === "low") return "var(--color-second)";
+    else if (priority === "low") return "var(--color-tertiary)";
     else return "var(--color-text)";
   }};
   width: 3px;
@@ -86,9 +86,9 @@ const StyledText = styled.h6`
 
 const StyledBubble = styled.p`
   background-color: ${({ priority }) => {
-    if (priority === "high") return "var(--color-mainDark)";
+    if (priority === "high") return "var(--color-second)";
     else if (priority === "medium") return "var(--color-main)";
-    else if (priority === "low") return "var(--color-second)";
+    else if (priority === "low") return "var(--color-tertiary)";
     else return "var(--color-text)";
   }};
   border-radius: 10px;

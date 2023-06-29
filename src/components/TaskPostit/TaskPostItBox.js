@@ -7,6 +7,7 @@ const Wrapper = styled.div`
   margin: 1rem;
   border-radius: 5px;
   background-color: ${(props) => props.color};
+  font-weight: 700;
 
   @media only screen and (max-width: 768px) {
     display: flex;
