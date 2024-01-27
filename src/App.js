@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import {
   LoggedOutWrapper,
   LoggedInWrapper,
+  BlueWrapper
 } from "./components/UI/Wrappers/Wrappers";
 import "./App.css";
 import Navbar from "./components/Navigation/Navbar";
@@ -78,6 +79,7 @@ const App = ({ authenticated }) => {
   } else {
     routes = (
       <LoggedOutWrapper>
+        <BlueWrapper />
         <Navbar />
         <Suspense fallback={<LoadingCircle />}>
           <Switch>

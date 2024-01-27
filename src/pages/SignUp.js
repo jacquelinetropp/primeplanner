@@ -13,6 +13,7 @@ import {
   MessageWrapper
 } from "../components/UI/Wrappers/Wrappers";
 import Message from "../components/UI/Forms/Message";
+import Branding from "../components/Branding/Branding";
 
 const SignUpSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -60,6 +61,7 @@ const SignUp = ({ signUp, loading, error, cleanUp }) => {
     >
       {({ isSubmitting, isValid }) => (
         <FormWrapper>
+        <Branding />
         <WhiteBackground>
               <h1>
                 Sign up for an account

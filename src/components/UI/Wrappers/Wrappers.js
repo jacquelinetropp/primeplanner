@@ -15,10 +15,8 @@ export const StyledForm = styled(Form)`
 `;
 
 export const WhiteBackground = styled.div`
-  background-color: rgba(255, 255, 255, 0.8);
   padding: 1rem;
   margin: 1rem;
-  border-radius: 10px;
 `;
 
 export const FormWrapper = styled.div`
@@ -28,10 +26,7 @@ export const FormWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  grid-column: 2/-1;
 
   @media only screen and (max-width: 425px) {
     width: 75%;
@@ -91,7 +86,16 @@ export const LoggedOutWrapper = styled.div`
   min-height: 100vh;
   display: grid;
   grid-template-rows: 100px auto;
+  grid-template-columns: 100px auto;
   position: relative;
+
+  @media only screen and (max-width: 768px) {
+    grid-template-columns: 75px auto ;
+  }
+
+  @media only screen and (max-width: 425px) {
+    grid-template-columns: 45px auto ;
+  }
 `;
 
 export const LoggedInWrapper = styled.div`
@@ -104,6 +108,12 @@ export const LoggedInWrapper = styled.div`
     grid-template-rows: repeat(3, min-content) 1fr;
   }
 `;
+
+export const BlueWrapper = styled.div`
+    background-color: var(--color-mainDark);
+    grid-column: 1/2;
+    grid-row: 1/-1;
+`
 
 export const JournalWrapper = styled.div`
   grid-column: 1/-1;

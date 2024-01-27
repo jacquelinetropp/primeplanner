@@ -16,6 +16,7 @@ import {
   MessageWrapper
 } from "../components/UI/Wrappers/Wrappers";
 import Message from "../components/UI/Forms/Message";
+import Branding from "../components/Branding/Branding";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("The email is required"),
@@ -44,9 +45,10 @@ const Login = ({ loading, error, login, history, cleanUp }) => {
     >
       {({ isSubmitting, isValid }) => (
         <FormWrapper>
+          <Branding />
           <WhiteBackground>
-            <h1>Login</h1>
-            <h4>Fill in your details to login into your account</h4>
+            <h2>Login</h2>
+            <h5>Fill in your details to login into your account</h5>
           </WhiteBackground>
           <StyledForm>
             <Field

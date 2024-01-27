@@ -5,6 +5,8 @@ import StyledLink from "../UI/Link/Link";
 const NavbarWrapper = styled.div`
   align-self: center;
   justify-self: end;
+  grid-column: 2/-1;
+  grid-row: 1/2;
 
   a {
     color: var(--color-white);
