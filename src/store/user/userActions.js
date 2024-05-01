@@ -9,15 +9,12 @@ export const signUp = (data) => async (
   const firestore = getFirestore();
   dispatch({ type: actions.AUTH_START });
   try {
-    const API = "ObfysELOcnDcQmgVmGvAGGS4ohPJlfFF";
-    const coordinates = await fetch(
-      `https://www.mapquestapi.com/geocoding/v1/address?key=${API}&location=${data.location}`
-    )
+    const API = "AIzaSyAX8WWASOSjkyKMoVCIlzZkK0Vh-4WHljI";
+    const coordinates = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${data.location}&key=${API}`)
       .then((res) => res.json())
       .then((data) => data);
-
-    const lat = coordinates.results[0].locations[0].latLng.lat;
-    const lng = coordinates.results[0].locations[0].latLng.lng;
+    const lat = coordinates.results[0].geometry.location.lat;
+    const lng = coordinates.results[0].geometry.location.lng;
 
     const res = await firebase
       .auth()
@@ -36,6 +33,7 @@ export const signUp = (data) => async (
     dispatch({ type: actions.AUTH_SUCCESS });
   } catch (err) {
     dispatch({ type: actions.AUTH_FAIL, payload: err.message });
+    console.log(err);
   }
   dispatch({ type: actions.AUTH_END });
 };
